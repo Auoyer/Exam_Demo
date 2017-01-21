@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/CompetitionUser/Views/Shared/_LayoutSystem.cshtml";
+}
+
+<script src="~/Content/js/Training/FinancialRatios.js"></script>
+
+
+<input type="hidden" value="0" id="ProposalId" />
+<input type="hidden" value="0" id="Id" />
+        
+<div class="con-right FinancePlan" id="FinancialRatios">
+    <div class="tab-title">
+        <ul>
+            <li><a href="javascript:SaveJudgeTag('FinancialRatios','Liability')"><b class="ico ims-icon3" field="Liability"></b><strong>资产负债表</strong></a></li>
+            <li><a href="javascript:SaveJudgeTag('FinancialRatios','IncomeandExpenses')" field="IncomeandExpenses"><b class="ico ims-icon4"></b><strong>收支储蓄表</strong></a></li>
+            <li><a href="javascript:SaveJudgeTag('FinancialRatios','CashFlow')" field="CashFlow"><b class="ico ims-icon5"></b><strong>现金流量表</strong></a></li>
+            <li><a class="active" href="javascript:SaveJudgeTag('FinancialRatios','FinancialRatios')" field="FinancialRatios"><b class="ico ims-icon6"></b><strong>财务比率分析</strong></a></li>
+        </ul>
+    </div>
+    <div class="main-hd"><input class="btn btn-small btn-blue fr ml10" type="button" value="下一步" id="btnNext"><input class="btn btn-small btn-blue fr ml10" type="button" id="btnSave" value="保 存"><input class="btn btn-small btn-blue fr" type="button" value="上一步" id="btnPrev"></div>
+    <div class="main-bd pad10 analyse">
+        <div class="explain">
+            <strong>财务分析</strong>
+            <p>根据财务数据，进行家庭财务结构分析、财务比率分析及情景分析</p>
+        </div>
+        <div class="item clearfix mb10">
+            <div class="table fl grid-6">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th colspan="2">资产负债结构</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>负债比率（%）</td>
+                            <td class="b-grayish last" align="center"><input disabled class="ipt-text grid-11 disabled" type="text" id="bearScale" msgname="负债比率"></td>
+                        </tr>
+                        <tr>
+                            <td>融资比率（%）</td>
+                            <td class="b-grayish" align="center"><input disabled class="ipt-text grid-11 disabled" type="text" id="jinancingScale" msgname="融资比率" readonly="readonly"></td>
+                        </tr>
+                        <tr>
+                            <td>投资性资产权数（%）</td>
+                            <td class="b-grayish" align="center"><input disabled class="ipt-text grid-11 disabled" type="text" id="invest" msgname="投资性资产权数" readonly="readonly"></td>
+                        </tr>
+                        <tr>
+                            <td>流动性资产权数（%）</td>
+                            <td class="b-grayish" align="center"><input disabled class="ipt-text grid-11 disabled" type="text" id="flowMoney" msgname="流动性资产权数" readonly="readonly"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <dl class="fr grid-6">
+                <dt>资产负债结构分析</dt>
+                <dd class="last"><textarea id="LiabilityAnalysis" field="textarea" class="IsMaxLength IsMinLength" maxlength="200" minlength="0" msgname="资产负债结构分析"></textarea></dd>
+            </dl>
+        </div>
+        <div class="item clearfix mb10">
+            <div class="table fl grid-6">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th colspan="2">收支储蓄结构</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>支出比率（%）</td>
+                            <td class="b-grayish" align="center"><input disabled class="ipt-text grid-11 disabled" type="text" id="payScale" msgname="支出比率" readonly="readonly"></td>
+                        </tr>
+                        <tr>
+                            <td>财务负担率（%）</td>
+                            <td class="b-grayish" align="center"><input disabled class="ipt-text grid-11 disabled" type="text" id="finance" msgname="财务负担率" readonly="readonly"></td>
+                        </tr>
+                        <tr>
+                            <td>自由储蓄率（%）</td>
+                            <td class="b-grayish" align="center"><input disabled class="ipt-text grid-11 disabled" type="text" id="FreedomScale" msgname="自由储蓄率" readonly="readonly"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <dl class="fr grid-6">
+                <dt>收支储蓄结构分析</dt>
+                <dd class="last"><textarea class="IsMaxLength IsMinLength" field="textarea" maxlength="200" id="IncomeAndExpensesAnalysis" minlength="0" msgname="收支储蓄结构分析"></textarea></dd>
+            </dl>
+        </div>
+        <div class="item clearfix">
+            <div class="table">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th colspan="2">情境分析</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>净资产增长率（致富公式）（%）</td>
+                            <td class="b-grayish" align="center"><input disabled class="ipt-text grid-11 disabled" type="text" id="addScale" width="150px" msgname="净资产增长率" readonly="readonly"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <dl>
+                <dt><i class="c-red">*</i>客户财务情况分析</dt>
+                <dd class="last"><textarea class="IsRequired IsMaxLength IsMinLength last" field="textarea" maxlength="500" minlength="1" id="Analysis" msgname="财务分析"></textarea></dd>
+            </dl>
+        </div>
+    </div>
+</div>
+

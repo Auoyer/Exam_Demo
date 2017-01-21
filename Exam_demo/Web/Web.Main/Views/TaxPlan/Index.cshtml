@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/CompetitionUser/Views/Shared/_LayoutSystem.cshtml";
+}
+
+<script src="~/Content/js/Training/TaxPlan.js"></script>
+<!--税收规划-->
+<input type="hidden" value="0" id="ProposalId" />
+<input type="hidden" value="0" id="Id" />
+<div class="con-right subsystem FinancePlan" id="TaxPlan">
+    <div class="main-hd"><input class="btn btn-small btn-blue fr ml10" type="button" value="下一步" id="btnNext"><input class="btn btn-small btn-blue fr ml10" id="btnSave" type="button" value="保 存"></div>
+    <div class="main-bd">
+        <h2>个人所得税计算</h2>
+        <div class="table tableline">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th>应纳税所得项目</th>
+                        <th width="30%">金额</th>
+                        <th width="30%">所得税金额</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><i class="c-red">*</i>工资、薪金所得/元</td>
+                        <td align="center"><input class="ipt-text grid-10 IsRequired IsMaxFloat IsMinFloat IsReg" id="Salary" msgname="工资、薪金所得/元" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        <td align="center"><input disabled class="ipt-text grid-10 disabled" id="SalaryTax" type="text"></td>
+                    </tr>
+                    <tr class="b-grayish">
+                        <td><i class="c-red">*</i>个体工商户的生产、经营所得/元</td>
+                        <td align="center"><input class="ipt-text grid-10 IsRequired IsMaxFloat IsMinFloat IsReg" id="OperatingRevenue" msgname="个体工商户的生产、经营所得/元" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        <td align="center"><input disabled class="ipt-text grid-10 disabled" id="OperatingRevenueTax" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td><i class="c-red">*</i>对企业事业单位承包、承租经营所得/元</td>
+                        <td align="center"><input class="ipt-text grid-10 IsRequired IsMaxFloat IsMinFloat IsReg" id="EnterprisesRevenue" msgname="对企业事业单位承包、承租经营所得/元" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        <td align="center"><input disabled class="ipt-text grid-10 disabled" id="EnterprisesRevenueTax" type="text"></td>
+                    </tr>
+                    <tr class="b-grayish">
+                        <td><i class="c-red">*</i>劳务报酬所得/元</td>
+                        <td align="center"><input class="ipt-text grid-10 IsRequired IsMaxFloat IsMinFloat IsReg" id="ServiceIncome" msgname="劳务报酬所得/元" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        <td align="center"><input disabled class="ipt-text grid-10 disabled" id="ServiceIncomeTax" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td><i class="c-red">*</i>稿酬所得/元</td>
+                        <td align="center"><input class="ipt-text grid-10 IsRequired IsMaxFloat IsMinFloat IsReg" id="Remuneration" msgname="稿酬所得/元" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        <td align="center"><input disabled class="ipt-text grid-10 disabled" id="RemunerationTax" type="text"></td>
+                    </tr>
+                    <tr class="b-grayish">
+                        <td><i class="c-red">*</i>特许权使用费所得/元</td>
+                        <td align="center"><input class="ipt-text grid-10 IsRequired IsMaxFloat IsMinFloat IsReg" id="Loyalities" msgname="特许权使用费所得/元" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        <td align="center"><input disabled class="ipt-text grid-10 disabled" id="LoyalitiesTax" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td><i class="c-red">*</i>财产转让所得/元</td>
+                        <td align="center"><input class="ipt-text grid-10 IsRequired IsMaxFloat IsMinFloat IsReg" id="Demise" msgname="财产转让所得/元" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        <td align="center"><input disabled class="ipt-text grid-10 disabled" id="DemiseTax" type="text"></td>
+                    </tr>
+                    <tr class="b-grayish">
+                        <td><i class="c-red">*</i>偶然所得/元</td>
+                        <td align="center"><input class="ipt-text grid-10 IsRequired IsMaxFloat IsMinFloat IsReg" id="IncidentalIncome" msgname="偶然所得/元" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        <td align="center"><input disabled class="ipt-text grid-10 disabled" id="IncidentalIncomeTax" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td><i class="c-red">*</i>利息、红利、股利所得/元</td>
+                        <td align="center"><input class="ipt-text grid-10 IsRequired IsMaxFloat IsMinFloat IsReg" id="Interest" msgname="利息、红利、股利所得/元" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        <td align="center"><input disabled class="ipt-text grid-10 disabled" id="InterestTax" type="text"></td>
+                    </tr>
+                    <tr class="b-grayish">
+                        <td>合计/元</td>
+                        <td align="center"><input class="ipt-text grid-10" id="TotalAmount" type="text"></td>
+                        <td align="center"><input disabled class="ipt-text grid-10 disabled" id="TotalTax" type="text"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="item b-grayish last">
+            <p class="mb10"><strong><i class="c-red">*</i>税务筹划分析</strong></p>
+            <textarea class="IsRequired IsMaxLength IsMinLength" msgname="税务筹划分析" maxlength="500" minlength="1" id="Analysis"></textarea>
+        </div>
+    </div>
+</div>
+

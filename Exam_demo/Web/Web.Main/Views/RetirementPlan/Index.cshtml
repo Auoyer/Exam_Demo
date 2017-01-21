@@ -1,0 +1,237 @@
+﻿@{
+    Layout = "~/Areas/CompetitionUser/Views/Shared/_LayoutSystem.cshtml";
+}
+
+@section PageSpecificStyleSheetIncludes {
+    <script src="~/Content/js/Training/RetirementPlan.js"></script>
+}
+
+<div class="con-right subsystem FinancePlan" id="LiveRetirementPlanDiv">
+    <div class="tab-title">
+        <ul>
+            <li><a href="javascript:SaveJudgeTag('LiveRetirementPlanDiv','LifeEducationPlan')"><b class="ico ims-icon7"></b><strong>教育规划</strong></a></li>
+            <li><a href="javascript:SaveJudgeTag('LiveRetirementPlanDiv','ConsumptionPlan')"><b class="ico ims-icon8"></b><strong>消费规划</strong></a></li>
+            <li><a href="javascript:SaveJudgeTag('LiveRetirementPlanDiv','StartAnUndertakingPlan')"><b class="ico ims-icon9"></b><strong>创业规划</strong></a></li>
+            <li><a class="active" href="javascript:SaveJudgeTag('LiveRetirementPlanDiv','RetirementPlan')"><b class="ico ims-icon10"></b><strong>退休规划</strong></a></li>
+            <li><a href="javascript:SaveJudgeTag('LiveRetirementPlanDiv','InsurancePlan')"><b class="ico ims-icon11"></b><strong>保险规划</strong></a></li>
+        </ul>
+    </div>
+    <div class="main-hd">
+        <input class="btn btn-small btn-blue fr ml10" type="button" id="btnNext" value="下一步">
+        <input class="btn btn-small btn-blue fr ml10" type="button" id="btnSave" value="保 存">
+        <input class="btn btn-small btn-blue fr ml10" type="button" id="btnPrev" value="上一步">
+    </div>
+    <div class="main-bd">
+        <h2>养老金需求测算</h2>
+        <input type="hidden" name="RetirementPlanId" id="RetirementPlanId" value="0" />
+        <input type="hidden" name="ProposalId" id="ProposalId" value="" />
+        <div class="fif-con pad10">
+            <div class="fif-con">
+                <div class="fif-box grid-4">
+                    <label class="fif-text"><i class="c-red">*</i>当前年龄：</label>
+                    <div class="input"><input class="ipt-text b-grayish" id="Age" type="text" readonly="readonly"><span>岁</span></div>
+                </div>
+                <div class="fif-box grid-4">
+                    <label class="fif-text">每月可支配资金：</label>
+                    <div class="input"><input class="ipt-text  b-grayish" id="monthMoney" type="text" readonly="readonly"><span>元</span></div>
+                </div>
+                <div class="fif-box grid-4">
+                    <label class="fif-text">可用资产：</label>
+                    <div class="input"><input class="ipt-text  b-grayish" id="UserableAsset" type="text" readonly="readonly"><span>元</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="itemBox">
+            <div class="item-title b-gray">条件假设</div>
+            <div class="item">
+                <div class="fif-form fif-form3  grid-7 fr">
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>退休前通货膨胀率：</label>
+                        <div class="input"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" msgreg="请输入0.00到99.99的数字" msgname="退休前通货膨胀率" maxfloat="99.99" minfloat="0" reg="\d{0,2}\.?\d{0,2}" type="text" id="BeforeInflationRate"><span class="ml10">%</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>退休后通货膨胀率：</label>
+                        <div class="input"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" msgreg="请输入0.00到99.99的数字" msgname="退休后通货膨胀率" maxfloat="99.99" minfloat="0" reg="\d{0,2}\.?\d{0,2}" type="text" id="AfterInflationRate"><span class="ml10">%</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>退休后投资收益率：</label>
+                        <div class="input"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" msgreg="请输入0.00到99.99的数字" msgname="退休后投资收益率" maxfloat="99.99" minfloat="0" reg="\d{0,2}\.?\d{0,2}" type="text" id="RetirementRate"><span class="ml10">%</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">社保工资增长率：</label>
+                        <div class="input"><input class="ipt-text  IsMaxFloat IsMinFloat IsReg" msgreg="请输入0.00到99.99的数字" msgname="社保工资增长率" maxfloat="99.99" minfloat="0" reg="\d{0,2}\.?\d{0,2}" type="text" id="SociaSecurityRate"><span class="ml10">%</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">租金增长率：</label>
+                        <div class="input"><input class="ipt-text  IsMaxFloat IsMinFloat IsReg" msgreg="请输入0.00到99.99的数字" msgname="租金增长率" maxfloat="99.99" minfloat="0" reg="\d{0,2}\.?\d{0,2}" type="text" id="RentRate"><span class="ml10">%</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">其他收入增长率：</label>
+                        <div class="input"><input class="ipt-text  IsMaxFloat IsMinFloat IsReg" msgreg="请输入0.00到99.99的数字" msgname="其他收入增长率" maxfloat="99.99" minfloat="0" reg="\d{0,2}\.?\d{0,2}" type="text" id="OtherRate"><span class="ml10">%</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="itemBox">
+            <div class="item-title b-gray"><i class="c-red">*</i>退休安排</div>
+            <div class="item">
+                <div class="fif-form fif-form3  grid-7 fr">
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>计划退休年龄：</label>
+                        <div class="input"><input class="ipt-text IsRequired IsMaxNumber IsMinNumber IsNumber" type="text" maxnumber="150" minnumber="1" msgname="计划退休年龄" id="RetirementAge"><span class="ml10">岁</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>希望享有退休生活年限：</label>
+                        <div class="input"><input class="ipt-text IsRequired IsMaxNumber IsMinNumber IsNumber" maxnumber="60" minnumber="0" msgname="希望享有退休生活年限" type="text" id="RetirementYears"><span class="ml10">年</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>目前生活水平：</label>
+                        <div class="input"><input class="ipt-text  IsRequired IsMaxFloat IsMinFloat IsReg" msgreg="请输入0.00到999999999.99的数字" msgname="目前生活水平" maxfloat="999999999.99" minfloat="0.01" reg="\d{0,9}\.?\d{0,2}" type="text" id="LivingStandardNow"><span class="ml10">元/月</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>生活满意度：</label>
+                        <div class="input">
+                            <select class="IsRequired" msgname="生活满意度" id="Satisfaction" defaultval="100">
+                                
+                                <option value="100" selected="selected">100%</option>
+                                <option value="120">120%</option>
+                                <option value="110">110%</option>
+                                <option value="90">90%</option>
+                                <option value="80">80%</option>
+                                <option value="70">70%</option>
+                                <option value="60">60%</option>
+                                <option value="50">50%</option>
+                                <option value="40">40%</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="fif-box w100">
+                        <label class="fif-text">满意生活水平：</label>
+                        <div class="input">
+                            <input class="ipt-text disabled" type="text" id="SatisfactionLivingStandard" readonly="readonly"><span class="ml10">元/月 </span>
+                        </div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">
+                            <i class="c-red">*</i>
+                            退休后、退休前生活水平折算比例：
+                        </label>
+                        <div class="input">
+                            <select class="IsRequired" msgname="满意生活水平" id="ConvertProportion" defaultval="100">
+                          
+                                <option value="100" selected="selected">100%</option>
+                                <option value="120">120%</option>
+                                <option value="110">110%</option>
+                                <option value="90">90%</option>
+                                <option value="80">80%</option>
+                                <option value="70">70%</option>
+                                <option value="60">60%</option>
+                                <option value="50">50%</option>
+                                <option value="40">40%</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>子女传承费用：</label>
+                        <div class="input"><input class="ipt-text  IsRequired IsMaxFloat IsMinFloat IsReg" msgreg="请输入0.00到999999999.99的数字" msgname="子女传承费用" maxfloat="999999999.99" minfloat="0" reg="\d{0,9}\.*\d{0,2}" type="text" id="lineageFee"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>退休时生活水平：</label>
+                        <div class="input"><input class="ipt-text b-gray" type="text" id="RetirementLivingStandard" readonly="readonly"><span class="ml10">元/月</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">退休后生活水平：</label>
+                        <div class="input"><input type="text" disabled="" class="ipt-text b-gray" id="AfterLivingStandard"><span class="ml10">元/月</span></div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="amount" style="font-size:16px;font-weight:600;height:50px;padding-top:20px;margin-left:30px;">
+                    退休时需准备的现金总金额&nbsp;&nbsp;
+                    <strong style="font-size:20px;font-weight:600;height:50px;padding-top:20px;color:#f87608;" id="TotalAmount"></strong>&nbsp;&nbsp;元
+                </div>*@
+        </div>
+    </div>
+
+    <div class="itemBox">
+        <div class="item-title b-gray">已经准备的养老金项目</div>
+        <div class="item">
+            <div class="fif-form fif-form3  grid-7 fr">
+                <div class="fif-box w100">
+                    <label class="fif-text"><i class="c-red">*</i>社会保险：</label>
+                    <div class="input"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" msgreg="请输入0.00到999999999.99的数字" msgname="社会保险" maxfloat="999999999.99" minfloat="0" reg="\d{0,9}\.*\d{0,2}" id="SocialInsurance" type="text"><span class="ml10">元/月</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text"><i class="c-red">*</i>商业保险：</label>
+                    <div class="input"><input class="ipt-text  IsRequired IsMaxFloat IsMinFloat IsReg" msgreg="请输入0.00到999999999.99的数字" msgname="商业保险" maxfloat="999999999.99" minfloat="0" reg="\d{0,9}\.*\d{0,2}" id="CommercialInsurance" type="text"><span class="ml10">元/月</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text"><i class="c-red">*</i>租金收入：</label>
+                    <div class="input"><input class="ipt-text  IsRequired IsMaxFloat IsMinFloat IsReg" msgreg="请输入0.00到999999999.99的数字" msgname="租金收入" maxfloat="999999999.99" minfloat="0" reg="\d{0,9}\.*\d{0,2}" id="RentIncome" type="text"><span class="ml10">元/月</span></div>
+                </div>
+                <div class="fif-box w100" style="margin-bottom: 0px;">
+                    <label class="fif-text"><i class="c-red">*</i>其他收入：</label>
+                    <div class="input"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" msgreg="请输入0.00到999999999.99的数字" msgname="其他收入" maxfloat="999999999.99" minfloat="0" reg="\d{0,9}\.*\d{0,2}" type="text" id="OtherIncome"><span class="ml10">元/月</span></div>
+                </div>
+                <div class="fif-box w100" style="margin-bottom: 0px;">
+                    <label class="fif-text"><i class="c-red">*</i>小计：</label>
+                    <div class="input"><input class="ipt-text b-gray last" readonly="readonly" type="text" id="TotalIncome"><span class="ml10">元/月</span></div>
+                </div>
+            </div>
+            <div class="amount" style="font-size:16px;font-weight:600;height:50px;padding-top:20px;margin-left:30px;">
+                退休时需准备的现金总金额&nbsp;&nbsp;
+                <strong style="font-size:20px;font-weight:600;height:50px;padding-top:20px;color:#f87608;" id="TotalAmount" name="TotalAmount"></strong>&nbsp;&nbsp;元
+            </div>
+        </div>
+    </div>
+
+
+    <!--退休准备金额-->
+    <!--退休准备金额-->
+
+    <div class="itemBox">
+        <div class="item-title b-gray">理财方案</div>
+        <div class="item">
+            <div class="fif-form fif-form3  grid-7 fr">
+                <div class="fif-box w100">
+                    <label class="fif-text"><i class="c-red">*</i>预计投资收益率：</label>
+                    <div class="input"><input class="ipt-text  IsRequired IsMaxFloat IsMinFloat IsReg" msgreg="请输入0.00到99.99的数字" msgname="预计投资收益率" maxfloat="99.99" minfloat="0" reg="\d{0,2}\.*\d{0,2}" id="ReturnOnInvestmentRate" type="text"><span class="ml10">%</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text"><i class="c-red">*</i>一次性投入金额：</label>
+                    <div class="input"><input class="ipt-text  IsRequired IsMaxFloat IsMinFloat IsReg" msgreg="请输入0.00到999999999.99的数字" msgname="一次性投入金额" maxfloat="999999999.99" minfloat="0" reg="\d{0,9}\.*\d{0,2}" id="DisposableInput" type="text"><span class="ml10">元</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text"><i class="c-red">*</i>每月定期投资金额：</label>
+                    <div class="input"><input class="ipt-text  IsRequired IsMaxFloat IsMinFloat IsReg" msgreg="请输入0.00到999999999.99的数字" msgname="每月定期投资金额" maxfloat="999999999.99" minfloat="0" reg="\d{0,9}\.*\d{0,2}" id="MonthlyInvestment" type="text"><span class="ml10">元</span></div>
+                </div>
+                <div class="fif-box w100" style="margin-bottom: 0px;">
+                    <label class="fif-text"><i class="c-red">*</i>定期定额投资年限：</label>
+                    <div class="input"><input class="ipt-text last IsRequired IsNumber IsMaxNumber IsMinNumber" msgname="定期定额投资年限" minnumber="0" maxnumber="50" type="text" id="RegularYear"><span class="ml10">年</span></div>
+                </div>
+            </div>
+            <div class="amount" style="font-size:16px;font-weight:600;height:50px;padding-top:20px;margin-left:30px;">
+                此方案能实现的目标金额&nbsp;&nbsp;
+                <strong style="font-size:20px;font-weight:600;height:50px;padding-top:20px;color:#f87608;" id="TargetAmount" name="TargetAmount"></strong>&nbsp;&nbsp;元
+            </div>
+        </div>
+    </div>
+
+    <div class="itemBox">
+        <div class="item-title b-gray"><i class="c-red">*</i>退休规划分析</div>
+        <div class="item last">
+            <textarea style="width:98%;" id="Analysis" name="Analysis" class="IsRequired IsMaxLength IsMinLength " msgname="退休规划分析" maxlength="500" minlength="1"></textarea>
+        </div>
+    </div>
+
+</div>
+</div>
+
+
+
+
+
+
+

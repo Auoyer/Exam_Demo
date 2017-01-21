@@ -1,0 +1,113 @@
+@charset "utf-8";
+/* CSS Document */
+.header {
+	background: #fff;
+	height: 140px;
+	overflow: hidden;
+}
+.header .center {
+	position: relative;
+	padding: 45px 0;
+}
+.logo {
+	width: 529px;
+	height: 50px;
+	overflow: hidden;
+	background: url(../images/login/logo.png) no-repeat;
+	text-indent: -99999px;
+}
+.container {
+	background: url(../images/login/bg.jpg) repeat-x center top;
+	height: 619px;
+	border-bottom: 3px solid #dadde1;
+}
+.login {
+	float:right;
+	margin: 110px 50px 0 0;
+}
+.login img {
+	width: 348px;
+	height: 53px;
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+.login-con {
+	background: #fff;
+	padding: 60px 39px;
+	width: 270px;
+	height: 194px;
+	overflow: hidden;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	box-shadow:0 5px 5px #0b72b7;
+}
+.login-con h2 {
+	height: 26px;
+	font-size: 24px;
+	color: #8d8d8d;
+	line-height: 26px;
+	text-align: center;
+	overflow: hidden;
+	padding: 46px 0;
+}
+.login-from .input {
+	position: relative;
+	width: 269px;
+	height: 40px;
+	margin-bottom: 20px;
+	border: 1px solid #d4d4d4;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+.login-from .input.hover{border-color:#fdb513;}
+.login-from .input b.account,.login-from .input b.password{
+	position: absolute;
+	top: 9px;
+	left: 8px;
+	display: block;
+	width: 22px;
+	height: 22px;
+	overflow: hidden;
+	background: url(../images/login/icon.png) no-repeat;
+}
+.login-from .input b.password {
+	background-position: 0 -22px;
+}
+.login-from .input input {
+	border: 0;
+	border-left: 1px solid #e3e3e3;
+	width: 200px;
+	height: 24px;
+	line-height: 24px;
+	overflow: hidden;
+	padding: 0 15px;
+	margin: 8px 0 8px 38px;
+	outline:none;
+}
+.login-from .submit {
+	width: 100%;
+	height: 50px;
+}
+.login-btn {
+	display: block;
+	width: 100%;
+	height: 50px;
+	background: #269dff;
+	border: 0;
+	font-size: 20px;
+	color: #fff;
+	text-align: center;
+	outline: none;
+	cursor: pointer;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	margin-top:40px;
+}
+.login-btn:hover {
+	background: #0289c8;
+}
+.footer {background:#fff;}
+.footer .copyright{color:#6e6d6d;}

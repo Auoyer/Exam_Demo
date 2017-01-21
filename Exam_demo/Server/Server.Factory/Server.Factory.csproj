@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{652A3110-C802-4308-A960-E6292CC54CC9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Server.Factory</RootNamespace>
+    <AssemblyName>Server.Factory</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EmitMapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EmitMapper.1.0.0\lib\EmitMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Services\Exam\ExamService.cs" />
+    <Compile Include="Services\IService.cs" />
+    <Compile Include="ClientHelper.cs" />
+    <Compile Include="EmitMapperHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Training\TrainingService.TrainExamUser.cs" />
+    <Compile Include="Services\Training\TrainingService.FundProduct.cs" />
+    <Compile Include="Services\Training\TrainingService.EntryAssessment.cs" />
+    <Compile Include="Services\Training\TrainingService.AssessmentResultsDetail.cs" />
+    <Compile Include="Services\Training\TrainingService.BankDeposits.cs" />
+    <Compile Include="Services\Training\TrainingService.Case.cs" />
+    <Compile Include="Services\Training\TrainingService.CashFlow.cs" />
+    <Compile Include="Services\Training\TrainingService.CashPlan.cs" />
+    <Compile Include="Services\Training\TrainingService.AssessmentResults.cs" />
+    <Compile Include="Services\Training\TrainingService.Common.cs" />
+    <Compile Include="Services\Training\TrainingService.ConsumptionPlan.cs" />
+    <Compile Include="Services\Training\TrainingService.DistributionOfProperty.cs" />
+    <Compile Include="Services\Training\TrainingService.ExamCase.cs" />
+    <Compile Include="Services\Training\TrainingService.ExamModule.cs" />
+    <Compile Include="Services\Training\TrainingService.ExamPoint.cs" />
+    <Compile Include="Services\Training\TrainingService.FinalcialRatios.cs" />
+    <Compile Include="Services\Training\TrainingService.Heritage.cs" />
+    <Compile Include="Services\Training\TrainingService.IncomeAndExpenses.cs" />
+    <Compile Include="Services\Training\TrainingService.InsurancePlan.cs" />
+    <Compile Include="Services\Training\TrainingService.InvestmentPlan.cs" />
+    <Compile Include="Services\Training\TrainingService.Liability.cs" />
+    <Compile Include="Services\Training\TrainingService.LifeEducationPlan.cs" />
+    <Compile Include="Services\Training\TrainingService.Number.cs" />
+    <Compile Include="Services\Training\TrainingService.P2PProduct.cs" />
+    <Compile Include="Services\Training\TrainingService.Proposal.cs" />
+    <Compile Include="Services\Training\TrainingService.ProposalCustomer.cs" />
+    <Compile Include="Services\Training\TrainingService.RetirementPlan.cs" />
+    <Compile Include="Services\Training\TrainingService.RiskEvaluation.cs" />
+    <Compile Include="Services\Training\TrainingService.StartAnUndertakingPlan.cs" />
+    <Compile Include="Services\Training\TrainingService.StuCustomer.cs" />
+    <Compile Include="Services\Training\TrainingService.TaxPlan.cs" />
+    <Compile Include="Services\Training\TrainingService.TheoryChapter.cs" />
+    <Compile Include="Services\Training\TrainingService.TheoryQuestionType.cs" />
+    <Compile Include="Services\Training\TrainingService.TrainExam.cs" />
+    <Compile Include="Services\Training\TrainingService.TrainExamDetail.cs" />
+    <Compile Include="Services\Training\TrainingService.TrainExam_Ext.cs" />
+    <Compile Include="Services\Training\TrainingService.UserTimeSummary.cs" />
+    <Compile Include="SvrFactory.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Lib\Utils\Utils.csproj">
+      <Project>{c5b3481f-4b5c-4b99-9796-8a172f5c2c46}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Modules\Exam\Exam.API\Exam.API.csproj">
+      <Project>{9157fcd7-7536-424a-b3c8-ed663fbfa5b0}</Project>
+      <Name>Exam.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Modules\Training\Training.API\Training.API.csproj">
+      <Project>{07b64c9a-585b-4fcf-8b2c-1d4a71b277eb}</Project>
+      <Name>Training.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ViewModel\VM\VM.csproj">
+      <Project>{eb18ed61-ee3c-48f6-9c95-4e08e163a648}</Project>
+      <Name>VM</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

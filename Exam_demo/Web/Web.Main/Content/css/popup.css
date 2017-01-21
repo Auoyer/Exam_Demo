@@ -1,0 +1,106 @@
+/* 弹出窗 XYTipsWindow */
+.windowBg { position: fixed; opacity: 0.1; width: 100%; height: 100%; left: 0px; top: 0px; overflow: hidden; z-index: 111; background: rgb(0, 0, 0); }
+
+.popup { display: none; position: fixed; top: 50%; left: 50%; border: 1px solid #cdcdcd; background: #fff; z-index: 222; border-radius: 5px; }
+
+    .popup .title { position: relative; height: 41px; line-height: 41px; background: #edf6ff none repeat scroll 0 0; color: #3f90f4; }
+
+        .popup .title h3 { float: left; font-weight: normal; font-size: 16px; margin: 0; text-indent: 20px; }
+
+        .popup .title span.close { display: block; position: absolute; right: -10px; top: -8px; background: url(../images/close.png) no-repeat; width: 31px; height: 30px; /*position: absolute;
+            right: -1px;
+            top: -1px;
+            width: 44px;
+            height: 43px;
+            background: url(../images/close.png) no-repeat;
+            text-indent: -100em;
+            overflow: hidden;
+            cursor: pointer;*/ }
+
+        .popup .title span:hover { /*background-position: -44px 0;*/ }
+
+.pop-button { height: 36px; line-height: 36px; margin-bottom: 20px; text-align: center; }
+
+    .pop-button .btn { margin: 0 10px; }
+
+#popAddInfo { width: 418px; margin-left: -209px; }
+
+#popRegistrations { width: 756px; margin-left: -378px; }
+
+.pop-con { padding: 20px; max-height: 450px; overflow-y: auto; }
+
+.grid-11 { width: 91.6667%; }
+.pop-con .fif-form th { font-size: 12px; line-height: 32px; padding: 0 5px; width: 94px; }
+    .pop-con .fif-form th span { color: #f00; }
+.pop-con .fif-form td { font-size: 12px; line-height: 32px; padding: 0 5px; width: 220px; }
+.table_dialog_from th { text-align: right; }
+
+#popRegistrations .fif-box { margin-bottom: 20px; }
+
+#popRegistrations dl { margin-top: 20px; }
+
+    #popRegistrations dl dt { float: left; width: 50px; }
+
+    #popRegistrations dl dd { margin-left: 50px; }
+
+        #popRegistrations dl dd ol { padding-left: 23px; }
+
+        #popRegistrations dl dd li { list-style-type: decimal; margin-bottom: 10px; }
+
+        #popRegistrations dl dd a { color: #0fab46; text-decoration: underline; }
+/* 上传图片 --------------------- */
+.upload-field { display: inline-block; position: relative; }
+
+    .upload-field .file-field { position: absolute; top: 0; left: 0; width: 64px; height: 30px; opacity: 0; filter: alpha(opacity=0); cursor: pointer; }
+
+#popFundType { width: 816px; margin-left: -408px; background: #f4f3f8; }
+
+    #popFundType .title { background: #f4f3f8; border: 0; border-bottom: 1px solid #cdcdcd; color: #383838; height: 36px; line-height: 36px; padding: 5px 0; }
+
+        #popFundType .title span.close { background-position: -88px 0; }
+/*给P2P 产品用的*/
+#popPTPType { width: 816px; margin-left: -408px; background: #f4f3f8; }
+
+    #popPTPType .title { background: #f4f3f8; border: 0; border-bottom: 1px solid #cdcdcd; color: #383838; height: 36px; line-height: 36px; padding: 5px 0; }
+
+        #popPTPType .title span.close { background-position: -88px 0; }
+/*给P2P 产品用的*/
+#popSelectCase, #popAssessmentSettings, #popViewMark, #popScoreReport, #popViewBer, #popViewChart { width: 800px; margin-left: -400px; }
+
+    #popAssessmentSettings .fl.fif-form .fif-text { width: 70px; }
+
+    #popAssessmentSettings .fl.fif-form .input { margin-left: 75px; }
+
+#popTrainingClass { width: 300px; margin-left: -150px; }
+
+    #popTrainingClass ul { padding: 0 20px; max-height: 150px; overflow-y: auto; }
+
+    #popTrainingClass li { line-height: 30px; }
+
+#popChapterManage { width: 500px; margin-left: -250px; }
+
+#popViewMark .pop-con, #popScoreReport .pop-con, #popViewBer .pop-con, #popViewChart .pop-con { padding: 0; }
+
+#popViewChart .distribute { padding: 20px; }
+
+    #popViewChart .distribute ul { width: 40%; }
+
+    #popViewChart .distribute img { margin-left: 50px; }
+
+#popTestSet { width: 600px; margin-left: -300px; }
+
+#popChangePassword, #popPersonalCenter { width: 400px; margin-left: -200px; }
+
+.popAddTestPaper { width: 800px; margin-left: -400px; }
+
+    .popAddTestPaper .pop-con { padding: 0; }
+
+    .popAddTestPaper .caption-info .item-info .inputtext { width: 85%; }
+
+    .popAddTestPaper .caption-info .item-info textarea { width: 99%; }
+
+.popOperate { width: 400px; margin-left: -200px; }
+
+    .popOperate .pop-con { text-align: center; padding: 30px 20px; background: #fff; }
+
+        .popOperate .pop-con p { font-size: 18px; line-height: 30px; padding-top: 20px; }

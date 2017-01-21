@@ -1,0 +1,576 @@
+﻿@{
+    ViewBag.Title = "QuestionBankAdd3";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout2.cshtml";
+    //判断题
+}
+<script src="~/Content/js/Common/ajaxfileupload.js"></script>
+
+<input type="hidden" value="0" id="Id" />
+<input type="hidden" value="0" id="CollegeId" />
+<div class="conter clearfix" id="Questions">
+    <div class="d_piliang" style="background: url(/Content/images/d_xin/right2.png) no-repeat left center; ">
+        <span class="adreess"></span>
+        <a class="d_lanbaia" href="javascript:ComeBack();">返 回</a>
+        <div class="clear"></div>
+    </div>
+    <div class=" d_yonghu2">
+        <div class="d_yonghu3" style="display: block;">
+            <div class="d_yonghu2_2">
+                <div class="caption-info">
+                    <div class="item">
+                        <strong>题号：</strong>
+                        <div class="item-info" id="CurQuestionCount">
+                            1
+                        </div>
+                    </div>
+                    <div class="item">
+                        <strong><i class="c-red">*</i>题干：</strong>
+                        <div class="item-info">
+                            <div class="ml53"><textarea style="width: 92%; font-size: 14px;" class="IsRequired IsMaxLength IsMinLength" msgname="题干" maxlength="300" minlength="1" id="Context"></textarea></div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <strong><i class="c-red">*</i>答案：</strong>
+                        <div class="item-info">
+                            <ul id="option">
+                                <li>
+                                    <label class="mr20"><input name="dm" type="radio" id="A" value="正确"><span id="labA">正确</span></label>
+                                    <label><input name="dm" id="B" value="错误" type="radio"><span id="labB">错误</span></label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <strong>解析：</strong>
+                        <div class="item-info">
+                            <div class="ml53"><textarea class="IsMaxLength IsMinLength" style="width: 92%;" msgname="解析" maxlength="300" minlength="1" id="Analysis"></textarea></div>
+                        </div>
+                    </div>
+                    <div class="item" id="fujian">
+                        <strong>添加附件：</strong>
+                        <div class="item-info clearfix">
+                            <div class="upload-field mb10"><input id="btnAdd" class="btn-pop" type="button" value="上传附件"></div>
+                            <div class="accessory" id="Dappendix">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="caption-page">
+                        <input class="btn btn-small btn-blue" type="button" id="upward" onclick="Thelast()" value="上一题">
+                        <input class="btn btn-small btn-blue" id="down" type="button" onclick="Thedown()" value="下一题">
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var QuestionOption = new arrayHelper("Sort");//选项
+    var QuestionAnswer = new arrayHelper("QuestionId");//答案
+    var QuestionAttachments = new arrayHelper("Name");//附件
+    var CurQuestionCount = 0;
+    $(function () {
+        var QuestionOption = new arrayHelper("Sort");//选项
+        var QuestionAnswer = new arrayHelper("Id");//答案
+        var QuestionAttachments = new arrayHelper("Name");//附件
+        var CurQuestionCount = 0;
+
+        var a = unescape($.getUrlParam("CollegeName"));
+        var b = $.getUrlParam("StructType");
+        if (b == 1) {
+            b = "单选题";
+        }
+        else if (b == 2) {
+            b = "多选题";
+        }
+        else {
+            b = "判断题";
+        }
+        $(".adreess").html(a + " - " + b);
+
+
+        // 查询章节对应题型
+        SelectTitle();
+        // 获得题号
+        var count = GetTitleCount();
+        CurQuestionCount = count;
+
+        $("#CurQuestionCount").html(CurQuestionCount);
+
+        var QuestionId = Number($.getUrlParam("QuestionId"));
+        if (QuestionId != null && QuestionId != 0) {
+            LoadTitle(QuestionId);
+        }
+        ViewStatus();
+        Index = Number($.getUrlParam("count")) - 1;
+    });
+
+    // 加载试题
+    function LoadTitle(QuestionId) {
+        $.ajax({
+            url: "/Admin/Resource/GetQuestionObj",
+            async: false,
+            type: "POST",
+            data: {
+                QuestionId: QuestionId
+            },
+            success: function (data) {
+                QuestionOption.RemoveAll();//选项
+                QuestionAnswer.RemoveAll();//答案
+                QuestionAttachments.RemoveAll();//附件
+                var mode = data.Data.TE;
+                if (mode.Context != "") {
+                    $("#Context").val(mode.Context);
+                    $("#Analysis").val(mode.Analysis);
+                    $("#Id").val(mode.Id);
+                    $("#CollegeId").val(mode.CollegeId);
+                }
+                //选项
+                if (mode.OptionList != null) {
+                    var html = "";
+                    $.each(mode.OptionList, function (i, n) {
+                        QuestionOption.Add(n);
+
+                    });
+                }
+                //附件
+                if (mode.AttachmentList != null) {
+                    $.each(mode.AttachmentList, function (i1, n1) {
+                        QuestionAttachments.Add(n1);
+                    });
+                }
+                // 生成附件
+                createOptions();
+                // 生成选项
+                CreateSelect();
+                //答案
+                if (mode.AnswerList != null) {
+                    $.each(mode.AnswerList, function (i2, n2) {
+                        QuestionAnswer.Add(n2);
+                        switch (n2.Answer) {
+                            case 0:
+                                $("#A").attr("checked", true);
+                                break;
+                            case 1:
+                                $("#B").attr("checked", true);
+                                break;
+                            case 2:
+                                $("#C").attr("checked", true);
+                                break;
+                            case 3:
+                                $("#D").attr("checked", true);
+                                break;
+                            default:
+                                $("#option").find("li:eq(4)").find("input").attr("checked", true);
+                                break;
+                        }
+                    });
+                }
+                $("#CurQuestionCount").html($.getUrlParam("count"));
+            }
+        });
+    }
+
+    var type = "";
+    // 查询对应题型
+    function SelectTitle() {
+        var a = unescape($.getUrlParam("CollegeName"));
+        $("#collegeName").html(a);
+        var type = unescape($.getUrlParam("StructType"));
+
+        var html = "<option value='1' text='单选题'>单选题</option>";
+        html += "<option value='2' text='多选题'>多选题</option>";
+        html += "<option value='3' text='判断题'>判断题</option>";
+        $("#TypeName").html(html);
+        $("#TypeName option[text='" + type + "']").attr("selected", true);
+    }
+    var Index = 0;
+
+    // 返回附件数目
+    function UploaDappendix(valu) {
+        var list = $("#Dappendix").find("a");
+        var num = 0;
+        $.each(list, function (i, n) {
+            num = num + 1;
+
+        });
+
+        return num;
+    }
+
+    // 生成附件
+    function createOptions() {
+        var list = QuestionAttachments.GetList();
+        var html = "";
+        $.each(list, function (i, n) {
+            var FileName = n.Name.substr(12).split('.')[0];
+            //html += "<a href=\"javascript:DownLoad('" + n.FileUrl + "','" + encodeURIComponent("附件" + Num((i + 1))) + "','" + n.Id + "');\">";
+            html += "<a href=\"javascript:DownLoad('" + n.FileUrl + "','" + FileName + "','" + n.Id + "');\">";
+            html += '<img src="/Content/images/text-icon.png">';
+            html += '<span tag="' + n.Name + '">附件' + Num((i + 1)) + '</span>';
+            html += '<b class="close" tag="' + n.Name + '" onclick="DeleteAttachments(this)"></b>';
+            html += '</a>';
+        });
+        $("#Dappendix").html(html);
+    }
+
+    //文件下载
+    function DownLoad(path, name, Id) {
+        location.href = "/Admin/Resource/DownloadFile?path=" + encodeURIComponent(path) + "&name=" + encodeURIComponent(name) + "&randomId=" + Math.random();
+    }
+
+    // 生成选项
+    function CreateSelect() {
+        var list = QuestionOption.GetList();
+
+        $.each(list, function (i, n) {
+            switch (n.Sort) {
+                case 0: $("#labA").text(n.OptionName); break;
+                case 1: $("#labB").text(n.OptionName); break;
+                default: break;
+            }
+        });
+    }
+
+    // 生成附件数目文字
+    function Num(valu) {
+        switch (valu) {
+            case 1:
+                return "一";
+                break;
+            case 2:
+                return "二";
+                break;
+            case 3:
+                return "三";
+                break;
+        };
+    }
+
+    // 删除上传文件
+    function DeleteAttachments(valu) {
+        var url = $(valu).attr("tag");
+        QuestionAttachments.Remove(url);
+        $(valu).parent().remove();
+        createOptions();
+    }
+
+    // 返回按钮
+    function ComeBack() {
+        QuestionAttachments.RemoveAll();//附件
+        var StructType = $.getUrlParam("StructType");
+        var CollegeId = $("#CollegeId").val();
+        window.location.href = "/Admin/Resource/QuestionList?TheoryChapterId=0&StructType=" + StructType + "&CollegeId=" + CollegeId;
+    }
+
+    // 下拉框的改变事件
+    function SelectChange(valu) {
+        // 类型Id
+        var typeid = 0;
+        // 获得界面题型名称
+        var typeName = $(valu).find("option:selected").text();
+        // 章节Id
+        var TheoryChapterId = $.getUrlParam("TheoryChapterId");
+        // 章节名称
+        var ChapterName = unescape($.getUrlParam("ChapterName"));
+        // 题目数量
+        var CurQuestionCount = 0;
+        var CertificationId = $.getUrlParam("CertificationId");
+        $.ajax({
+            url: "/Admin/Resource/GetQuestionTypeList",
+            type: "POST",
+            async: false,
+            data: { charpterId: TheoryChapterId },
+            success: function (data) {
+                var html = "";
+                $(data.Data).each(function (index, dom) {
+                    if (typeName == dom.TypeName) {
+                        typeid = dom.Id;
+                        CurQuestionCount = dom.CurQuestionCount;
+                    }
+                });
+
+            }
+        });
+
+        switch (typeName) {
+            case "单选题":
+                window.location.href = "/Admin/Resource/QuestionDetail1?TheoryChapterId=" + TheoryChapterId + "&typeid=" + typeid + "&ChapterName=" + escape(ChapterName);
+                break;
+            case "多选题":
+                window.location.href = "/Admin/Resource/QuestionDetail2?TheoryChapterId=" + TheoryChapterId + "&typeid=" + typeid + "&ChapterName=" + escape(ChapterName);
+                break;
+            case "判断题":
+                window.location.href = "/Admin/Resource/QuestionDetail3?TheoryChapterId=" + TheoryChapterId + "&typeid=" + typeid + "&ChapterName=" + escape(ChapterName);
+                break;
+            default:
+                break;
+        }
+    }
+
+    // 获取题号
+    function GetTitleCount() {
+        var count = $.getUrlParam("AllCount");
+        return count;
+    }
+
+    // 上一题
+    function Thelast() {
+        var StructType = $.getUrlParam("StructType");
+        var CollegeId = $("#CollegeId").val();
+
+        Index = Index - 1;
+        if (Index < 0) {
+            Index = 0;
+        }
+        //清除集合
+        QuestionOption.RemoveAll();
+        QuestionAnswer.RemoveAll();
+        QuestionAttachments.RemoveAll();
+        $.ajax({
+            url: "/Admin/Resource/GetQuestionId",
+            async: false,
+            type: "POST",
+            data: {
+                Index: Index,
+                collegeId: CollegeId,
+                structType: StructType
+            },
+            success: function (data) {
+                var mode = data.Data.model;
+
+                if (mode != undefined) {
+                    if (mode.Context != "") {
+
+                        var count = Number($("#CurQuestionCount").html());
+                        if (count > 1) {
+                            $("#CurQuestionCount").html(count - 1);
+                        }
+
+                        var count = Number($("#CurQuestionCount").html());
+                        if (count == 1) {
+                            Index = 0;
+                            $("#upward").attr("disabled", true);
+                            $("#upward").addClass('btndisable');
+                        } else {
+                            $("#upward").attr("disabled", false);
+                            $("#upward").removeClass('btndisable');
+                        }
+                        if ($("#down").attr("disabled") == "disabled") {
+                            $("#down").attr("disabled", false);
+                            $("#down").removeClass('btndisable');
+                        }
+
+                        $("#Context").val(mode.Context);
+                        $("#Analysis").val(mode.Analysis);
+                        $("#Id").val(mode.Id);
+                    }
+                    //选项
+                    if (mode.OptionList != null) {
+                        var html = "";
+                        $.each(mode.OptionList, function (i, n) {
+                            QuestionOption.Add(n);
+
+                        });
+                    }
+                    //附件
+                    if (mode.AttachmentList != null) {
+                        $.each(mode.AttachmentList, function (i1, n1) {
+                            QuestionAttachments.Add(n1);
+                        });
+                    }
+
+                    createOptions();
+                    CreateSelect();
+                    //答案
+                    if (mode.AnswerList != null) {
+                        $.each(mode.AnswerList, function (i2, n2) {
+                            QuestionAnswer.Add(n2);
+                            switch (n2.Answer) {
+                                case 0:
+                                    $("#A").attr("checked", true);
+                                    break;
+                                case 1:
+                                    $("#B").attr("checked", true);
+                                    break;
+                                case 2:
+                                    $("#C").attr("checked", true);
+                                    break;
+                                case 3:
+                                    $("#D").attr("checked", true);
+                                    break;
+                                default:
+                                    $("#option").find("li:eq(4)").find("input").attr("checked", true);
+                                    break;
+                            }
+                        });
+                    }
+                }
+            }
+        });
+        jinyong();
+    }
+    var styles = 0;
+    // 下一题
+    function Thedown() {
+        var StructType = $.getUrlParam("StructType");
+        var CollegeId = $("#CollegeId").val();
+        //清除集合
+        QuestionOption.RemoveAll();
+        QuestionAnswer.RemoveAll();
+        QuestionAttachments.RemoveAll();
+        var sty = Index;
+        if (Index < 0) {
+            Index = 0;
+        }
+        Index = Index + 1;
+
+        if (Index > 0) {
+            $.ajax({
+                url: "/Admin/Resource/GetQuestionId",
+                async: false,
+                type: "POST",
+                data: {
+                    Index: Index,
+                    collegeId: CollegeId,
+                    structType: StructType
+                },
+                success: function (data) {
+                    var mode = data.Data.model;
+                    styles = data.Data.style;
+
+                    if (mode != undefined) {
+                        if (mode.Context != "") {
+                            var count = Number($("#CurQuestionCount").html());
+                            $("#CurQuestionCount").html(count + 1);
+                            var CurQuestionCount = GetTitleCount();
+                            if (CurQuestionCount == count + 1) {
+                                $("#down").attr("disabled", true);
+                                $("#down").addClass('btndisable');
+                                Index = CurQuestionCount - 1;
+                            } else {
+                                $("#down").attr("disabled", false);
+                                $("#down").removeClass('btndisable');
+                            }
+
+                            $("#Context").val(mode.Context);
+                            $("#Analysis").val(mode.Analysis);
+
+                            //$("#option").find("li").remove();
+                            $("#Id").val(mode.Id);
+                        }
+                        //选项
+                        if (mode.OptionList != null) {
+                            var html = "";
+                            $.each(mode.OptionList, function (i, n) {
+                                QuestionOption.Add(n);
+
+                            });
+                        }
+                        //附件
+                        if (mode.AttachmentList != null) {
+                            $.each(mode.AttachmentList, function (i1, n1) {
+                                QuestionAttachments.Add(n1);
+                            });
+                        }
+
+                        createOptions();
+                        CreateSelect();
+                        //答案
+                        if (mode.AnswerList != null) {
+                            $.each(mode.AnswerList, function (i2, n2) {
+                                QuestionAnswer.Add(n2);
+                                switch (n2.Answer) {
+                                    case 0:
+                                        $("#A").attr("checked", true);
+                                        break;
+                                    case 1:
+                                        $("#B").attr("checked", true);
+                                        break;
+                                    case 2:
+                                        $("#C").attr("checked", true);
+                                        break;
+                                    case 3:
+                                        $("#D").attr("checked", true);
+                                        break;
+                                    default:
+                                        $("#option").find("li:eq(4)").find("input").attr("checked", true);
+                                        break;
+                                }
+                            });
+                        }
+                        if ($("#upward").attr("disabled") == "disabled") {
+                            $("#upward").attr("disabled", false);
+                            $("#upward").removeClass('btndisable');
+                        }
+                    }
+                }
+            });
+
+            jinyong();
+        }
+    }
+
+    // 查看模式
+    function ViewStatus() {
+        var count = $.getUrlParam("count");
+        var AllQuestionCount = GetTitleCount();
+        $("#CurQuestionCount").html(count)
+        if (count == 1) {
+            $("#upward").attr('disabled', true);
+            $("#upward").addClass('btndisable');
+            $("#down").attr('disabled', false);
+            $("#down").removeClass('btndisable');
+
+        } else if (count == AllQuestionCount) {
+            $("#down").attr('disabled', true);
+            $("#down").addClass('btndisable');
+            $("#upward").attr('disabled', false);
+            $("#upward").removeClass('btndisable');
+        }
+        else {
+            $("#upward").attr('disabled', false);
+            $("#upward").removeClass('btndisable');
+            $("#down").attr('disabled', false);
+            $("#down").removeClass('btndisable');
+        }
+        if (count == 1 && count == AllQuestionCount) {
+            $("#upward").attr('disabled', true);
+            $("#upward").addClass('btndisable');
+            $("#down").attr('disabled', true);
+            $("#down").addClass('btndisable');
+        }
+        $("#AddTitle").attr('disabled', false);
+        $("#AddTitle").removeClass('btndisable');
+
+        QuestionOption.RemoveAll();//选项
+        QuestionAnswer.RemoveAll();//答案
+
+        jinyong();
+    }
+
+    //禁用文本
+    function jinyong() {
+        //禁用文本框
+        $("#Context").attr('disabled', true);
+        //选项
+        var Fobj = $("#option").find("li");
+        $.each(Fobj, function (i, n) {
+            $(n).find("input:eq(0)").attr('disabled', true);
+            $(n).find("input:eq(1)").attr('disabled', true);
+        });
+
+        $("#btnAdd").attr('disabled', true);
+        //添加选项按
+        $("#Add").hide();
+        //附件
+        var Fobj = $("#Dappendix").find("a");
+        $.each(Fobj, function (i, n) {
+            $(n).find("b").hide();
+        });
+        //解析
+        $("#Analysis").attr('disabled', true);
+    }
+</script>

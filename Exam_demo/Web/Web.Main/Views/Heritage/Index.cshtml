@@ -1,0 +1,252 @@
+﻿@{
+    Layout = "~/Areas/CompetitionUser/Views/Shared/_LayoutSystem.cshtml";
+}
+   
+
+ <script type="text/javascript" src="~/Content/js/Training/Heritage.js"></script>
+
+<input type="hidden" value="0" id="ProposalId" />
+<input type="hidden" value="0" id="Id" />
+<div class="con-right subsystem FinancePlan" id="Heritage">
+    <div class="main-hd">
+        <input class="btn btn-small btn-blue fr" id="btnSave" type="button" value="保 存">
+    </div>
+    <div class="main-bd">
+        <h2>财产传承规划中使用的资产负债表</h2>
+        <div class="clearfix pad10">
+            <div class="table fl grid-6">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th colspan="2">资 产</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td align="center">种类</td>
+                            <td align="center">金额：元</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>现金及现金等价物</strong></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>现金</td>
+                            <td class="b-grayish" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="Cash" msgname="现金" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>银行存款</td>
+                            <td class="b-grayish" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="Deposit" msgname="银行存款" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>人寿保单赔偿金额</td>
+                            <td class="b-grayish" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="LifeInsurance" msgname="人寿保单赔偿金额" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>其他现金帐户</td>
+                            <td class="b-grayish" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="OtherCashAccount" msgname="其他现金帐户" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>小计</strong></td>
+                            <td class="b-grayish" align="center"><input disabled class="ipt-text grid-11 disabled" id="CashSubtotal" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>投资</strong></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>股票</td>
+                            <td class="b-grayish" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="Stock" msgname="股票" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>债券</td>
+                            <td class="b-grayish" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="Bond" msgname="债券" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>基金</td>
+                            <td class="b-grayish" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="Fund" msgname="基金" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>其他投资收益</td>
+                            <td class="b-grayish" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="OtherInvestment" msgname="其他投资收益" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>小计</strong></td>
+                            <td class="b-grayish" align="center"><input disabled class="ipt-text grid-11 disabled" id="InvestmentSubtotal" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>退休金</strong></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>养老金（一次性收入现值）</td>
+                            <td class="b-grayish" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="Pension" msgname="养老金（一次性收入现值）" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>配偶/遗孤年金收益（现值）</td>
+                            <td class="b-grayish" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="AnnuityRevenue" msgname="配偶/遗孤年金收益（现值）" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>其他退休基金</td>
+                            <td class="b-grayish" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="OtherPension" msgname="其他退休基金" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>小计</strong></td>
+                            <td class="b-grayish" align="center"><input disabled class="ipt-text grid-11 disabled" id="PensionSubtotal" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>个人资产</strong></td>
+
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>房产</td>
+                            <td class="b-grayish" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="House" msgname="房产" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>汽车</td>
+                            <td class="b-grayish" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="Car" msgname="汽车" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>其他个人资产</td>
+                            <td class="b-grayish" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="Other" msgname="其他个人资产" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>小计</strong></td>
+                            <td class="b-grayish" align="center"><input disabled class="ipt-text grid-11 disabled" id="PersonSubtotal" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"> <strong>其他资产</strong></td>
+
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>其他资产</td>
+                            <td class="b-grayish" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="OtherProperty" msgname="其他资产" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>资产总计</strong></td>
+                            <td class="b-grayish" align="center"><input disabled class="ipt-text grid-11 disabled" id="TotalProperty" type="text"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table fr grid-6">
+                <table class="mb10" width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th colspan="2">负 债</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td align="center">种类</td>
+                            <td align="center">金额：元</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>货款</strong></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>短期贷款</td>
+                            <td class="b-grayish last" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="ShortTermLoan" msgname="短期贷款" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>中期贷款</td>
+                            <td class="b-grayish last" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="MediumTermLoans" msgname="中期贷款" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>长期贷款</td>
+                            <td class="b-grayish last" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="LongTermLoan" msgname="长期贷款" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>其他贷款</td>
+                            <td class="b-grayish last" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="OtherLoan" msgname="其他贷款" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>小计</strong></td>
+                            <td class="b-grayish last" align="center"><input disabled class="ipt-text grid-11 disabled" id="LoanSubtotal" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>费用</strong></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>临终医疗费用</td>
+                            <td class="b-grayish last" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="MedicalCosts" msgname="临终医疗费用" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>预期收入纳税额支出</td>
+                            <td class="b-grayish last" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="TaxCosts" msgname="预期收入纳税额支出" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>丧葬费用</td>
+                            <td class="b-grayish last" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="FuneralExpenses" msgname="丧葬费用" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>遗产处理费用</td>
+                            <td class="b-grayish last" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="HeritageCosts" msgname="遗产处理费用" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>其他费用</td>
+                            <td class="b-grayish last" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="OtherCosts" msgname="其他费用" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>小计</strong></td>
+                            <td class="b-grayish last" align="center"><input disabled class="ipt-text grid-11 disabled" id="CostSubtotal" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>其他负债</strong></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>其他负债</td>
+                            <td class="b-grayish last" align="center"><input class="ipt-text grid-11 IsRequired IsMaxFloat IsMinFloat IsReg" id="OtherLiabilities" msgname="其他负债" maxfloat="999999999.99" minfloat="0" msgreg="请输入0.00到9999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" type="text"></td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>负债总计</strong></td>
+                            <td class="b-grayish" align="center"><input disabled class="ipt-text grid-11 disabled" id="TotalLiabilities" type="text"></td>
+                        </tr>
+
+                        <tr style="height:40px">
+                            <td colspan="2"><strong></strong></td>
+                        </tr>
+
+
+                        <tr>
+                            <td><strong>资产总计</strong></td>
+                            <td class="b-grayish" align="center"><input disabled class="ipt-text grid-11 disabled" id="TotalProperty2" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>负债总计</strong></td>
+                            <td class="b-grayish" align="center"><input disabled class="ipt-text grid-11 disabled" id="TotalLiabilities2" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>净遗产总计</strong></td>
+                            <td class="b-grayish" align="center"><input disabled class="ipt-text grid-11 disabled" id="TotalHeritage" type="text"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="item b-grayish  last">
+            <p class="mb10"><strong><i class="c-red">*</i>财务分析</strong></p>
+            <div class="input last">
+                <textarea style="width:98%" class="IsRequired IsMaxLength IsMinLength" msgname="财务分析" maxlength="500" minlength="1" id="FinanceAnalysis"></textarea>
+            </div>
+        </div>
+        <div class="item b-aqua">
+            <div class="fif-form fif-form3 grid-6 fr">
+                <div class="fif-box w100">
+                    <label class="fif-text"><i class="c-red">*</i>财产传承规划工具选择：</label>
+                    <div class="input last">
+                        <select id="PlanTool" class="IsRequired" msgname="财产传承规划工具选择">
+                            <option value="0">请选择</option>
+                            <option value="1">遗嘱</option>
+                            <option value="2">遗嘱信托</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item b-grayish  last">
+            <p class="mb10"><strong><i class="c-red">*</i>财产传承规划分析</strong></p>
+            <div class="input last">
+                <textarea style="width:98%" class="IsRequired IsMaxLength IsMinLength" msgname="财产传承规划分析" maxlength="500" minlength="1" id="PlanAnalysis"></textarea>
+            </div>
+            </div>
+    </div>
+</div>

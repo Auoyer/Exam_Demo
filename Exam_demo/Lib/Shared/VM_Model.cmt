@@ -1,0 +1,32 @@
+﻿<#@ template language="c#" HostSpecific="True" #>
+<#@ output extension= ".cs" #>
+<#
+	TableHost host = (TableHost)(Host);
+	host.Fieldlist.Sort(CodeCommon.CompareByintOrder);
+#>
+using System;
+using System.Globalization;
+
+namespace VM
+{
+	<# if( host.TableDescription.Length > 0) {#>
+	/// <summary>
+ 	///<#= host.TableDescription #>
+	/// </summary>
+	<# } #>
+	public class <#= host.GetModelClass(host.TableName) #>VM
+	{
+		public <#= host.GetModelClass(host.TableName) #>VM()
+		{
+			
+		}
+		
+      	<# foreach (ColumnInfo c in host.Fieldlist)
+		{ #>/// <summary>
+		/// <#= string.IsNullOrEmpty(c.Description) ? c.ColumnName : c.Description #>
+        /// </summary>		
+		public <#= CodeCommon.DbTypeToCS(c.TypeName) #> <#= c.ColumnName #> { get; set; }    
+		    
+		<# } #>
+	}
+}

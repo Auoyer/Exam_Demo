@@ -1,0 +1,1102 @@
+﻿@charset "utf-8";
+
+body {
+    font: 12px "微软雅黑","宋体", Arial;
+    position: relative;
+    z-index: 100;
+}
+
+body, html {
+    height: 100%;
+    color: #565656;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, blockquote, font, p {
+    padding: 0px;
+    margin: 0px;
+}
+
+input, textarea, keygen, select, button, isindex, meter, progress {
+    -webkit-writing-mode: horizontal-tb;
+}
+
+input, textarea, keygen, select, button, isindex {
+    margin: 0em;
+    font: -webkit-small-control;
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    font: 12px "微软雅黑","宋体", Arial;
+}
+
+h1, h2, h3, h4, h5, h6, b, strong {
+    font-family: "微软雅黑","宋体", Arial,Verdana,sans-serif;
+    font-weight: 800;
+}
+
+address, caption, cite, code, dfn, th, var, i, font {
+    font-weight: normal;
+    font-style: normal;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+fieldset, img {
+    border: 0;
+}
+
+select, input, select, label {
+    vertical-align: middle;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+q:before, q:after {
+    content: ”;
+}
+
+abbr, acronym {
+    border: 0;
+}
+
+/*link*/
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #7F7F7F;
+}
+
+    a:hover {
+        text-decoration: none;
+        color: #00a2e2;
+    }
+
+.pointer {
+    cursor: pointer;
+}
+
+/* 去a虚线框 cdl clear dotted line */
+
+.cdl, aactive {
+    outline: none;
+    blr: expression(this.onFocus=this.blur());
+}
+
+focus {
+    outline: none;
+}
+/* for Firefox*/
+
+/*clear*/
+.clear {
+    clear: both;
+    margin: 0px;
+    padding: 0px;
+}
+
+.clearleft {
+    clear: left;
+}
+
+.clearright {
+    clear: right;
+}
+
+.browseclear {
+    clear: both;
+    _clear: none;
+}
+
+/* new clearfix */
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+    overflow: hidden;
+}
+
+* html .clearfix {
+    zoom: 1;
+}
+/* IE6 */
+*:first-child + html .clearfix {
+    zoom: 1;
+}
+/* IE7 */
+
+/*float*/
+.fl {
+    float: left;
+}
+/*  左浮动 */
+.fr {
+    float: right;
+}
+/* 右浮动 */
+
+/* text */
+.textl {
+    text-align: left;
+}
+
+.textr {
+    text-align: right;
+}
+
+.textc {
+    text-align: center;
+}
+
+.bold {
+    font-weight: 800;
+}
+
+.overflow {
+    overflow: hidden;
+}
+
+.through {
+    text-decoration: line-through;
+    font: italic 12px Georgia, "Times New Roman", Times, serif;
+}
+
+.normal {
+    font-style: normal;
+    font-weight: normal;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.breakword {
+    word-wrap: break-word;
+}
+/*通常有width值和overflow:hidden,对中英文均有效,对长串英文无效*/
+.indent {
+    text-indent: 2em;
+}
+
+.ellipsis {
+    width: 100%;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+input, select, img {
+    vertical-align: middle;
+}
+
+/*line height*/
+.lh1 {
+    line-height: 170%;
+}
+
+.lh2 {
+    line-height: 200%;
+}
+
+.lh18 {
+    line-height: 18px;
+}
+
+.lh24 {
+    line-height: 24px;
+}
+
+/* display and position */
+.disb {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.inlineBlock {
+    display: inline-block;
+}
+
+.vhidden {
+    visibility: hidden;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.relative {
+    position: relative;
+}
+
+/* ul ol li */
+.decimal {
+    list-style: decimal inside;
+}
+
+/* border */
+.noborder {
+    border: none;
+}
+
+/* margin  */
+.nomp {
+    margin: 0px;
+    padding: 0px;
+}
+
+.nomar {
+    margin: 0px;
+}
+
+.mar10 {
+    margin: 10px;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mb10 {
+    margin-bottom: 10px;
+}
+
+.ml10 {
+    margin-left: 10px;
+}
+
+.mr10 {
+    margin-right: 10px;
+}
+
+.mar20 {
+    margin: 20px;
+}
+
+.mt20 {
+    margin-top: 20px;
+}
+
+.mb20 {
+    margin-bottom: 20px;
+}
+
+.ml20 {
+    margin-left: 20px;
+}
+
+.mr20 {
+    margin-right: 20px;
+}
+/*.ml53 {margin-left:53px;}*/
+
+/* padding  */
+.nopad {
+    padding: 0px;
+}
+
+.pad10 {
+    padding: 10px;
+}
+
+.pl10 {
+    padding-left: 10px;
+}
+
+.pr10 {
+    padding-right: 10px;
+}
+
+.pb10 {
+    padding-bottom: 10px;
+}
+
+.pt10 {
+    padding-top: 10px;
+}
+
+.pad20 {
+    padding: 20px;
+}
+
+.pl20 {
+    padding-left: 20px;
+}
+
+.pr20 {
+    padding-right: 20px;
+}
+
+.pb20 {
+    padding-bottom: 20px;
+}
+
+.pt20 {
+    padding-top: 20px;
+}
+
+.nopb0 {
+    padding-bottom: 0;
+}
+
+.pr50 {
+    padding-right: 50px;
+}
+
+/* font */
+.font {
+    font: 12px normal;
+}
+
+.nofont {
+    font-size: 0px;
+}
+
+.font12 {
+    font-size: 12px;
+}
+
+.font14 {
+    font-size: 14px;
+}
+
+.font16 {
+    font-size: 16px;
+}
+
+.font18 {
+    font-size: 18px;
+}
+
+.lh24 {
+    line-height: 24px;
+}
+
+.lh18 {
+    line-height: 18px;
+}
+
+.black {
+    font-family: "黑体";
+}
+
+.yahei {
+    font-family: "微软雅黑",;
+}
+
+/*CSS3.0*/
+.radius { /* border radius */ /* (-moz-\-webkit-)border-top-left-radius:; \ -moz-border-radius-topleft:; */
+    -moz-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.shadow { /*box shadow*/ /*(-moz-\-webkit-)box-shadow:;*/
+    -moz-box-shadow: rgba(0,0,0,0.3) 0 4px 4px;
+    -webkit-box-shadow: rgba(0,0,0,0.3) 0 4px 4px;
+    -khtml-box-shadow: rgba(0,0,0,0.3) 0 4px 4px;
+    box-shadow: rgba(0,0,0,0.3) 0 4px 4px; /*filter:progid:DXImageTransform.Microsoft.Shadow(enabled=Enabled,color=#000,Strength=4,Direction=135);*/
+}
+
+/*隐藏文字*/
+.offScreen {
+    left: -9999px;
+    position: absolute;
+}
+
+.tdn {
+    text-decoration: none;
+}
+/* 链接无下划线 */
+.ofh {
+    overflow: hidden;
+}
+/*溢出隐藏 */
+.tal {
+    text-align: left;
+}
+/* 内容左对齐*/
+.tar {
+    text-align: right;
+}
+/*  内容右对齐 */
+.tac {
+    text-align: center;
+}
+/* 内容居中*/
+body .m0a {
+    margin: 0 auto;
+}
+/*容器内水平居中*/
+body .pt0 {
+    padding-top: 0;
+}
+
+.bn {
+    border: 0 none !important;
+}
+/*无边框 */
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: #999;
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #999;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #999;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #999;
+}
+
+.grid {
+    -moz-box-sizing: border-box;
+    float: left;
+    min-height: 1px;
+    margin-bottom: 10px;
+}
+
+.grid-1 {
+    width: 8.33333%;
+}
+
+.grid-2 {
+    width: 15%;
+}
+
+.grid-3 {
+    width: 25%;
+}
+
+.grid-4 {
+    width: 33.3333%;
+}
+
+.grid-5 {
+    width: 40%;
+}
+
+.grid-6 {
+    width: 49.5%;
+}
+
+.grid-7 {
+    width: 58.3333%;
+}
+
+.grid-8 {
+    width: 66.6667%;
+}
+
+.grid-9 {
+    width: 75%;
+}
+
+.grid-10 {
+    width: 87%;
+}
+
+.grid-11 {
+    width: 91.6667%;
+}
+
+.grid-12 {
+    width: 99.8%;
+}
+
+.c-blue {
+    color: #269dff;
+}
+
+.c-yellow {
+    color: #ff9d11;
+}
+
+.c-green {
+    color: #57c017;
+}
+
+.c-red {
+    color: #db1d1d;
+    font-style: normal;
+}
+
+.c-white {
+    color: #ffffff;
+}
+
+.b-gray {
+    background: #eaeaea;
+}
+
+.b-grayish {
+    background: #f4f4f7;
+}
+
+.b-green {
+    background: #46adb7;
+}
+
+.b-viridity {
+    background: #7bd148;
+}
+
+.b-aqua {
+    background: #e9f9ff;
+}
+
+.b-yellow {
+    background: #f2a83e;
+}
+
+.b-red {
+    background: #e16556;
+}
+
+.b-white {
+    background: #fff;
+}
+
+.b-blue {
+    background: #1F77E3;
+}
+
+.b-pink {
+    background: #fff0f0;
+}
+
+.b-ink {
+    background: #325166;
+}
+
+.disabled {
+    background: #eaeaea;
+}
+
+.bor-b {
+    border-bottom: 1px solid #d7d7d7;
+}
+
+.bor-t {
+    border-top: 1px solid #d7d7d7;
+}
+
+.bor {
+    border: 1px solid #d7d7d7;
+}
+
+.btn {
+    white-space: nowrap;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    /*color: #fff;*/
+    /*border: 0;*/
+    height: 30px;
+    line-height: 30px;
+    min-width: 80px;
+    padding: 0 5px;
+    outline: none;
+}
+
+.btn-small {
+    width: 80px;
+}
+
+.btn-big {
+    width: 190px;
+}
+
+.btn-medium {
+    height: 42px;
+    line-height: 42px;
+    padding: 0 16px;
+}
+
+.btn-blue { /*background: #3f90f4;*/
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    line-height: 29px;
+}
+
+.btn-close {
+    border-radius: 3px;
+    /*background: #afafaf;*/
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    line-height: 29px;
+}
+
+.btn-yellow {
+    background: #ff9d11;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+    .btn-yellow:hover {
+        background: #ee6823;
+    }
+
+.btn-gray {
+    background: #eaeaea;
+}
+
+.btn-add {
+    display: inline-block;
+    width: 98px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    color: #1F77E3;
+    border: 1px solid #1F77E3;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #fff;
+}
+
+    .btn-add b {
+        background-position: 0 -202px;
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        overflow: hidden;
+        vertical-align: middle;
+        margin-right: 6px;
+        position: inherit;
+    }
+
+.btn-pop {
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 10px;
+    color: #1F77E3;
+    border: 1px solid #1F77E3;
+    background: #fff;
+}
+
+    .btn-add:hover, .btn-pop:hover {
+        border: 1px solid #1F77E3;
+        color: #1F77E3;
+    }
+
+    .btn-pop.btn-active {
+        color: #ff9d11;
+        border-color: #ff9d11;
+    }
+
+.btn-disabled {
+    background: #d2d2d2;
+}
+
+.btn-unuse {
+    color: silver;
+    border: 1px solid silver;
+    cursor: default;
+}
+
+    .btn-unuse:hover {
+        color: silver;
+        border: 1px solid silver;
+        cursor: default;
+    }
+
+.wrapper {
+    min-width: 1258px;
+    min-height: 100%;
+    _height: 100%;
+}
+
+.center {
+    width: 1196px;
+    margin: 0 auto;
+}
+
+.spr {
+    background: url(../images/sprite.png) no-repeat;
+}
+
+.spr-add {
+    background-position: -30px 0;
+}
+
+.spr-batchEnroll {
+    background-position: -30px -22px;
+}
+
+.spr-batchDel {
+    background-position: -30px -44px;
+}
+
+a:hover .spr-add, a:hover .spr-batchEnroll {
+    background-position: -53px 0;
+}
+
+a:hover .spr-batchDel {
+    background-position: -53px -44px;
+}
+
+.spr-edit, .spr-del, .spr-engine, .spr-publish, .spr-recall, .spr-mark, .spr-chart, .spr-ber, .spr-shield, .spr-beenShielded, .spr-search2 {
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.spr-edit {
+    background-position: -30px -67px;
+}
+/*编辑*/
+.spr-del {
+    background-position: -30px -91px;
+}
+/*删除*/
+.spr-engine {
+    background-position: -30px -115px;
+}
+/*设置*/
+.spr-recall {
+    background-position: -30px -156px;
+}
+/*撤消*/
+.spr-publish {
+    background-position: -30px -180px;
+}
+/*发布*/
+.spr-mark {
+    background-position: -80px -67px;
+}
+/*查看成绩*/
+.spr-chart {
+    background-position: -80px -91px;
+}
+/*查看图表*/
+.spr-ber {
+    background-position: -80px -115px;
+}
+/*查看错误率*/
+.spr-shield {
+    background-position: -80px -156px;
+}
+/*已屏蔽*/
+.spr-beenShielded {
+    background-position: -80px -180px;
+}
+/*屏蔽*/
+.spr-edit:hover {
+    background-position: -55px -67px;
+}
+/*编辑*/
+.spr-del:hover {
+    background-position: -55px -91px;
+}
+/*删除*/
+.spr-engine:hover {
+    background-position: -55px -115px;
+}
+/*设置*/
+.spr-recall:hover {
+    background-position: -55px -156px;
+}
+/*撤消*/
+.spr-publish:hover {
+    background-position: -55px -180px;
+}
+/*发布*/
+.spr-mark:hover {
+    background-position: -105px -67px;
+}
+/*查看成绩*/
+.spr-chart:hover {
+    background-position: -105px -91px;
+}
+/*查看图表*/
+.spr-ber:hover {
+    background-position: -105px -115px;
+}
+/*查看错误率*/
+.spr-shield:hover {
+    background-position: -105px -156px;
+}
+/*已屏蔽*/
+.spr-beenShielded:hover {
+    background-position: -105px -180px;
+}
+/*屏蔽*/
+.spr-case {
+    background-position: 0 -250px;
+}
+
+.spr-lore {
+    background-position: -32px -250px;
+}
+
+.spr-pencil {
+    background-position: 0 -315px;
+}
+
+.spr-search {
+    background-position: 0 -331px;
+}
+
+.spr-search2 {
+    background-position: -105px -202px;
+}
+
+.spr-pen {
+    display: block;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    background: url(../images/icon06.png) no-repeat;
+}
+
+a:hover .spr-pen {
+    background-position: 0 -60px;
+}
+
+.close {
+    float: right;
+    width: 23px;
+    height: 23px;
+    overflow: hidden;
+    background: url(../images/ico_info.png) no-repeat 0 -48px;
+    cursor: pointer;
+}
+
+    .close:hover {
+        background-position: -24px -48px;
+    }
+
+.ico {
+    background: url(../images/icon.png) no-repeat;
+}
+
+.icheckbox {
+    display: inline-block;
+}
+
+    .icheckbox .icheck {
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+
+.line28 {
+    line-height: 28px;
+}
+
+/* footer */
+.footer-fixer {
+    position: relative;
+    height: 70px;
+}
+
+.footer {
+    background: #666;
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    height: 70px;
+    margin-top: -70px;
+    text-align: center;
+    min-width: 1258px;
+}
+
+    .footer .copyright {
+        padding: 25px 0;
+        color: #bcbcbc;
+    }
+/*面包屑*/
+.crumbs {
+    height: 20px;
+    line-height: 20px; /*background: url(../images/map.png) no-repeat left center;*/
+    padding-left: 250px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+    .crumbs .esc {
+        float: right;
+        color: #999;
+        font-size: 14px;
+    }
+
+        .crumbs .esc b {
+            float: left;
+            width: 15px;
+            height: 15px;
+            overflow: hidden;
+            margin-right: 5px;
+            background-position: -30px -140px;
+        }
+
+        .crumbs .esc:hover {
+            color: #1F77E3;
+        }
+
+            .crumbs .esc:hover b {
+                background-position: -45px -140px;
+            }
+/* 表单验证类 开始 --------------------- */
+.pst-rela {
+    position: relative;
+    border-color: #fdb513;
+}
+
+.tips-text {
+    position: absolute;
+    width: 248px;
+    min-height: 25px;
+    margin-top: 7px;
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 25px;
+    color: #262626;
+    border: 1px solid #ffc58d;
+    background: #fff6e9;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+    .tips-text b {
+        position: absolute;
+        display: inline-block;
+        font: 0/0 Arial;
+        background: url(../images/ico_tips.png) no-repeat;
+    }
+
+    .tips-text .ico-left {
+        left: 8px;
+        top: 50%;
+        margin-top: -8px;
+        width: 16px;
+        height: 16px;
+    }
+
+    .tips-text .ico-top {
+        top: -5px;
+        left: 15px;
+        width: 9px;
+        height: 5px;
+        background-position: 0 -20px;
+    }
+/* 表单验证类 结束 --------------------- */
+
+/* 上传图片及文本 */
+.upload-field {
+    display: inline-block;
+    position: relative;
+}
+
+    .upload-field .file-field {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 99px;
+        height: 36px;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        cursor: pointer;
+    }
+
+/* 前端添加dw */
+
+.d_footer {
+    background: #ECECEC;
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    height: 62px;
+    margin-top: -74px;
+    text-align: center;
+    min-width: 1000px;
+    border-top: solid 2px #3F90F4;
+    line-height: 25px;
+    padding-top: 10px;
+}
+
+.d_footers {
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    height: 62px;
+    margin-top: -72px;
+    min-width: 1000px;
+    line-height: 25px;
+    padding-top: 10px;
+    font-size: 12px;
+    color: #FFF;
+    text-align: center;
+}
+
+.i_foot {
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    height: 118px;
+    margin-top: -133px;
+    min-width: 1000px;
+    line-height: 25px;
+    padding-top: 15px;
+    font-size: 12px;
+    color: #B8CFEB;
+    background: url(../images/d_xin1/footbg.png) repeat-x top;
+}
+
+.i_foot_left {
+    width: 720px;
+    float: left;
+}
+
+.i_foot_left_1 {
+    text-align: left;
+    border-bottom: solid 1px #FFF;
+    padding-bottom: 10px;
+}
+
+.i_foot_left_2 {
+    text-align: left;
+    padding-top: 5px;
+}
+
+.spr-disedit {
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    display: inline-block;
+    background-position: -55px -67px;
+    cursor: default;
+}
+
+.spr-disdel {
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    display: inline-block;
+    background-position: -55px -91px;
+    cursor: default;
+}

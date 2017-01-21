@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{07B64C9A-585B-4FCF-8B2C-1D4A71B277EB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Training.API</RootNamespace>
+    <AssemblyName>Training.API</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Contract\ITrainingManage.TrainExamUser.cs" />
+    <Compile Include="Contract\ITrainingManage.FundProduct.cs" />
+    <Compile Include="Contract\ITrainingManage.EntryAssessment.cs" />
+    <Compile Include="Contract\ITrainingManage.AssessmentResultsDetail.cs" />
+    <Compile Include="Contract\ITrainingManage.BankDeposits.cs" />
+    <Compile Include="Contract\ITrainingManage.Calendar.cs" />
+    <Compile Include="Contract\ITrainingManage.Case.cs" />
+    <Compile Include="Contract\ITrainingManage.CashFlow.cs" />
+    <Compile Include="Contract\ITrainingManage.CashPlan.cs" />
+    <Compile Include="Contract\ITrainingManage.AssessmentResults.cs" />
+    <Compile Include="Contract\ITrainingManage.ClassScore.cs" />
+    <Compile Include="Contract\ITrainingManage.Common.cs" />
+    <Compile Include="Contract\ITrainingManage.ConsumptionPlan.cs" />
+    <Compile Include="Contract\ITrainingManage.DistributionOfProperty.cs" />
+    <Compile Include="Contract\ITrainingManage.ExamCase.cs" />
+    <Compile Include="Contract\ITrainingManage.ExamModule.cs" />
+    <Compile Include="Contract\ITrainingManage.ExamPoint.cs" />
+    <Compile Include="Contract\ITrainingManage.FinancialRatios.cs" />
+    <Compile Include="Contract\ITrainingManage.Heritage.cs" />
+    <Compile Include="Contract\ITrainingManage.IFinancialPlanning.cs" />
+    <Compile Include="Contract\ITrainingManage.IncomeAndExpenses.cs" />
+    <Compile Include="Contract\ITrainingManage.InsurancePlan.cs" />
+    <Compile Include="Contract\ITrainingManage.InvestmentPlan.cs" />
+    <Compile Include="Contract\ITrainingManage.InvestmentPlanProduct.cs" />
+    <Compile Include="Contract\ITrainingManage.Liability.cs" />
+    <Compile Include="Contract\ITrainingManage.LifeEducationPlan.cs" />
+    <Compile Include="Contract\ITrainingManage.LifeEducationPlanDetail.cs" />
+    <Compile Include="Contract\ITrainingManage.Number.cs" />
+    <Compile Include="Contract\ITrainingManage.P2PProduct.cs" />
+    <Compile Include="Contract\ITrainingManage.Proposal.cs" />
+    <Compile Include="Contract\ITrainingManage.ProposalCustomer.cs" />
+    <Compile Include="Contract\ITrainingManage.ResourceChapter.cs" />
+    <Compile Include="Contract\ITrainingManage.RetirementPlan.cs" />
+    <Compile Include="Contract\ITrainingManage.RiskEvaluation.cs" />
+    <Compile Include="Contract\ITrainingmanage.StartAnUndertakingPlan.cs" />
+    <Compile Include="Contract\ITrainingManage.StuCustomer.cs" />
+    <Compile Include="Contract\ITrainingManage.StuCustomerDetail.cs" />
+    <Compile Include="Contract\ITrainingManage.TaxPlan.cs" />
+    <Compile Include="Contract\ITrainingManage.TheoryChapter.cs" />
+    <Compile Include="Contract\ITrainingManage.TheoryQuestionType.cs" />
+    <Compile Include="Contract\ITrainingManage.TrainExam.cs" />
+    <Compile Include="Contract\ITrainingManage.TrainExamClass.cs" />
+    <Compile Include="Contract\ITrainingManage.TrainExamDetail.cs" />
+    <Compile Include="Contract\ITrainingManage.UserTimeSummary.cs" />
+    <Compile Include="Contract\ITrainingManage_TrainExamExt.cs" />
+    <Compile Include="Model\EntryAssessment.cs" />
+    <Compile Include="Model\AssessmentResultsDetail.cs" />
+    <Compile Include="Model\AssessmentResults.cs" />
+    <Compile Include="Model\BankDeposits.cs" />
+    <Compile Include="Model\Calendar.cs" />
+    <Compile Include="Model\Case.cs" />
+    <Compile Include="Model\CashFlow.cs" />
+    <Compile Include="Model\CashPlan.cs" />
+    <Compile Include="Model\ConsumptionPlan.cs" />
+    <Compile Include="Model\CustomerCount.cs" />
+    <Compile Include="Model\DistributionOfProperty.cs" />
+    <Compile Include="Model\ExamCase.cs" />
+    <Compile Include="Model\ExamModule.cs" />
+    <Compile Include="Model\ExamPoint.cs" />
+    <Compile Include="Model\ExamPointAnswer.cs" />
+    <Compile Include="Model\Ex\ResultListManager.cs" />
+    <Compile Include="Model\Ex\TrainClassScore.cs" />
+    <Compile Include="Model\Ex\AssessmentExamPoint.cs" />
+    <Compile Include="Model\Ex\CustomFilter.cs" />
+    <Compile Include="Model\Ex\ErrorRate.cs" />
+    <Compile Include="Model\Ex\FinancialPlanning.cs" />
+    <Compile Include="Model\Ex\ExamCaseTrainExam.cs" />
+    <Compile Include="Model\Ex\TrainExamAssessment.cs" />
+    <Compile Include="Model\Ex\UnitTrainExam.cs" />
+    <Compile Include="Model\FinancialRatios.cs" />
+    <Compile Include="Model\FundProduct.cs" />
+    <Compile Include="Model\FundProductDetail.cs" />
+    <Compile Include="Model\Heritage.cs" />
+    <Compile Include="Model\IncomeAndExpenses.cs" />
+    <Compile Include="Model\InsurancePlan.cs" />
+    <Compile Include="Model\InvestmentPlan.cs" />
+    <Compile Include="Model\InvestmentPlanProduct.cs" />
+    <Compile Include="Model\Liability.cs" />
+    <Compile Include="Model\LifeEducationPlan.cs" />
+    <Compile Include="Model\LifeEducationPlanDetail.cs" />
+    <Compile Include="Model\Message.cs" />
+    <Compile Include="Model\Number.cs" />
+    <Compile Include="Model\P2PProduct.cs" />
+    <Compile Include="Model\PaperUserSummary.cs" />
+    <Compile Include="Model\Proposal.cs" />
+    <Compile Include="Model\ProposalCustomer.cs" />
+    <Compile Include="Model\ProposalCustomerDetail.cs" />
+    <Compile Include="Model\ResourceChapter.cs" />
+    <Compile Include="Model\ResourceChapterHidden.cs" />
+    <Compile Include="Model\RetirementPlan.cs" />
+    <Compile Include="Model\RiskIndex.cs" />
+    <Compile Include="Model\StartAnUndertakingPlan.cs" />
+    <Compile Include="Model\StuCustomer.cs" />
+    <Compile Include="Model\StuCustomerDetail.cs" />
+    <Compile Include="Model\TaxPlan.cs" />
+    <Compile Include="Model\TheoryChapter.cs" />
+    <Compile Include="Model\TheoryChapterHidden.cs" />
+    <Compile Include="Model\TheoryQuestionType.cs" />
+    <Compile Include="Model\TrainExam.cs" />
+    <Compile Include="Model\TrainExamUser.cs" />
+    <Compile Include="Model\TrainExamCompetition.cs" />
+    <Compile Include="Model\TrainExamClass.cs" />
+    <Compile Include="Model\TrainExamDetail.cs" />
+    <Compile Include="Model\UserTimeSummary.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Enum\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

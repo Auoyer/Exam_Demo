@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{047FE46C-7877-4ABB-8163-96AA07A1AECF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Training.Svr</RootNamespace>
+    <AssemblyName>Training.Svr</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper, Version=1.40.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\Lib\Shared\DBHelper.cs">
+      <Link>DAL\DBHelper.cs</Link>
+    </Compile>
+    <Compile Include="Contract\TrainingManage.TrainExamUser.cs" />
+    <Compile Include="Contract\TrainingManage.FundProduct.cs" />
+    <Compile Include="Contract\TrainingManage.EntryAssessment.cs" />
+    <Compile Include="Contract\TrainingManage.AssessmentResultsDetail.cs" />
+    <Compile Include="Contract\TrainingManage.BankDeposits.cs" />
+    <Compile Include="Contract\TrainingManage.Calendar.cs" />
+    <Compile Include="Contract\TrainingManage.Case.cs" />
+    <Compile Include="Contract\TrainingManage.CashFlow.cs" />
+    <Compile Include="Contract\TrainingManage.CashPlan.cs" />
+    <Compile Include="Contract\TrainingManage.AssessmentResults.cs" />
+    <Compile Include="Contract\TrainingManage.ClassScore.cs" />
+    <Compile Include="Contract\TrainingManage.Common.cs" />
+    <Compile Include="Contract\TrainingManage.ConsumptionPlan.cs" />
+    <Compile Include="Contract\TrainingManage.DistributionOfProperty.cs" />
+    <Compile Include="Contract\TrainingManage.ExamCase.cs" />
+    <Compile Include="Contract\TrainingManage.ExamModule.cs" />
+    <Compile Include="Contract\TrainingManage.ExamPoint.cs" />
+    <Compile Include="Contract\TrainingManage.FinancialPlanning.cs" />
+    <Compile Include="Contract\TrainingManage.FinancialRatios.cs" />
+    <Compile Include="Contract\TrainingManage.Heritage.cs" />
+    <Compile Include="Contract\TrainingManage.IncomeAndExpenses.cs" />
+    <Compile Include="Contract\TrainingManage.InsurancePlan.cs" />
+    <Compile Include="Contract\TrainingManage.InvestmentPlan.cs" />
+    <Compile Include="Contract\TrainingManage.InvestmentPlanProduct.cs" />
+    <Compile Include="Contract\TrainingManage.Liability.cs" />
+    <Compile Include="Contract\TrainingManage.LifeEducationPlan.cs" />
+    <Compile Include="Contract\TrainingManage.LifeEducationPlanDetail.cs" />
+    <Compile Include="Contract\TrainingManage.Number.cs" />
+    <Compile Include="Contract\TrainingManage.P2PProduct.cs" />
+    <Compile Include="Contract\TrainingManage.Proposal.cs" />
+    <Compile Include="Contract\TrainingManage.ProposalCustomer.cs" />
+    <Compile Include="Contract\TrainingManage.ResourceChapter.cs" />
+    <Compile Include="Contract\TrainingManage.RetirementPlan.cs" />
+    <Compile Include="Contract\TrainingManage.RiskEvaluation.cs" />
+    <Compile Include="Contract\TrainingManage.StartAnUndertakingPlan.cs" />
+    <Compile Include="Contract\TrainingManage.StuCustomer.cs" />
+    <Compile Include="Contract\TrainingManage.StuCustomerDetail.cs" />
+    <Compile Include="Contract\TrainingManage.TaxPlan.cs" />
+    <Compile Include="Contract\TrainingManage.TheoryChapter.cs" />
+    <Compile Include="Contract\TrainingManage.TheoryQuestionType.cs" />
+    <Compile Include="Contract\TrainingManage.TrainExam.cs" />
+    <Compile Include="Contract\TrainingManage.TrainExamClass.cs" />
+    <Compile Include="Contract\TrainingManage.TrainExamDetail.cs" />
+    <Compile Include="Contract\TrainingManage.UserTimeSummary.cs" />
+    <Compile Include="DAL\EntryAssessmentDAL.cs" />
+    <Compile Include="DAL\AssessmentResultsDetailDAL.cs" />
+    <Compile Include="DAL\BankDepositsDAL.cs" />
+    <Compile Include="DAL\CalendarDAL.cs" />
+    <Compile Include="DAL\AssessmentResultsDAL.cs" />
+    <Compile Include="DAL\CaseDAL.cs" />
+    <Compile Include="DAL\CashFlowDAL.cs" />
+    <Compile Include="DAL\CashPlanDAL.cs" />
+    <Compile Include="DAL\ClassScoreDAL.cs" />
+    <Compile Include="DAL\ConsumptionPlanDAL.cs" />
+    <Compile Include="DAL\DistributionOfPropertyDAL.cs" />
+    <Compile Include="DAL\ExamCaseDAL.cs" />
+    <Compile Include="DAL\ExamModuleDAL.cs" />
+    <Compile Include="DAL\ExamPointDAL.cs" />
+    <Compile Include="DAL\FinancialRatiosDAL.cs" />
+    <Compile Include="DAL\FundProductDAL.cs" />
+    <Compile Include="DAL\HeritageDAL.cs" />
+    <Compile Include="DAL\IncomeAndExpensesDAL.cs" />
+    <Compile Include="DAL\InsurancePlanDAL.cs" />
+    <Compile Include="DAL\InvestmentPlanDAL.cs" />
+    <Compile Include="DAL\InvestmentPlanProductDAL.cs" />
+    <Compile Include="DAL\LiabilityDAL.cs" />
+    <Compile Include="DAL\LifeEducationPlanDAL.cs" />
+    <Compile Include="DAL\LifeEducationPlanDetailDAL.cs" />
+    <Compile Include="DAL\NumberDAL.cs" />
+    <Compile Include="DAL\P2PProductDAL.cs" />
+    <Compile Include="DAL\PaperUserSummaryDAL.cs" />
+    <Compile Include="DAL\ProposalCustomerDAL.cs" />
+    <Compile Include="DAL\ProposalCustomerDetailDAL.cs" />
+    <Compile Include="DAL\ProposalDAL.cs" />
+    <Compile Include="DAL\ResourceChapterDAL.cs" />
+    <Compile Include="DAL\ResourceChapterHiddenDAL.cs" />
+    <Compile Include="DAL\RetirementPlanDAL.cs" />
+    <Compile Include="DAL\RiskIndexDAL.cs" />
+    <Compile Include="DAL\StartAnUndertakingPlanDAL.cs" />
+    <Compile Include="DAL\StuCustomerDAL.cs" />
+    <Compile Include="DAL\StuCustomerDetailDAL.cs" />
+    <Compile Include="DAL\TaxPlanDAL.cs" />
+    <Compile Include="DAL\TheoryChapterDAL.cs" />
+    <Compile Include="DAL\TheoryChapterHiddenDAL.cs" />
+    <Compile Include="DAL\TheoryQuestionTypeDAL.cs" />
+    <Compile Include="DAL\TrainExamClassDAL.cs" />
+    <Compile Include="DAL\TrainExamDAL.cs" />
+    <Compile Include="DAL\TrainExamDAL_Ex.cs" />
+    <Compile Include="DAL\TrainExamDetailDAL.cs" />
+    <Compile Include="DAL\TrainExamUserDAL.cs" />
+    <Compile Include="DAL\UserTimeSummaryDAL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Contract\TrainingManage.TrainExam_Ext.cs" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Lib\Utils\Utils.csproj">
+      <Project>{c5b3481f-4b5c-4b99-9796-8a172f5c2c46}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Exam\Exam.API\Exam.API.csproj">
+      <Project>{9157fcd7-7536-424a-b3c8-ed663fbfa5b0}</Project>
+      <Name>Exam.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Training.API\Training.API.csproj">
+      <Project>{07b64c9a-585b-4fcf-8b2c-1d4a71b277eb}</Project>
+      <Name>Training.API</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

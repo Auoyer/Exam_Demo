@@ -1,0 +1,291 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/CompetitionUser/Views/Shared/_Layout.cshtml";
+}
+
+@section PageSpecificStyleSheetIncludes{
+    <script src="~/Content/DatePicker/WdatePicker.js"></script>
+    <script src="~/Content/js/Training/FinancialCalc.js"></script>
+}
+
+<div class="con-right">
+    <div class="main-hd b-grayish bor-b">
+        <h2 class="title">股票投资损益</h2>
+    </div>
+    <div class="main-bd pad10 pb20">
+        <div class="explain">
+            <p>备注：本计算器提供沪深两市A、B股交易投资损益的计算参考。</p>
+        </div>
+
+        <div class="question-types">
+            <span class="active" name="choseStock" value1="stock_HA_btnCalcDiv">沪市A股</span>
+            <span name="choseStock" value1="stock_HB_btnCalcDiv">沪市B股</span>
+            <span name="choseStock" value1="stock_SA_btnCalcDiv">深市A股</span>
+            <span name="choseStock" value1="stock_SB_btnCalcDiv">深市B股</span>
+        </div>
+        <!--沪市A股-->
+        <div class="question-types-con bor" style="padding-bottom:0;" id="stock_HA_btnCalcDiv">
+            <div class="item fif-form">
+                <div class="fif-box w100">
+                    <label class="fif-text">股票买入价：</label>
+                    <div class="input"><input class="ipt-text IsMaxFloat IsFloat2 IsRequired IsMinFloat" type="text" id="stock_HA_buyPrice" minfloat="0.01" maxfloat="9999.99" msgname="股票买入价"><span class="ml10">元/股</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">股票买入数量：</label>
+                    <div class="input"><input class="ipt-text IsNumber IsNumberby100 IsMinNumber IsMaxNumber IsRequired" type="text" id="stock_HA_buyQuantity" minnumber="100" maxnumber="100000000" msgname="股票买入数量"><span class="ml10">股</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">股票卖出价：</label>
+                    <div class="input"><input class="ipt-text IsMaxFloat IsFloat2 IsRequired IsMinFloat" type="text" id="stock_HA_sellPrice" minfloat="0.01" maxfloat="9999.99" msgname="股票卖出价"><span class="ml10">元/股</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">股票卖出数量：</label>
+                    <div class="input"><input class="ipt-text  IsNumber IsNumberby100 IsMinNumber IsMaxNumber IsRequired" type="text" id="stock_HA_sellQuantity" minnumber="100" maxnumber="100000000" msgname="股票卖出数量"><span class="ml10">股</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">券商佣金比率：</label>
+                    <div class="input"><input class="ipt-text IsMaxFloat IsFloat2 IsRequired IsMinFloat" type="text" id="stock_HA_commissionRate" value="0.3" minfloat="0.01" maxfloat="5.00" msgname="券商佣金比率"><span class="ml10">%（不足5元按5元收）</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">印花税税率：</label>
+                    <div class="input"><input class="ipt-text IsMaxFloat IsFloat2 IsRequired IsMinFloat " type="text" value="0.1" id="stock_HA_taxRate" minfloat="0.01" maxfloat="1.00" msgname="印花税税率"><span class="ml10">%（仅在卖出时征收）</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">过户费费率：</label>
+                    <div class="input"><input class="ipt-text IsFloat2 IsMinFloat IsMaxFloat IsRequired " value="1" id="stock_HA_exchangeRate" type="text" minfloat="1.00" maxfloat="10.00" msgname="过户费费率"><span class="ml10">元/千股（最低收取1元）</span></div>
+                </div>
+                <div class="main-button mb20">
+                    <input class="btn btn-small btn-blue" type="button" value="计算" id="stock_HA_btnCalc">
+                    <input class="btn btn-small btn-blue" type="button" value="重置" id="stock_HA_btnReset">
+                </div>
+            </div>
+            <div class="item bor-t pt20">
+                <p class="pad10 font16"><strong>计算结果</strong></p>
+                <div class="fif-form b-grayish pt10 pb10">
+                    <div class="fif-box w100">
+                        <label class="fif-text">过户费：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_HA_exchange" readonly="readonly"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">印花税：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_HA_tax" readonly="readonly"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">券商佣金：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_HA_commission" readonly="readonly"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">税费合计：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_HA_sumFee" readonly="readonly"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">总体投资损益：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_HA_sumProfit" readonly="readonly"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">总体盈亏比例：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_HA_sumProfitRate" readonly="readonly"><span class="ml10">%</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--沪市B股-->
+        <div class="question-types-con bor" style="padding-bottom: 0; display: none" id="stock_HB_btnCalcDiv" >
+            <div class="item fif-form">
+                <div class="fif-box w100">
+                    <label class="fif-text">股票买入价：</label>
+                    <div class="input"><input class="ipt-text IsMaxFloat IsFloat2 IsRequired IsMinFloat" type="text" id="stock_HB_buyPrice" minfloat="0.01" maxfloat="9999.99" msgname="股票买入价"><span class="ml10">美元/股</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">股票买入数量：</label>
+                    <div class="input"><input class="ipt-text IsNumber IsNumberby100 IsMinNumber IsMaxNumber IsRequired" type="text" id="stock_HB_buyQuantity" minnumber="100" maxnumber="100000000" msgname="股票买入数量"><span class="ml10">股</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">股票卖出价：</label>
+                    <div class="input"><input class="ipt-text IsMaxFloat IsFloat2 IsRequired IsMinFloat" type="text" id="stock_HB_sellPrice" minfloat="0.01" maxfloat="9999.99" msgname="股票卖出价"><span class="ml10">美元/股</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">股票卖出数量：</label>
+                    <div class="input"><input class="ipt-text  IsNumber IsNumberby100 IsMinNumber IsMaxNumber IsRequired" type="text" id="stock_HB_sellQuantity" minnumber="100" maxnumber="100000000" msgname="股票卖出数量"><span class="ml10">股</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">券商佣金比率：</label>
+                    <div class="input"><input class="ipt-text IsMaxFloat IsFloat2 IsRequired IsMinFloat" type="text" id="stock_HB_commissionRate" value="0.1" minfloat="0.01" maxfloat="5.00" msgname="券商佣金比率"><span class="ml10">%（不足1美元按1美元收）</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">印花税税率：</label>
+                    <div class="input"><input class="ipt-text IsMaxFloat IsFloat2 IsRequired IsMinFloat " type="text" value="0.1" id="stock_HB_taxRate" minfloat="0.01" maxfloat="1.00" msgname="印花税税率"><span class="ml10">%（仅在卖出时征收）</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">结算费费率：</label>
+                    <div class="input"><input class="ipt-text IsMaxFloat IsFloat2 IsMinFloat IsRequired " value="0.05" id="stock_HB_settlementRate" type="text" minfloat="0.01" maxfloat="1.00" msgname="结算费费率"><span class="ml10">%</span></div>
+                </div>
+                <div class="main-button mb20">
+                    <input class="btn btn-small btn-blue" type="button" value="计算" id="stock_HB_btnCalc">
+                    <input class="btn btn-small btn-blue" type="button" value="重置" id="stock_HB_btnReset">
+                </div>
+            </div>
+            <div class="item bor-t pt20">
+                <p class="pad10 font16"><strong>计算结果</strong></p>
+                <div class="fif-form b-grayish pt10 pb10">
+                    <div class="fif-box w100">
+                        <label class="fif-text">结算费：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_HB_settlement" readonly="readonly"><span class="ml10">美元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">印花税：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_HB_tax" readonly="readonly"><span class="ml10">美元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">券商佣金：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_HB_commission" readonly="readonly"><span class="ml10">美元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">税费合计：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_HB_sumFee" readonly="readonly"><span class="ml10">美元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">总体投资损益：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_HB_sumProfit" readonly="readonly"><span class="ml10">美元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">总体盈亏比例：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_HB_sumProfitRate" readonly="readonly"><span class="ml10">%</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--深市A股-->
+        <div class="question-types-con bor" style="padding-bottom: 0; display: none" id="stock_SA_btnCalcDiv" >
+            <div class="item fif-form">
+                <div class="fif-box w100">
+                    <label class="fif-text">股票买入价：</label>
+                    <div class="input"><input class="ipt-text IsMaxFloat IsFloat2 IsRequired IsMinFloat" type="text" id="stock_SA_buyPrice" minfloat="0.01" maxfloat="9999.99" msgname="股票买入价"><span class="ml10">元/股</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">股票买入数量：</label>
+                    <div class="input"><input class="ipt-text IsNumber IsNumberby100 IsMinNumber IsMaxNumber IsRequired" type="text" id="stock_SA_buyQuantity" minnumber="100" maxnumber="100000000" msgname="股票买入数量"><span class="ml10">股</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">股票卖出价：</label>
+                    <div class="input"><input class="ipt-text IsMaxFloat IsFloat2 IsRequired IsMinFloat" type="text" id="stock_SA_sellPrice" minfloat="0.01" maxfloat="9999.99" msgname="股票卖出价"><span class="ml10">元/股</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">股票卖出数量：</label>
+                    <div class="input"><input class="ipt-text  IsNumber IsNumberby100 IsMinNumber IsMaxNumber IsRequired" type="text" id="stock_SA_sellQuantity" minnumber="100" maxnumber="100000000" msgname="股票卖出数量"><span class="ml10">股</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">券商佣金比率：</label>
+                    <div class="input"><input class="ipt-text IsMaxFloat IsFloat2 IsRequired IsMinFloat" type="text" id="stock_SA_commissionRate" value="0.3" minfloat="0.01" maxfloat="5.00" msgname="券商佣金比率"><span class="ml10">%（不足5元按5元收）</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">印花税税率：</label>
+                    <div class="input"><input class="ipt-text IsMaxFloat IsFloat2 IsRequired IsMinFloat " type="text" value="0.1" id="stock_SA_taxRate" minfloat="0.01" maxfloat="1.00" msgname="印花税税率"><span class="ml10">%（仅在卖出时征收）</span></div>
+                </div>
+
+                <div class="main-button mb20">
+                    <input class="btn btn-small btn-blue" type="button" value="计算" id="stock_SA_btnCalc">
+                    <input class="btn btn-small btn-blue" type="button" value="重置" id="stock_SA_btnReset">
+                </div>
+            </div>
+            <div class="item bor-t pt20">
+                <p class="pad10 font16"><strong>计算结果</strong></p>
+                <div class="fif-form b-grayish pt10 pb10">
+
+                    <div class="fif-box w100">
+                        <label class="fif-text">印花税：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_SA_tax" readonly="readonly"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">券商佣金：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_SA_commission" readonly="readonly"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">税费合计：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_SA_sumFee" readonly="readonly"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">总体投资损益：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_SA_sumProfit" readonly="readonly"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">总体盈亏比例：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_SA_sumProfitRate" readonly="readonly"><span class="ml10">%</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--深市B股--->
+        <div class="question-types-con bor" style="padding-bottom: 0; display: none" id="stock_SB_btnCalcDiv" >
+            <div class="item fif-form">
+                <div class="fif-box w100">
+                    <label class="fif-text">股票买入价：</label>
+                    <div class="input"><input class="ipt-text IsMaxFloat IsFloat2 IsRequired IsMinFloat" type="text" id="stock_SB_buyPrice" minfloat="0.01" maxfloat="9999.99" msgname="股票买入价"><span class="ml10">港元/股</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">股票买入数量：</label>
+                    <div class="input"><input class="ipt-text IsNumber IsNumberby100 IsMinNumber IsMaxNumber IsRequired" type="text" id="stock_SB_buyQuantity" minnumber="100" maxnumber="100000000" msgname="股票买入数量"><span class="ml10">股</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">股票卖出价：</label>
+                    <div class="input"><input class="ipt-text IsMaxFloat IsFloat2 IsRequired IsMinFloat" type="text" id="stock_SB_sellPrice" minfloat="0.01" maxfloat="9999.99" msgname="股票卖出价"><span class="ml10">港元/股</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">股票卖出数量：</label>
+                    <div class="input"><input class="ipt-text  IsNumber IsNumberby100 IsMinNumber IsMaxNumber IsRequired" type="text" id="stock_SB_sellQuantity" minnumber="100" maxnumber="100000000" msgname="股票卖出数量"><span class="ml10">股</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">券商佣金比率：</label>
+                    <div class="input"><input class="ipt-text IsMaxFloat IsFloat2 IsRequired IsMinFloat" type="text" id="stock_SB_commissionRate" value="0.1" minfloat="0.01" maxfloat="5.00" msgname="券商佣金比率"><span class="ml10">%（不足5港元按5港元收）</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">印花税税率：</label>
+                    <div class="input"><input class="ipt-text IsMaxFloat IsFloat2 IsRequired IsMinFloat " type="text" value="0.1" id="stock_SB_taxRate" minfloat="0.01" maxfloat="1.00" msgname="印花税税率"><span class="ml10">%（仅在卖出时征收）</span></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">结算费费率：</label>
+                    <div class="input"><input class="ipt-text IsMaxFloat IsFloat2 IsMinFloat IsRequired " value="0.05" id="stock_SB_settlementRate" type="text" minfloat="0.01" maxfloat="1.00" msgname="结算费费率"><span class="ml10">%</span></div>
+                </div>
+                <div class="main-button mb20">
+                    <input class="btn btn-small btn-blue" type="button" value="计算" id="stock_SB_btnCalc">
+                    <input class="btn btn-small btn-blue" type="button" value="重置" id="stock_SB_btnReset">
+                </div>
+            </div>
+            <div class="item bor-t pt20">
+                <p class="pad10 font16"><strong>计算结果</strong></p>
+                <div class="fif-form b-grayish pt10 pb10">
+                    <div class="fif-box w100">
+                        <label class="fif-text">结算费：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_SB_settlement" readonly="readonly"><span class="ml10">港元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">印花税：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_SB_tax" readonly="readonly"><span class="ml10">港元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">券商佣金：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_SB_commission" readonly="readonly"><span class="ml10">港元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">税费合计：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_SB_sumFee" readonly="readonly"><span class="ml10">港元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">总体投资损益：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_SB_sumProfit" readonly="readonly"><span class="ml10">港元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">总体盈亏比例：</label>
+                        <div class="input"><input class="ipt-text" type="text" id="stock_SB_sumProfitRate" readonly="readonly"><span class="ml10">%</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

@@ -1,0 +1,167 @@
+﻿@model VM.CompetitionVM
+@{
+    Layout = "~/Areas/CompetitionUser/Views/Shared/_Layout2.cshtml";
+}
+
+@section PageSpecificStyleSheetIncludes {
+    <script src="@Url.Content("~/Content/js/Common/jquery-1.7.2.min.js")" type="text/javascript"></script>
+    <script src="~/Content/js/Common/highcharts.js"></script>
+    <script src="~/Content/js/CompetitionUser/Statistic.js"></script>
+    <script src="~/Content/province/city.js"></script>
+    <script>
+        $(function () {
+            //GetModel();
+            GetScore();
+        })
+    </script>
+}
+<div>
+    <div class="d_piliang">
+        <span id="spComName">@Model.Name</span>
+        <a href="/CompetitionUser/StatisticAlanalysis/Index" class="d_lanbaia">返回</a>
+        <div class="clear"></div>
+    </div>
+    <div class="d_tongji_1">
+        <input type="hidden" value="@ViewBag.MatchId" id="hideMatchId" />@*竞赛ID*@
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <th width="120px;">管理员：</th>
+                <td id="tdAddUser">@Model.AddUserName</td>
+                @*<th>登录峰值：</th>
+                    <td id="tdFengzhi"></td>*@
+            </tr>
+            <tr>
+                <th>报名时间：</th>
+                <td id="tdbmsj">@Model._RegistrationStartTime - @Model._RegistrationEndTime</td>
+                @*<th>报名人数：</th>
+                <td id="tdbmrs"></td>*@
+            </tr>
+            <tr>
+                <th>比赛时间：</th>
+                @{
+                    var timeSpan = "";
+                    if (@Model.Type == 1 || @Model.Type == 2)
+                    {
+                        timeSpan = @Model._PreliminaryStartTime + " - " + @Model._PreliminaryEndTime;
+                    }
+                    else if (@Model.Type == 3)
+                    {
+                        timeSpan = @Model._PreliminaryStartTime + " - " + @Model._RematchEndTime;
+                    }                    
+                }
+                
+                <td id="tdbssj">@timeSpan</td>
+                @*<th>参赛人数：</th>
+                <td id="tdrs"></td>*@
+            </tr>
+        </table>
+
+
+    </div>
+    <div class="d_h10"></div>
+    <div class="d_yi_1">
+
+        @*<a href="javascript:GetDetail();">参赛者信息</a>*@
+        <a href="javascript:GetScore();">成绩信息</a>
+        <a href="javascript:GetStatistic();">相关统计</a>
+        <div class="clear"></div>
+    </div>
+
+
+    <div class="d_yi_2">
+
+        @*<div class="d_yi_3">
+                <div class="d_yonghu2_1s">
+                    <span>用户类型：</span>
+                    <select id="cmbIsPageRegistration">
+                            <option>全部</option>
+                            <option value="0">普通用户</option>
+                            <option value="1">注册用户</option>
+                        </select><input class="btn btn-small btn-blue ml10" type="button" id="btnExport" onclick="ExportInMatchUsers();" value="导 出">
+                    <input onclick="GetDetail();" src="@Url.Content("~/Content/images/d_xin/chaxun.png")" type="image">
+
+                    <input name="" id="txtSearchContent" type="text" placeholder="请输入需要查询的内容">
+
+                    <div class="clear"></div>
+                </div>
+                <div class="d_h10"></div>
+                <div class="d_yonghu2_2">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>姓名</th>
+                                <th>身份证号码</th>
+                                <th>省份</th>
+                                <th>城市</th>
+                                <th>学校</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbUserScoreList"></tbody>
+                    </table>
+
+                </div>
+                <div class="d_h10"></div>
+                <div class="page" id="UserScorePages"></div>
+            </div>*@
+        <div class="d_yi_3">
+            <div class="d_yonghu2_1s">
+                @*<span>用户类型：</span>
+                    <select id="cmbIsPageRegistration2">
+                        <option>全部</option>
+                        <option value="0">普通用户</option>
+                        <option value="1">注册用户</option>
+                    </select><input class="btn btn-small btn-blue ml10" type="button" id="btnExport2" onclick="ExportInMatchUserScore();" value="导 出">*@
+                <input onclick="GetScore()" src="@Url.Content("~/Content/images/d_xin/chaxun.png")" type="image">
+                <input name="" id="txtSearchContent2" maxlength="20" type="text" placeholder="请输入需要查询的内容">
+                <div class="clear"></div>
+            </div>
+            <div class="d_h10"></div>
+            <div class="d_yonghu2_2">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" id="tbScore">
+                    @*<thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>姓名</th>
+                            <th>省份</th>
+                            <th>城市</th>
+                            <th>学校</th>
+                            <th>分院</th>
+                            <th>初赛成绩</th>
+                            <th>复赛成绩</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbScore"></tbody>*@
+                </table>
+
+            </div>
+            <div class="d_h10"></div>
+            <div class="page" id="ScorePages"></div>
+        </div>
+        <div class="d_yi_3">
+            <div class="d_tongji_2" id="container" style="width: 460px; height: 353px;">
+            </div>
+            @*<div class="d_tongji_3">
+                    <div class="d_tongji_2_1">
+                        报名成功，是否参赛人员比例
+                    </div>
+                    <img src="@Url.Content("~/Content/images/d_xin/222.png")" width="320" height="179">
+                </div>*@
+            <div class="d_tongji_3" id="container2" style="width: 460px; height: 353px;">
+            </div>
+
+            <div class="clear"></div>
+
+            <div class="d_tongji_2_1" id="divcharts" style="width: 1020px; height: 313px; margin-top: 20px;">
+            </div>
+
+            @*<div class="d_tongji_2_1">
+                    分时在线人数统计2
+                </div>
+                <img src="@Url.Content("~/Content/images/d_xin/111.png")" width="657" height="213">*@
+        </div>
+
+    </div>
+
+</div>
+

@@ -1,0 +1,453 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Content/js/Common/ajaxfileupload.js"></script>
+<script src="@Url.Content("~/Content/js/Common/pageResourceHelper.js")"></script>
+
+<div class="conter clearfix">
+    <div class=" d_yonghu2">
+        <div class="d_yonghu3" style="display: block;">
+            <div class="d_yonghu2_1s">
+                <span class="fif-text">章节：</span>
+                <div style="width: 25%;float:left;margin-right:20px;">
+                    <select id="TheoryChapterSelect" msgname="章节" onchange="SelectChange(this)"></select>
+                </div>
+                <span class="fif-text">题型：</span>
+                <div style="width: 25%;float:left;margin-right:20px;">
+                    <select id="TheoryTypeSelect" msgname="题型" onchange="SelectChange(this)">
+                        <option value="0" text="全部">全部</option>
+                        <option value="1" text="单选">单选</option>
+                        <option value="2" text="多选">多选</option>
+                        <option value="3" text="判断">判断</option>
+                    </select>
+                </div>
+                <a href="javascript:Download();" id="importAllQues">批量导出</a>
+                <div class="clear"></div>
+            </div>
+            <div class="d_h10"></div>
+            <div class="d_yonghu2_2">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" id="playList" style="table-layout: fixed;">
+                    <thead>
+                        <tr>
+                            <th width="30" class="chkth">
+                                <input type="checkbox" id="selectAll_" onclick="SelectAll()">
+                            </th>
+                            <th width="50">题号</th>
+                            <th align="center">题干</th>
+                            <th width="120">章节</th>
+                            <th width="120">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="titleList"></tbody>
+                </table>
+                <div class="page" id="pages"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popRegistrations">
+    <div class="title">
+        <h3>批量导入</h3>
+        <span class="close" onclick="CloseImportForm()"></span>
+    </div>
+    <div class="pop-con">
+        <div class="fif-form">
+            <div class="fif-box grid-11" style="width:90%;">
+                <label class="fif-text">请选择章节：</label>
+                <div class="input">
+                    <select id="uploadSubject" style="width: 70%;" msgname="章节"></select>
+                </div>
+            </div>
+            <div class="fif-box grid-11" style="width:90%;">
+                <label class="fif-text">上传Excel文件：</label>
+                <div class="input">
+                    <div class="upload-field fr">
+                        <input class="file-field" type="file" name="HFilePath" id="HFilePath" size="28" accept=".xls">
+                        <input class="btn btn-small btn-blue" type="button" value="浏览" id="FileChoose">
+                    </div>
+                    <input style="width: 70%;" class="ipt-text" type="text" id="filePath">
+                </div>
+            </div>
+        </div>
+        <dl>
+            <dt>说明：</dt>
+            <dd>
+                <ol>
+                    <li>支持批量导入文件类型为 .xls 【Excel 97-2003 Ecxel工作簿(.xls)】</li>
+                    <li>要导入的Excel中的工作表、数据规范请参照模板Excel文件底下工作表“模板”</li>
+                    <li>从Excel表格导入题目信息需要的数据的名称依次为：'题干', '题型','答案','解析','选项A','选项B','选项C','选项D',注意先后顺序</li>
+                    <li><a class="down" href="@Url.Content("~/template/批量导入考试题目模板.xls")">点击下载</a>Excel模板文件</li>
+                </ol>
+            </dd>
+        </dl>
+    </div>
+    <div class="pop-button">
+        <input class="btn btn-small btn-blue" type="button" onclick="ImportData()" value="确定">
+        <input class="btn btn-small btn-blue" onclick="CloseImportForm()" type="button" value="取消">
+    </div>
+</div>
+
+<script type="text/javascript">
+    var type = "";
+    var intId = new arrayHelper("Id");
+    //用于存章节下的题型，搜索全部时用到
+    var listtypeid = new Array();
+    $(function () {
+
+        // 查询章节对应题型，组装listtypeid
+        SelectTitle();
+        // 根据条件获取题目
+        TitleLoading(0, 0);
+
+        // 文件选择
+        $("#FileChoose").click(function () {
+            $("#HFilePath").click();
+        });
+        // 将file的值赋值给input
+        $("#HFilePath").live("change", function () {
+            var filepath = $(this).val();
+            $("#filePath").val(filepath);
+        });
+
+
+        // 屏蔽资源空间
+        $("#filePath").attr("disabled", true);
+    });
+
+    // 下拉框的改变事件
+    function SelectChange(valu) {
+        var theoryChapter = $("#TheoryChapterSelect").val();
+        var StructType = $("#TheoryTypeSelect").val();
+        TitleLoading(theoryChapter, StructType);
+    }
+
+    // 查询章节对应题型
+    function SelectTitle() {
+        $.ajax({
+            url: "/QuestionRes/GetCharpterList",
+            async: false,
+            type: "POST",
+            data: {
+                pageIndex: 1,
+                PageSize: 50
+            },
+            success: function (data) {
+                var html = "<option value='0'  text='全部'>全部</option>";
+                $(data.Data).each(function (index, f) {
+                    html += "<option value='" + f.Id + "' text='" + f.ChapterName + "'>" + f.ChapterName + "</option>";
+                });
+                $("#TheoryChapterSelect").html(html);
+            }
+        });
+    }
+
+
+
+    // 根据条件获取题目
+    function TitleLoading(TheoryChapterId, StructType) {
+        if (!VerificationHelper.checkFrom("keywords")) {
+            return false;
+        }
+        pageHelper.Init({
+            url: "/QuestionRes/GetTheoryQuestionList",
+            type: "POST",
+            pageDiv: "#pages",
+            data:
+            {
+                StructType: StructType,
+                CharpterId: TheoryChapterId
+            },
+            bind: function (data) {
+                var strhtml = "";
+                var ChapterName = unescape($.getUrlParam("ChapterName"));
+                var AllCount = data.TotalCount;
+                //var CurQuestionCount = Number($.getUrlParam("CurQuestionCount"));
+                if (data.Data.length > 0 && data.Data[0].CollegeId == 0)
+                {
+                    $(".chkth").remove();
+                    $("#importAllQues").remove();
+                }
+                $(data.Data).each(function (index, dom) {
+                    if ($(".adreess").html() == "") {
+                        $(".adreess").html(dom.strCollege + " - " + dom.StrStructType);
+                    }
+                    var html = "";
+                    html += '<tr>';
+                    if (dom.CollegeId == 0) {
+                        //html += '<td width="30"></td>';
+                    }
+                    else {
+                        html += '<td width="30"><input type="checkbox" id="b' + dom.Id + '" tag="chk_list" default="' + dom.Id + '" onclick="SelectSome(this)"></td>';
+                    }
+                    html += '<td align="center"><div class="ellipsis" title=\"{0}\">{0}</div></td>';
+                    html += '<td align="left"><div class="ellipsis" title=\"{1}\">{1}</div></td>';
+                    html += '<td><div class="ellipsis" title=\"{6}\">{6}</div></td>';
+                    html += '<td class="operate">';
+                    html += '<a class="edit" title=\"{10}\" href="javascript:QuestionEdit({2},{8},{0},\'{9}\',{4});">{10}</a>';
+                    //html += '<a class="edit" href="javascript:DeleteTitle({2});">下载</a>';
+                    html += "</td>";
+                    html += '</tr>  ';
+
+                    strhtml += StringHelper.FormatStr(html,
+                           ((data.PageIndex - 1) * data.PageSize + index + 1),   //0 序号
+                           dom.Context,                               //1 题干
+                           dom.Id,                                    //2 题目Id
+                           dom.CharpterID,                            //3 章节Id（细分）
+                           dom.StructType,                            //4 题型
+                           dom.StrStructType,                         //5 题型字符串
+                           dom.strTheoryCharpter,                     //6 章节字符串
+                           dom.TheoryCharpter,                        //7 章节
+                           AllCount,                                  //8 总量
+                           dom.strCollege,                            //9 学校名称
+                           dom.ViewStatus == 1? "查看" : "未查看"   //10 查看状态
+                          );
+                });
+                $("#titleList").html(strhtml);
+            }
+        });
+
+    }
+
+    // 批量导入弹窗-章节列表
+    function SelectChapterId() {
+        pageResourceHelper.Init({
+            url: "/Admin/Resource/GetCharpterList",
+            type: "POST",
+            pageDiv: "#page",
+            async: false,
+            data: { PageSize: 50 },
+            bind: function (data) {
+                var html = "";
+                $(data.Data).each(function (index, dom) {
+                    html += "<option value='" + dom.Id + "' text='" + dom.ChapterName + "'>" + dom.ChapterName + "</option>";
+                });
+                $("#uploadSubject").html(html);
+
+            }
+        });
+
+    }
+
+    // 新增试题
+    function AddTitle() {
+        // 章节Id
+        var TheoryChapterId = $.getUrlParam("TheoryChapterId");
+        // 类型Id
+        var typeid = $("#TypeName").find("option:selected").val();// $("#TypeName").val();
+        var ChapterName = unescape($.getUrlParam("ChapterName"));
+        // 特殊处理
+        var typeid2 = $.getUrlParam("typeid");
+        // 题目数量
+        var CurQuestionCount = 0;
+        $.ajax({
+            url: "/Admin/Resource/GetTitleCount",
+            async: false,
+            type: "POST",
+            data: {
+                CharpterID: typeid
+            },
+            success: function (data) {
+                CurQuestionCount = data.Count;
+            }
+        });
+
+        // 获得界面题型
+        var typeName = $("#TypeName").find("option:selected").text();
+
+        switch (typeName) {
+            case "全部":
+                var str = $("#TypeName").find("option");
+                $.each(str, function (i, n) {
+                    if (i == 1) {
+                        typeid = $(n).val();
+                    }
+                });
+                window.location.href = "/Admin/Resource/QuestionDetail1?TheoryChapterId=" + TheoryChapterId + "&typeid=" + typeid + "&ChapterName=" + escape(ChapterName) + "&PaperId=0";
+                break;
+            case "单选题":
+                window.location.href = "/Admin/Resource/QuestionDetail1?TheoryChapterId=" + TheoryChapterId + "&typeid=" + typeid + "&ChapterName=" + escape(ChapterName) + "&PaperId=0";
+                break;
+            case "多选题":
+                window.location.href = "/Admin/Resource/QuestionDetail2?TheoryChapterId=" + TheoryChapterId + "&typeid=" + typeid + "&ChapterName=" + escape(ChapterName) + "&PaperId=0";
+                break;
+            case "判断题":
+                window.location.href = "/Admin/Resource/QuestionDetail3?TheoryChapterId=" + TheoryChapterId + "&typeid=" + typeid + "&ChapterName=" + escape(ChapterName) + "&PaperId=0";
+                break;
+            default:
+                break;
+        }
+    }
+
+    // 返回按钮
+    function ComeBack() {
+        window.location.href = "/Admin/Resource/QuestionLib";
+    }
+
+    // 点击“编辑”习题
+    function QuestionEdit(QuestionId, AllCount, CurCount, CollegeName, StructType) {
+        switch (StructType) {
+            case 1:
+                window.location.href = "/Admin/Resource/QuestionDetail1?QuestionId=" + QuestionId + "&AllCount=" + AllCount + "&count=" + CurCount + "&PaperId=0&CollegeName=" + escape(CollegeName) + "&StructType=" + StructType;
+                break;
+            case 2:
+                window.location.href = "/Admin/Resource/QuestionDetail2?QuestionId=" + QuestionId + "&AllCount=" + AllCount + "&count=" + CurCount + "&PaperId=0&CollegeName=" + escape(CollegeName) + "&StructType=" + StructType;
+                break;
+            case 3:
+                window.location.href = "/Admin/Resource/QuestionDetail3?QuestionId=" + QuestionId + "&AllCount=" + AllCount + "&count=" + CurCount + "&PaperId=0&CollegeName=" + escape(CollegeName) + "&StructType=" + StructType;
+                break;
+            default:
+                break;
+        }
+    }
+
+    // 全选
+    function SelectAll() {
+        if ($("#selectAll_").attr("checked") != "checked") {
+            $("#playList :checkbox").attr("checked", false);//全不选
+        } else {
+            $("#playList :checkbox").attr("checked", true);//全选
+        }
+    }
+
+    // 单个选中
+    function SelectSome(valu) {
+        var totalLength = $("input[tag='chk_list']").length;
+        var checkedLength = $("input:checked[tag='chk_list']").length;
+        if (checkedLength > 0 && totalLength == checkedLength) {
+            $("#selectAll_").attr("checked", true);
+        }
+        else if (checkedLength < totalLength) {
+            $("#selectAll_").attr("checked", false);
+        }
+    }
+
+    // 打开批量导入窗口
+    function ShowImportForm() {
+        dialogHelper.Show("popRegistrations", 756);
+
+        var curChapter = $.getUrlParam("TheoryChapterId");
+        $("#uploadSubject").val(curChapter);
+    }
+
+    // 关闭批量导入窗口
+    function CloseImportForm() {
+        dialogHelper.Close("popRegistrations");
+        $("#HFilePath").val("");
+        $("#filePath").val("");
+    }
+
+    // 批量导入
+    function ImportData() {
+        // 章节Id
+        var TheoryChapterId = $("#uploadSubject").val();
+        // 验证上传文件类型
+        var filePath = $("#HFilePath").val();
+        if (filePath.length > 0) {
+            var fileType = filePath.substring(filePath.lastIndexOf("."))
+            if (fileType.indexOf(".xls") > -1) {
+
+            } else {
+                dialogHelper.Error({ content: "只能选择xls、xlsx文件！" });
+                return;
+            }
+        } else {
+            dialogHelper.Error({ content: "请选择上传文件！" });
+            return;
+        }
+        //上传
+        $.ajaxFileUpload({
+            url: "/Admin/Resource/Import",
+            secureuri: false,
+            fileElementId: 'HFilePath',
+            dataType: 'json',
+            data:
+            {
+                TheoryChapterId: TheoryChapterId
+            },
+            success: function (data) {
+                if (data.result) {
+                    dialogHelper.Success({
+                        content: "导入成功!",
+                        success: function () {
+                            $("#HFilePath").val("");
+                            $("#filePath").val("");
+                            RefreshSuccess();
+                        },
+                        cancle: function () {
+                            $("#HFilePath").val("");
+                            $("#filePath").val("");
+                            RefreshSuccess();
+                        }
+                    });
+                } else {
+                    dialogHelper.Error({
+                        content: data.ErrMsg,
+                        success: function () {
+                            $("#UploadWin").show();
+                            $(".window-mask").show();
+                            $("#HFilePath").val("");
+                            $("#filePath").val("");
+                        }
+                    });
+                }
+            },
+            error: function (data)//服务器响应失败处理函数
+            {
+                $("#HFilePath").val("");
+                $("#filePath").val("");
+                $(".background,.progressBar").hide();
+                $("#UploadWin").hide();
+                $(".window-mask").hide();
+                dialogHelper.Error({ content: "导入题目异常！", success: function () { } });
+            }
+
+        });
+    }
+
+    // 批量导入后，刷新列表
+    function RefreshSuccess() {
+
+        dialogHelper.Close("popRegistrations");
+        //章节Id
+        var TheoryChapterId = $.getUrlParam("TheoryChapterId");
+        var typeid = $.getUrlParam("typeid");
+        type = $("#TypeName").find("option:selected").text();
+
+        TitleLoading(type, TheoryChapterId, typeid, "", listtypeid);
+    }
+
+    // 批量导出
+    function Download() {
+        var listId = new Array();
+
+        $("input[type='checkbox']").each(function () {
+            if ($(this).attr("id") == "selectAll_") {
+                return;
+            }
+
+            if ($(this).attr("checked")) {
+                listId.push($(this).attr("default"));
+            }
+        });
+
+        if (listId.length <= 0) {
+            dialogHelper.Error({
+                content: "未选中任何题目!",
+            });
+            return;
+        }
+
+        $.ajax({
+            url: "/Admin/Resource/DownloadQuestion",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            data: {
+                QuestionList: listId
+            },
+            success: function (data) {
+                location.href = data.Data;
+            }
+        });
+    }
+</script>

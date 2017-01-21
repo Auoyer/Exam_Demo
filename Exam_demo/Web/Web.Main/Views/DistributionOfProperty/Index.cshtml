@@ -1,0 +1,90 @@
+﻿@{
+    Layout = "~/Areas/CompetitionUser/Views/Shared/_LayoutSystem.cshtml";
+}
+@section PageSpecificStyleSheetIncludes {
+    <script src="~/Content/js/Data/EnumList.js"></script>
+    <script src="~/Content/js/Training/DistributionOfProperty.js"></script>
+    <style type="text/css">
+        .fif-form .input {
+            margin-left: 120px;
+        }
+    </style>
+
+}
+<div class="con-right subsystem FinancePlan" id="DistributionOfPropertyDiv">
+    <div class="main-hd">
+        <input class="btn btn-small btn-blue fr ml10" type="button" id="btnNext" value="下一步">
+        <input class="btn btn-small btn-blue fr ml10" type="button" id="btnSave" value="保 存">
+    </div>
+    <div class="main-bd add-info">
+        <div class="item-box">
+            <h2 class="title">客户家庭结构调查表</h2>
+            <input type="hidden" id="hdDistributionOfPropertyId" name="name" value="0" />
+            <input type="hidden" id="ProposalId" name="name" value="" />
+            <div class="item-con fif-form">
+                <div class="fif-box">
+                    <label class="fif-text">客户姓名：</label>
+                    <div class="input"><input class="ipt-text b-grayish IsMaxLength IsMinLength" msgname="客户姓名" maxlength="20" minlength="0" type="text" id="CustomerName" name="" readonly="readonly"></div>
+                </div>
+                <div class="fif-box" style="width:20%;">
+                    <label class="fif-text"><i class="c-red">*</i>性别：</label>
+                    <div class="input">
+                        <select id="CustomerSex" name="CustomerSex" defaultval="1" style="width:100%">
+                            <option value="1">男</option>
+                            <option value="2">女</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="fif-box" style="width:25%;">
+                    <label class="fif-text">年 龄：</label>
+                    <div class="input"><input style="width:40%;" class="ipt-text b-grayish" type="text" readonly="readonly" id="CustomerAge"><span class="ml10">岁</span></div>
+                </div>
+                <div class="fif-box">
+                    <label class="fif-text">职业：</label>
+                    <div class="input"><input class="ipt-text IsMaxLength IsMinLength" msgname="职业" maxlength="20" minlength="2" type="text" id="Position" name="Position"></div>
+                </div>
+                <div class="fif-box" style="width:25%;">
+                    <label class="fif-text"><i class="c-red">*</i>家庭成员数：</label>
+                    <div class="input"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="FamilyNum" name="FamilyNum" msgreg="请输入整数" reg="\d{0,9}" minfloat="0" maxfloat="6" msgname="家庭成员数"></div>
+                </div>
+                <div class="fif-box w100">
+                    <label class="fif-text">住址：</label>
+                    <div class="input"><input class="ipt-text  IsMaxLength IsMinLength" msgname="住址" maxlength="50" minlength="2" type="text" id="Address" name="Address"></div>
+                </div>
+            </div>
+            <div class="sib-list">
+                <div id="siblist"></div>
+                <span class="add-sib" id="Add"></span>
+            </div>
+
+        </div>
+        <div class="item b-grayish last">
+            <p class="mb10"><strong><i class="c-red">*</i>婚姻、财产状况分析</strong></p>
+            <div class="input last">
+                <textarea style="width:98%" id="SituationAnalysis" class="IsRequired IsMaxLength" maxlength="500" msgname="婚姻、财产状况分析"></textarea>
+            </div>
+        </div>
+        <div class="item b-aqua">
+            <div class="fif-form fif-form3 grid-6 fr">
+                <div class="fif-box w100" style="margin-bottom: 0px;width:100%;">
+                    <label class="fif-text textl" style="width:150px;"><i class="c-red">*</i>财产分配规划工具选择：</label>
+                    <div class="input ml120">
+                        <select id="PlanTool" defaultval="0" class="IsRequired" msgname="财产分配规划工具">
+                            <option value="0">请选择</option>
+                            <option value="1">公证</option>
+                            <option value="2">信托</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item b-grayish last">
+            <p class="mb10"><strong><i class="c-red">*</i>财产分配规划分析</strong></p>
+            <div class="input last">
+                <textarea style="width:98%" id="PlanAnalysis" class="IsRequired IsMaxLength IsMinLength" minlength="2" maxlength="500" msgname="财产分配规划分析"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+

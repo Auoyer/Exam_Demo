@@ -1,0 +1,924 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{375B13D9-E680-44AB-B4AC-56A8226E480F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Web</RootNamespace>
+    <AssemblyName>Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DotNet.Utilities">
+      <HintPath>..\..\Lib\Dll\DotNet.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.0.0.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EPPlus.4.0.5\lib\net20\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\..\Lib\Dll\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.JScript" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Common, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\FreeStack.Redis.4.3.6\lib\ServiceStack.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\FreeStack.Redis.4.3.6\lib\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Redis, Version=4.2.0.30555, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\FreeStack.Redis.4.3.6\lib\ServiceStack.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\FreeStack.Redis.4.3.6\lib\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="Synvata.MsOfficeFileGenerator">
+      <HintPath>..\..\packages\Synvata.MsOfficeFileGenerator.0.8.5298.25628\lib\net45\Synvata.MsOfficeFileGenerator.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="VerifySerialNumber">
+      <HintPath>..\..\Lib\Dll\VerifySerialNumber.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="404.html" />
+    <Content Include="bin\Aspose.Cells.dll" />
+    <Content Include="bin\Aspose.Slides.dll" />
+    <Content Include="bin\Aspose.Words.dll" />
+    <Content Include="bin\EmitMapper.dll" />
+    <Content Include="bin\Exam.API.dll" />
+    <Content Include="bin\log4net.dll" />
+    <Content Include="bin\NPOI.dll" />
+    <Content Include="bin\Resource.API.dll" />
+    <Content Include="bin\Server.Factory.dll" />
+    <Content Include="bin\Structure.API.dll" />
+    <Content Include="bin\Training.API.dll" />
+    <Content Include="bin\Utils.dll" />
+    <Content Include="bin\VM.dll" />
+    <Content Include="Content\css\custom.css" />
+    <Content Include="Content\css\general.css" />
+    <Content Include="Content\css\login.css" />
+    <Content Include="Content\css\popup.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\DatePicker\calendar.js" />
+    <Content Include="Content\DatePicker\lang\en.js" />
+    <Content Include="Content\DatePicker\lang\zh-cn.js" />
+    <Content Include="Content\DatePicker\lang\zh-tw.js" />
+    <Content Include="Content\DatePicker\skin\datePicker.gif" />
+    <Content Include="Content\DatePicker\skin\default\datepicker.css" />
+    <Content Include="Content\DatePicker\skin\default\img.gif" />
+    <Content Include="Content\DatePicker\skin\WdatePicker.css" />
+    <Content Include="Content\DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Content\DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Content\DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Content\DatePicker\WdatePicker.js" />
+    <Content Include="Content\FlashReader\expressInstall.swf" />
+    <Content Include="Content\FlashReader\player.js" />
+    <Content Include="Content\FlashReader\ReaderSkin.swf" />
+    <Content Include="Content\FlashReader\swfobject.js" />
+    <Content Include="Content\FlashReader\TextReader.swf" />
+    <Content Include="Content\FlashReader\yiSkin.swf" />
+    <Content Include="Content\fullcalendar\fullcalendar.css" />
+    <Content Include="Content\fullcalendar\fullcalendar.js" />
+    <Content Include="Content\fullcalendar\fullcalendar.min.css" />
+    <Content Include="Content\fullcalendar\fullcalendar.min.js" />
+    <Content Include="Content\fullcalendar\fullcalendar.print.css" />
+    <Content Include="Content\fullcalendar\gcal.js" />
+    <Content Include="Content\fullcalendar\lang-all.js" />
+    <Content Include="Content\fullcalendar\lang\zh-cn.js" />
+    <Content Include="Content\fullcalendar\lib\cupertino\images\animated-overlay.gif" />
+    <Content Include="Content\fullcalendar\lib\cupertino\images\ui-bg_diagonals-thick_90_eeeeee_40x40.png" />
+    <Content Include="Content\fullcalendar\lib\cupertino\images\ui-bg_flat_15_cd0a0a_40x100.png" />
+    <Content Include="Content\fullcalendar\lib\cupertino\images\ui-bg_glass_100_e4f1fb_1x400.png" />
+    <Content Include="Content\fullcalendar\lib\cupertino\images\ui-bg_glass_50_3baae3_1x400.png" />
+    <Content Include="Content\fullcalendar\lib\cupertino\images\ui-bg_glass_80_d7ebf9_1x400.png" />
+    <Content Include="Content\fullcalendar\lib\cupertino\images\ui-bg_highlight-hard_100_f2f5f7_1x100.png" />
+    <Content Include="Content\fullcalendar\lib\cupertino\images\ui-bg_highlight-hard_70_000000_1x100.png" />
+    <Content Include="Content\fullcalendar\lib\cupertino\images\ui-bg_highlight-soft_100_deedf7_1x100.png" />
+    <Content Include="Content\fullcalendar\lib\cupertino\images\ui-bg_highlight-soft_25_ffef8f_1x100.png" />
+    <Content Include="Content\fullcalendar\lib\cupertino\images\ui-icons_2694e8_256x240.png" />
+    <Content Include="Content\fullcalendar\lib\cupertino\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\fullcalendar\lib\cupertino\images\ui-icons_3d80b3_256x240.png" />
+    <Content Include="Content\fullcalendar\lib\cupertino\images\ui-icons_72a7cf_256x240.png" />
+    <Content Include="Content\fullcalendar\lib\cupertino\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\fullcalendar\lib\cupertino\jquery-ui.min.css" />
+    <Content Include="Content\fullcalendar\lib\jquery-ui.custom.min.js" />
+    <Content Include="Content\fullcalendar\lib\jquery.min.js" />
+    <Content Include="Content\fullcalendar\lib\moment.min.js" />
+    <Content Include="Content\images\admin-icon.png" />
+    <Content Include="Content\images\avi-icon.png" />
+    <Content Include="Content\images\bias.png" />
+    <Content Include="Content\images\choose2.gif" />
+    <Content Include="Content\images\close.png" />
+    <Content Include="Content\images\Cover1.jpg" />
+    <Content Include="Content\images\Cover2.jpg" />
+    <Content Include="Content\images\CustomerCount.jpg" />
+    <Content Include="Content\images\dlbj_bg.jpg" />
+    <Content Include="Content\images\d_xin1\11.png" />
+    <Content Include="Content\images\d_xin1\11_r2_c2.png" />
+    <Content Include="Content\images\d_xin1\12.png" />
+    <Content Include="Content\images\d_xin1\12_r2_c2.png" />
+    <Content Include="Content\images\d_xin1\13_r2_c2.png" />
+    <Content Include="Content\images\d_xin1\13_r4_c2.png" />
+    <Content Include="Content\images\d_xin1\13_r6_c2.png" />
+    <Content Include="Content\images\d_xin1\a1.png" />
+    <Content Include="Content\images\d_xin1\a2.png" />
+    <Content Include="Content\images\d_xin1\banner01.jpg" />
+    <Content Include="Content\images\d_xin1\banner02.jpg" />
+    <Content Include="Content\images\d_xin1\banner03.jpg" />
+    <Content Include="Content\images\d_xin1\bannerbtn.png" />
+    <Content Include="Content\images\d_xin1\banse.png" />
+    <Content Include="Content\images\d_xin1\beij.png" />
+    <Content Include="Content\images\d_xin1\beij2.png" />
+    <Content Include="Content\images\d_xin1\bg.png" />
+    <Content Include="Content\images\d_xin1\chaxun.png" />
+    <Content Include="Content\images\d_xin1\dasaigonggao.png" />
+    <Content Include="Content\images\d_xin1\dasaijieshao.png" />
+    <Content Include="Content\images\d_xin1\erweima.png" />
+    <Content Include="Content\images\d_xin1\footbg.png" />
+    <Content Include="Content\images\d_xin1\gdmsbg.png" />
+    <Content Include="Content\images\d_xin1\huodongricheng.png" />
+    <Content Include="Content\images\d_xin1\left.png" />
+    <Content Include="Content\images\d_xin1\lerk.png" />
+    <Content Include="Content\images\d_xin1\login.png" />
+    <Content Include="Content\images\d_xin1\logo2.png" />
+    <Content Include="Content\images\d_xin1\logo3.png" />
+    <Content Include="Content\images\d_xin1\logo4.png" />
+    <Content Include="Content\images\d_xin1\nav.png" />
+    <Content Include="Content\images\d_xin1\nav_h.png" />
+    <Content Include="Content\images\d_xin1\news1.png" />
+    <Content Include="Content\images\d_xin1\ren.png" />
+    <Content Include="Content\images\d_xin1\right.png" />
+    <Content Include="Content\images\d_xin1\rontyubang.png" />
+    <Content Include="Content\images\d_xin1\sd.png" />
+    <Content Include="Content\images\d_xin1\sss.png" />
+    <Content Include="Content\images\d_xin1\suo.png" />
+    <Content Include="Content\images\d_xin1\top.png" />
+    <Content Include="Content\images\d_xin1\xiaobei.png" />
+    <Content Include="Content\images\d_xin1\yuan.png" />
+    <Content Include="Content\images\d_xin1\zhuanjia.png" />
+    <Content Include="Content\images\d_xin\111.png" />
+    <Content Include="Content\images\d_xin\222.png" />
+    <Content Include="Content\images\d_xin\add.png" />
+    <Content Include="Content\images\d_xin\bg.png" />
+    <Content Include="Content\images\d_xin\ca.png" />
+    <Content Include="Content\images\d_xin\cha.png" />
+    <Content Include="Content\images\d_xin\cha1.png" />
+    <Content Include="Content\images\d_xin\cha1s.png" />
+    <Content Include="Content\images\d_xin\chas.png" />
+    <Content Include="Content\images\d_xin\chaxun.png" />
+    <Content Include="Content\images\d_xin\close.png" />
+    <Content Include="Content\images\d_xin\close1.png" />
+    <Content Include="Content\images\d_xin\daojishi.png" />
+    <Content Include="Content\images\d_xin\deng.png" />
+    <Content Include="Content\images\d_xin\deng_h.png" />
+    <Content Include="Content\images\d_xin\diu.png" />
+    <Content Include="Content\images\d_xin\dtianjia.png" />
+    <Content Include="Content\images\d_xin\dui.png" />
+    <Content Include="Content\images\d_xin\d_index1.png" />
+    <Content Include="Content\images\d_xin\d_is.png" />
+    <Content Include="Content\images\d_xin\d_j1.png" />
+    <Content Include="Content\images\d_xin\d_j2.png" />
+    <Content Include="Content\images\d_xin\d_j3.png" />
+    <Content Include="Content\images\d_xin\d_j4.png" />
+    <Content Include="Content\images\d_xin\d_j5.png" />
+    <Content Include="Content\images\d_xin\d_j6.png" />
+    <Content Include="Content\images\d_xin\d_jin.png" />
+    <Content Include="Content\images\d_xin\d_jin1.png" />
+    <Content Include="Content\images\d_xin\d_jins.png" />
+    <Content Include="Content\images\d_xin\d_lan1.png" />
+    <Content Include="Content\images\d_xin\d_left1.png" />
+    <Content Include="Content\images\d_xin\d_queren.png" />
+    <Content Include="Content\images\d_xin\d_quxiao.png" />
+    <Content Include="Content\images\d_xin\d_right1s.png" />
+    <Content Include="Content\images\d_xin\d_shanchu.png" />
+    <Content Include="Content\images\d_xin\d_tou.png" />
+    <Content Include="Content\images\d_xin\d_yuan1.png" />
+    <Content Include="Content\images\d_xin\first.png" />
+    <Content Include="Content\images\d_xin\first_h.png" />
+    <Content Include="Content\images\d_xin\gantan.png" />
+    <Content Include="Content\images\d_xin\headbg.png" />
+    <Content Include="Content\images\d_xin\home1.png" />
+    <Content Include="Content\images\d_xin\home2.png" />
+    <Content Include="Content\images\d_xin\home3.png" />
+    <Content Include="Content\images\d_xin\home4.png" />
+    <Content Include="Content\images\d_xin\home5.png" />
+    <Content Include="Content\images\d_xin\huang.png" />
+    <Content Include="Content\images\d_xin\ico2.png" />
+    <Content Include="Content\images\d_xin\jiangpin.png" />
+    <Content Include="Content\images\d_xin\jiangxiang.png" />
+    <Content Include="Content\images\d_xin\jin_1.png" />
+    <Content Include="Content\images\d_xin\jin_2.png" />
+    <Content Include="Content\images\d_xin\lan.png" />
+    <Content Include="Content\images\d_xin\lan1.png" />
+    <Content Include="Content\images\d_xin\last.png" />
+    <Content Include="Content\images\d_xin\last_h.png" />
+    <Content Include="Content\images\d_xin\left_nav.png" />
+    <Content Include="Content\images\d_xin\left_nav_h.png" />
+    <Content Include="Content\images\d_xin\liulan.png" />
+    <Content Include="Content\images\d_xin\login_logo.png" />
+    <Content Include="Content\images\d_xin\logo.png" />
+    <Content Include="Content\images\d_xin\logo2.png" />
+    <Content Include="Content\images\d_xin\logo3.png" />
+    <Content Include="Content\images\d_xin\logo4.png" />
+    <Content Include="Content\images\d_xin\l_bg.png" />
+    <Content Include="Content\images\d_xin\l_dbg.png" />
+    <Content Include="Content\images\d_xin\nevr.png" />
+    <Content Include="Content\images\d_xin\nevr_h.png" />
+    <Content Include="Content\images\d_xin\next.png" />
+    <Content Include="Content\images\d_xin\next_h.png" />
+    <Content Include="Content\images\d_xin\noguide.jpg" />
+    <Content Include="Content\images\d_xin\player.jpg" />
+    <Content Include="Content\images\d_xin\playericon.png" />
+    <Content Include="Content\images\d_xin\ppt.png" />
+    <Content Include="Content\images\d_xin\quxiao.png" />
+    <Content Include="Content\images\d_xin\righ3.png" />
+    <Content Include="Content\images\d_xin\right1.png" />
+    <Content Include="Content\images\d_xin\right2.png" />
+    <Content Include="Content\images\d_xin\riqi.png" />
+    <Content Include="Content\images\d_xin\se1.png" />
+    <Content Include="Content\images\d_xin\se1s.png" />
+    <Content Include="Content\images\d_xin\se2.png" />
+    <Content Include="Content\images\d_xin\se2s.png" />
+    <Content Include="Content\images\d_xin\shangchuang.png" />
+    <Content Include="Content\images\d_xin\shangchuang1.png" />
+    <Content Include="Content\images\d_xin\shijuan.png" />
+    <Content Include="Content\images\d_xin\tanmu.png" />
+    <Content Include="Content\images\d_xin\tijiao.png" />
+    <Content Include="Content\images\d_xin\top.png" />
+    <Content Include="Content\images\d_xin\word.png" />
+    <Content Include="Content\images\d_xin\xuanze .png" />
+    <Content Include="Content\images\d_xin\zhinan.png" />
+    <Content Include="Content\images\effigy.jpg" />
+    <Content Include="Content\images\excel-icon.png" />
+    <Content Include="Content\images\flow_line.jpg" />
+    <Content Include="Content\images\HomeImage.png" />
+    <Content Include="Content\images\huang.png" />
+    <Content Include="Content\images\ico1.gif" />
+    <Content Include="Content\images\ico1.png" />
+    <Content Include="Content\images\ico2.gif" />
+    <Content Include="Content\images\ico2.png" />
+    <Content Include="Content\images\ico3.gif" />
+    <Content Include="Content\images\ico3.png" />
+    <Content Include="Content\images\icon.png" />
+    <Content Include="Content\images\icon01.png" />
+    <Content Include="Content\images\icon02.png" />
+    <Content Include="Content\images\icon03.png" />
+    <Content Include="Content\images\icon04.png" />
+    <Content Include="Content\images\icon05.png" />
+    <Content Include="Content\images\icon06.png" />
+    <Content Include="Content\images\icon09.png" />
+    <Content Include="Content\images\ico_add.png" />
+    <Content Include="Content\images\ico_info.png" />
+    <Content Include="Content\images\ico_sort.png" />
+    <Content Include="Content\images\ico_tips.png" />
+    <Content Include="Content\images\img01.jpg" />
+    <Content Include="Content\images\img02.jpg" />
+    <Content Include="Content\images\img03.jpg" />
+    <Content Include="Content\images\Knowledge01.jpg" />
+    <Content Include="Content\images\Knowledge02.jpg" />
+    <Content Include="Content\images\Knowledge03.jpg" />
+    <Content Include="Content\images\Knowledge04.jpg" />
+    <Content Include="Content\images\Knowledge05.jpg" />
+    <Content Include="Content\images\Knowledge06.jpg" />
+    <Content Include="Content\images\loading.gif" />
+    <Content Include="Content\images\login\bg.jpg" />
+    <Content Include="Content\images\login\head_bg.jpg" />
+    <Content Include="Content\images\login\icon.png" />
+    <Content Include="Content\images\login\img.png" />
+    <Content Include="Content\images\login\login_bg.png" />
+    <Content Include="Content\images\login\logo.png" />
+    <Content Include="Content\images\login\logo2.png" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\map.png" />
+    <Content Include="Content\images\pdf-icon.png" />
+    <Content Include="Content\images\picture-icon.png" />
+    <Content Include="Content\images\Picture.png" />
+    <Content Include="Content\images\pop_close.png" />
+    <Content Include="Content\images\ppt-icon.png" />
+    <Content Include="Content\images\resouce01.jpg" />
+    <Content Include="Content\images\resouce02.jpg" />
+    <Content Include="Content\images\resouce03.jpg" />
+    <Content Include="Content\images\resouce04.jpg" />
+    <Content Include="Content\images\ScoreBackMap.jpg" />
+    <Content Include="Content\images\sprite.png" />
+    <Content Include="Content\images\statistics_img1.jpg" />
+    <Content Include="Content\images\statistics_img2.jpg" />
+    <Content Include="Content\images\statistics_img3.jpg" />
+    <Content Include="Content\images\student-icon.png" />
+    <Content Include="Content\images\tab_jt.png" />
+    <Content Include="Content\images\teacher-icon.png" />
+    <Content Include="Content\images\test_tit_bg.png" />
+    <Content Include="Content\images\test_tit_bg2.jpg" />
+    <Content Include="Content\images\text-icon.png" />
+    <Content Include="Content\images\text-icon1.jpg" />
+    <Content Include="Content\images\text-icon2.jpg" />
+    <Content Include="Content\images\text-icon3.jpg" />
+    <Content Include="Content\images\text-icon4.jpg" />
+    <Content Include="Content\images\top_bg.jpg" />
+    <Content Include="Content\images\u237.png" />
+    <Content Include="Content\images\upload2.jpg" />
+    <Content Include="Content\images\user_ico.png" />
+    <Content Include="Content\images\user_line.png" />
+    <Content Include="Content\images\word-icon.png" />
+    <Content Include="Content\images\zip-icon.png" />
+    <Content Include="Content\images\zip.png" />
+    <Content Include="Content\js\Common\ajaxfileupload.js" />
+    <Content Include="Content\js\Common\ajaxHelper.js" />
+    <Content Include="Content\js\Common\arrayHelper.js" />
+    <Content Include="Content\js\Common\base64Helper.js" />
+    <Content Include="Content\js\Common\CalcHelper.js" />
+    <Content Include="Content\js\Common\ChildSelectEnumHelper.js" />
+    <Content Include="Content\js\Common\common.js" />
+    <Content Include="Content\js\Common\DateHelper.js" />
+    <Content Include="Content\js\Common\DateLib.js" />
+    <Content Include="Content\js\Common\decimal.js" />
+    <Content Include="Content\js\Common\dialog.js" />
+    <Content Include="Content\js\Common\highcharts.js" />
+    <Content Include="Content\js\Common\html2canvas.js" />
+    <Content Include="Content\js\Common\jquery.KinSlideshow-1.2.1.min.js" />
+    <Content Include="Content\js\Common\jquery.PrintArea.js" />
+    <Content Include="Content\js\Common\jquery.SuperSlide.2.1.1.js" />
+    <Content Include="Content\js\Common\LodopFuncs.js" />
+    <Content Include="Content\js\Common\main.js" />
+    <Content Include="Content\js\Common\numHelper.js" />
+    <Content Include="Content\js\Common\pageResourceHelper.js" />
+    <Content Include="Content\js\CompetitionAdmin\Activity.js" />
+    <Content Include="Content\js\CompetitionAdmin\Award.js" />
+    <Content Include="Content\js\CompetitionAdmin\ComAdminStatistic.js" />
+    <Content Include="Content\js\CompetitionAdmin\competitionDescription.js" />
+    <Content Include="Content\js\CompetitionAdmin\DoExam.js" />
+    <Content Include="Content\js\CompetitionAdmin\HomePage.js" />
+    <Content Include="Content\js\CompetitionAdmin\News.js" />
+    <Content Include="Content\js\CompetitionUser\CaseEdit.js" />
+    <Content Include="Content\js\CompetitionUser\CaseList.js" />
+    <Content Include="Content\js\CompetitionUser\CreateMatch.js" />
+    <Content Include="Content\js\CompetitionUser\Detail.js" />
+    <Content Include="Content\js\CompetitionUser\DoExam.js" />
+    <Content Include="Content\js\CompetitionUser\Index.js" />
+    <Content Include="Content\js\CompetitionUser\judge.js" />
+    <Content Include="Content\js\CompetitionUser\Match.js" />
+    <Content Include="Content\js\CompetitionUser\MatchContentView.js" />
+    <Content Include="Content\js\CompetitionUser\MatchEdit.js" />
+    <Content Include="Content\js\CompetitionUser\QuestionBankAdd.js" />
+    <Content Include="Content\js\CompetitionUser\SelectJudge.js" />
+    <Content Include="Content\js\CompetitionUser\Statistic.js" />
+    <Content Include="Content\js\CompetitionUser\user.js" />
+    <Content Include="Content\js\CompetitionUser\UserSet.js" />
+    <Content Include="Content\js\CompetitionAdmin\MatchContentView.js" />
+    <Content Include="Content\js\CompetitionAdmin\AddTrainExam.js" />
+    <Content Include="Content\js\CompetitionAdmin\CaseList.js" />
+    <Content Include="Content\js\CompetitionAdmin\CaseEdit.js" />
+    <Content Include="Content\js\CompetitionAdmin\CreateMatch.js" />
+    <Content Include="Content\js\CompetitionAdmin\Detail.js" />
+    <Content Include="Content\js\CompetitionAdmin\Index.js" />
+    <Content Include="Content\js\CompetitionAdmin\judge.js" />
+    <Content Include="Content\js\CompetitionAdmin\popQuestionBankAdd1.js" />
+    <Content Include="Content\js\CompetitionAdmin\QuestionBankAdd.js" />
+    <Content Include="Content\js\CompetitionAdmin\Match.js" />
+    <Content Include="Content\js\CompetitionAdmin\MatchEdit.js" />
+    <Content Include="Content\js\CompetitionAdmin\UserSet.js" />
+    <Content Include="Content\js\CompetitionAdmin\SelectJudge.js" />
+    <Content Include="Content\js\CompetitionAdmin\user.js" />
+    <Content Include="Content\js\CompetitionAdmin\TestPapers.js" />
+    <Content Include="Content\js\Judges\BankDeposits.js" />
+    <Content Include="Content\js\Judges\FundProduct.Detail.js" />
+    <Content Include="Content\js\Judges\FundProduct.js" />
+    <Content Include="Content\js\Judges\Index.js" />
+    <Content Include="Content\js\Judges\Match.js" />
+    <Content Include="Content\js\Judges\P2PProduceIndex.js" />
+    <Content Include="Content\js\Judges\PreviewIndex.js" />
+    <Content Include="Content\js\Judges\Statistic.js" />
+    <Content Include="Content\js\SuperAdmin\CaseList.js" />
+    <Content Include="Content\js\SuperAdmin\CaseView.js" />
+    <Content Include="Content\js\SuperAdmin\DoExam.js" />
+    <Content Include="Content\js\SuperAdmin\MatchContentView.js" />
+    <Content Include="Content\js\SuperAdmin\QuestionBankAdd.js" />
+    <Content Include="Content\js\SuperAdmin\QuestionLib.js" />
+    <Content Include="Content\js\Training\DoExam.js" />
+    <Content Include="Content\js\Training\FundProduct.Detail.js" />
+    <Content Include="Content\js\Training\FundProduct.js" />
+    <Content Include="Content\js\Common\selectHelper.js" />
+    <Content Include="Content\js\Common\StringHelper.js" />
+    <Content Include="Content\js\Common\UserTimeHelper.js" />
+    <Content Include="Content\js\Common\VerificationHelper.js" />
+    <Content Include="Content\js\Data\ControlTable.js" />
+    <Content Include="Content\js\Data\EnumList.js" />
+    <Content Include="Content\js\Common\dialogHelper.js" />
+    <Content Include="Content\js\Common\pageHelper.js" />
+    <Content Include="Content\js\Data\msgList.js" />
+    <Content Include="Content\js\Common\jquery-1.7.2.min.js" />
+    <Content Include="Content\js\Training\Assessment.js" />
+    <Content Include="Content\js\Training\BankDeposits.js" />
+    <Content Include="Content\js\Training\CashFlow.js" />
+    <Content Include="Content\js\Training\CashPlan.js" />
+    <Content Include="Content\js\Training\ConsumptionPlan.js" />
+    <Content Include="Content\js\Training\DistributionOfProperty.js" />
+    <Content Include="Content\js\Training\EvaluationResult.js" />
+    <Content Include="Content\js\Training\FinancialCalc.js" />
+    <Content Include="Content\js\Training\FinancialRatios.js" />
+    <Content Include="Content\js\Training\Heritage.js" />
+    <Content Include="Content\js\Training\IncomeAndExpenses.js" />
+    <Content Include="Content\js\Training\InsurancePlan.js" />
+    <Content Include="Content\js\Training\InvestmentPlan.js" />
+    <Content Include="Content\js\Training\Knowledge.js" />
+    <Content Include="Content\js\Training\Liability.js" />
+    <Content Include="Content\js\Training\LifeEducationPlan.js" />
+    <Content Include="Content\js\Training\P2PProduceIndex.js" />
+    <Content Include="Content\js\Training\PreviewIndex.js" />
+    <Content Include="Content\js\Training\Proposal.js" />
+    <Content Include="Content\js\Training\ProposalCustomer.js" />
+    <Content Include="Content\js\Training\RetirementPlan.js" />
+    <Content Include="Content\js\Training\RiskEvaluation.js" />
+    <Content Include="Content\js\Training\StartAnUndertakingPlan.js" />
+    <Content Include="Content\js\Training\TaxPlan.js" />
+    <Content Include="Content\mini\CompetitionUserHomeCss.css" />
+    <Content Include="Content\mini\CompetitionUserHomeIndex.js" />
+    <Content Include="Content\mini\Layout.js" />
+    <Content Include="Content\province\city.js" />
+    <Content Include="Content\province\city.xml" />
+    <Content Include="Content\SWFTools\pdf2swf.exe" />
+    <Content Include="Content\SWFTools\rfxview.swf" />
+    <Content Include="Content\SWFTools\swfcombine.exe" />
+    <Content Include="Content\SWFTools\swfrender.exe" />
+    <Content Include="crossdomain.xml" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\js\Common\jquery.cookie.js" />
+    <Content Include="Content\js\Common\json2.min.js" />
+    <Content Include="ImgUploadFiles\201605\20160500105800.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160501115501.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160501195901.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160502114602.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160502172702.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160502175902.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160503154603.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160504171704.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160505112105.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160506105006.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160506105406.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160506120006.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160507103207.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160507105907.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160507114607.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160507152607.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160508151008.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160508175908.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160508180708.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160510104810.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160510164110.png" />
+    <Content Include="ImgUploadFiles\201605\20160510195810.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160511172811.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160512104212.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160512180312.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160514112014.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160514152514.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160514175014.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160515175915.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160515200215.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160516104916.png" />
+    <Content Include="ImgUploadFiles\201605\20160516171316.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160518162118.png" />
+    <Content Include="ImgUploadFiles\201605\20160518172318.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160519105319.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160519195619.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160520150020.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160520172520.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160521103421.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160521104821.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160521150821.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160522104622.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160523103623.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160523114223.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160523150723.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160523175923.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160524112024.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160524172724.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160524180124.png" />
+    <Content Include="ImgUploadFiles\201605\20160525121025.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160526111726.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160526175026.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160527095527.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160527104827.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160527104927.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160527120427.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160527180727.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160527195827.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160528121128.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160528171528.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160529095929.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160529103929.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160529145729.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160530105830.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160530112930.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160530115030.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160530115130.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160530152130.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160530161430.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160530175230.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160532110632.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160534111534.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160534175934.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160536105336.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160536112036.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160536115336.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160536154236.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160536171236.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160537115137.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160538172538.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160539104339.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160539150439.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160539195739.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160540112940.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160540140940.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160542150542.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160542175842.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160543110343.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160543110443.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160543111443.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160543111743.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160543171143.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160544100144.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160544111644.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160544172044.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160545095645.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160545110045.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160545180645.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160546100346.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160546105846.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160546114546.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160546114746.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160546150346.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160546175646.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160547112847.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160547164047.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160547172747.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160547175047.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160548121048.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160549104849.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160550111850.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160550115650.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160550154150.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160550154150.png" />
+    <Content Include="ImgUploadFiles\201605\20160551145751.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160551173551.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160552132652.png" />
+    <Content Include="ImgUploadFiles\201605\20160552171652.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160554105554.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160554114654.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160554172754.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160555145255.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160555152455.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160555173255.png" />
+    <Content Include="ImgUploadFiles\201605\20160556150456.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160556180156.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160557152557.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160558164058.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160558173158.png" />
+    <Content Include="ImgUploadFiles\201605\20160559114859.jpg" />
+    <Content Include="ImgUploadFiles\201605\20160559154159.jpg" />
+    <Content Include="AjaxMin\task.ajaxmin" />
+    <Content Include="AjaxMin\AjaxMin.targets" />
+    <Content Include="AjaxMin\AjaxMin.tasks" />
+    <Content Include="AjaxMin\AjaxMinTask.targets" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="UploadFiles\201510\20151000100200.jpg" />
+    <Content Include="UploadFiles\201510\20151000100200.swf" />
+    <Content Include="UploadFiles\201510\20151002100102.jpg" />
+    <Content Include="UploadFiles\201510\20151002100102.swf" />
+    <Content Include="UploadFiles\201510\20151007100407.jpg" />
+    <Content Include="UploadFiles\201510\20151007100407.swf" />
+    <Content Include="UploadFiles\201510\20151008101908.jpg" />
+    <Content Include="UploadFiles\201510\20151008101908.swf" />
+    <Content Include="UploadFiles\201510\20151009101409.jpg" />
+    <Content Include="UploadFiles\201510\20151009101409.swf" />
+    <Content Include="UploadFiles\201510\20151011101611.jpg" />
+    <Content Include="UploadFiles\201510\20151011101611.swf" />
+    <Content Include="UploadFiles\201510\20151011101711.jpg" />
+    <Content Include="UploadFiles\201510\20151011101711.swf" />
+    <Content Include="UploadFiles\201510\20151016101516.jpg" />
+    <Content Include="UploadFiles\201510\20151016101516.swf" />
+    <Content Include="UploadFiles\201510\20151016101816.jpg" />
+    <Content Include="UploadFiles\201510\20151016101816.swf" />
+    <Content Include="UploadFiles\201510\20151021101421.jpg" />
+    <Content Include="UploadFiles\201510\20151021101421.swf" />
+    <Content Include="UploadFiles\201510\20151021101921.jpg" />
+    <Content Include="UploadFiles\201510\20151021101921.swf" />
+    <Content Include="UploadFiles\201510\20151025101725.jpg" />
+    <Content Include="UploadFiles\201510\20151025101725.swf" />
+    <Content Include="UploadFiles\201510\20151032101632.jpg" />
+    <Content Include="UploadFiles\201510\20151032101632.swf" />
+    <Content Include="UploadFiles\201510\20151034101534.jpg" />
+    <Content Include="UploadFiles\201510\20151034101534.swf" />
+    <Content Include="UploadFiles\201510\20151035090135.jpg" />
+    <Content Include="UploadFiles\201510\20151035090135.swf" />
+    <Content Include="UploadFiles\201510\20151035095935.jpg" />
+    <Content Include="UploadFiles\201510\20151035095935.swf" />
+    <Content Include="UploadFiles\201510\20151037100537.jpg" />
+    <Content Include="UploadFiles\201510\20151037100537.swf" />
+    <Content Include="UploadFiles\201510\20151037101837.jpg" />
+    <Content Include="UploadFiles\201510\20151037101837.swf" />
+    <Content Include="UploadFiles\201510\20151039101439.jpg" />
+    <Content Include="UploadFiles\201510\20151039101439.swf" />
+    <Content Include="UploadFiles\201510\20151044101744.jpg" />
+    <Content Include="UploadFiles\201510\20151044101744.swf" />
+    <Content Include="UploadFiles\201510\20151048101448.jpg" />
+    <Content Include="UploadFiles\201510\20151048101448.swf" />
+    <Content Include="UploadFiles\201510\20151049101849.jpg" />
+    <Content Include="UploadFiles\201510\20151049101849.swf" />
+    <Content Include="UploadFiles\201510\20151051101651.jpg" />
+    <Content Include="UploadFiles\201510\20151051101651.swf" />
+    <Content Include="UploadFiles\201510\20151055101755.jpg" />
+    <Content Include="UploadFiles\201510\20151055101755.swf" />
+    <Content Include="UploadFiles\201510\20151057101557.jpg" />
+    <Content Include="UploadFiles\201510\20151057101557.swf" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\EheoryExamine\DoExam.cshtml" />
+    <Content Include="Views\Shared\_LayoutSystem.cshtml" />
+    <Content Include="Views\CaseExam\AddTrainExam.cshtml" />
+    <Content Include="Views\CaseExam\CaseExamList.cshtml" />
+    <Content Include="Views\CaseRes\CaseList.cshtml" />
+    <Content Include="Views\CaseRes\CaseView.cshtml" />
+    <Content Include="Views\CashFlow\Index.cshtml" />
+    <Content Include="Views\CashPlan\Index.cshtml" />
+    <Content Include="Views\ConsumptionPlan\Index.cshtml" />
+    <Content Include="Views\DistributionOfProperty\Index.cshtml" />
+    <Content Include="Views\FinancialRatios\Index.cshtml" />
+    <Content Include="Views\Heritage\Index.cshtml" />
+    <Content Include="Views\IncomeAndExpenses\Index.cshtml" />
+    <Content Include="Views\InsurancePlan\Index.cshtml" />
+    <Content Include="Views\InvestmentPlan\Index.cshtml" />
+    <Content Include="Views\Liability\Index.cshtml" />
+    <Content Include="Views\LifeEducationPlan\Index.cshtml" />
+    <Content Include="Views\ProposalCustomer\Index.cshtml" />
+    <Content Include="Views\ProposalCustomer\PreviewIndex.cshtml" />
+    <Content Include="Views\RetirementPlan\Index.cshtml" />
+    <Content Include="Views\RiskEvaluation\EvaluationResult.cshtml" />
+    <Content Include="Views\RiskEvaluation\Index.cshtml" />
+    <Content Include="Views\StartAnUndertakingPlan\Index.cshtml" />
+    <Content Include="Views\StartAnUndertakingPlan\Stock\Index.cshtml" />
+    <Content Include="Views\StatisticAlanalysis\Detail.cshtml" />
+    <Content Include="Views\StatisticAlanalysis\Index.cshtml" />
+    <Content Include="Views\TaxPlan\Index.cshtml" />
+    <Content Include="Views\QuestionRes\QuestionDetail1.cshtml" />
+    <Content Include="Views\QuestionRes\QuestionDetail2.cshtml" />
+    <Content Include="Views\QuestionRes\QuestionDetail3.cshtml" />
+    <Content Include="Views\QuestionRes\QuestionList.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\ExceptionAttribute.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BLL\AssessmentCalculationBLL.cs" />
+    <Compile Include="BLL\AutoCommit.cs" />
+    <Compile Include="BLL\CaseBLL.cs" />
+    <Compile Include="BLL\DataInit.cs" />
+    <Compile Include="BLL\ExamBLL.cs" />
+    <Compile Include="BLL\ExamCacheHelper.cs" />
+    <Compile Include="BLL\TrainingBLL.cs" />
+    <Compile Include="BLL\NumHelper.cs" />
+    <Compile Include="BLL\P2PHelper.cs" />
+    <Compile Include="BLL\ProposalBLL.cs" />
+    <Compile Include="BLL\UserTimeSummary.cs" />
+    <Compile Include="Caches\ExamCaches.cs" />
+    <Compile Include="Caches\TrainingCaches.cs" />
+    <Compile Include="Common\FileUpload\FileUpload.cs" />
+    <Compile Include="Common\FileUpload\FileUpLoadKeys.cs" />
+    <Compile Include="Common\FileUpload\PostFile.cs" />
+    <Compile Include="Common\MvcHelper.cs" />
+    <Compile Include="Common\ServerConfig.cs" />
+    <Compile Include="Common\Session\SessionKey.cs" />
+    <Compile Include="Common\Session\SessionUser.cs" />
+    <Compile Include="Common\ToJsonResult.cs" />
+    <Compile Include="Common\ValidateCode.cs" />
+    <Compile Include="Controllers\Question\EheoryExamineController.cs" />
+    <Compile Include="Controllers\Question\QuestionExamController.cs" />
+    <Compile Include="Controllers\Question\QuestionResController.cs" />
+    <Compile Include="Controllers\BankDepositsController.cs" />
+    <Compile Include="Controllers\CalculatorController.cs" />
+    <Compile Include="Controllers\CaseExamController.cs" />
+    <Compile Include="Controllers\CaseResController.cs" />
+    <Compile Include="Controllers\CashFlowController.cs" />
+    <Compile Include="Controllers\CashPlanController.cs" />
+    <Compile Include="Controllers\ConsumptionPlanController.cs" />
+    <Compile Include="Controllers\DistributionOfPropertyController.cs" />
+    <Compile Include="Controllers\FinancialRatiosController.cs" />
+    <Compile Include="Controllers\FundProductController.cs" />
+    <Compile Include="Controllers\HeritageController.cs" />
+    <Compile Include="Controllers\IncomeAndExpensesController.cs" />
+    <Compile Include="Controllers\InsurancePlanController.cs" />
+    <Compile Include="Controllers\InvestmentPlanController.cs" />
+    <Compile Include="Controllers\LiabilityController.cs" />
+    <Compile Include="Controllers\LifeEducationPlanController.cs" />
+    <Compile Include="Controllers\P2PProducetController.cs" />
+    <Compile Include="Controllers\ProposalController.cs" />
+    <Compile Include="Controllers\ProposalCustomerController.cs" />
+    <Compile Include="Controllers\RetirementPlanController.cs" />
+    <Compile Include="Controllers\RiskEvaluationController.cs" />
+    <Compile Include="Controllers\StartAnUndertakingPlanController.cs" />
+    <Compile Include="Controllers\TaxPlanController.cs" />
+    <Compile Include="Controllers\TrainExamController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="packages.config" />
+    <Content Include="Views\Shared\_PopupPartialPage.cshtml" />
+    <Content Include="template\批量导入考试题目模板.xls" />
+    <Content Include="UploadFiles\201510\20151000100200.pptx" />
+    <Content Include="UploadFiles\201510\20151002100102.pptx" />
+    <Content Include="UploadFiles\201510\20151007100407.pptx" />
+    <Content Include="UploadFiles\201510\20151008100308.pptx" />
+    <Content Include="UploadFiles\201510\20151008101908.ppt" />
+    <Content Include="UploadFiles\201510\20151009101409.pptx" />
+    <Content Include="UploadFiles\201510\20151011101611.pptx" />
+    <Content Include="UploadFiles\201510\20151011101711.pptx" />
+    <Content Include="UploadFiles\201510\20151016101516.pptx" />
+    <Content Include="UploadFiles\201510\20151016101816.pptx" />
+    <Content Include="UploadFiles\201510\20151021101421.pptx" />
+    <Content Include="UploadFiles\201510\20151021101921.ppt" />
+    <Content Include="UploadFiles\201510\20151025101725.pptx" />
+    <Content Include="UploadFiles\201510\20151032101632.pptx" />
+    <Content Include="UploadFiles\201510\20151034101534.pptx" />
+    <Content Include="UploadFiles\201510\20151035095935.pptx" />
+    <Content Include="UploadFiles\201510\20151037100537.pptx" />
+    <Content Include="UploadFiles\201510\20151037101837.ppt" />
+    <Content Include="UploadFiles\201510\20151039101439.pptx" />
+    <Content Include="UploadFiles\201510\20151043100443.pptx" />
+    <Content Include="UploadFiles\201510\20151044101744.pptx" />
+    <Content Include="UploadFiles\201510\20151048101448.pptx" />
+    <Content Include="UploadFiles\201510\20151049101849.ppt" />
+    <Content Include="UploadFiles\201510\20151051101651.pptx" />
+    <Content Include="UploadFiles\201510\20151055101755.pptx" />
+    <Content Include="UploadFiles\201510\20151057101557.pptx" />
+    <Content Include="UploadFiles\201510\20151035090135.pptx" />
+    <Content Include="template\批量导入竞赛评委模板.xlsx" />
+    <Content Include="template\批量导入竞赛用户模板.xlsx" />
+    <Content Include="template\批量导入竞赛管理员模板.xlsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\" />
+    <Folder Include="bin\zh-Hans\" />
+    <Folder Include="files\" />
+    <Folder Include="Log\" />
+    <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Lib\Utils\Utils.csproj">
+      <Project>{c5b3481f-4b5c-4b99-9796-8a172f5c2c46}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Server\Server.Factory\Server.Factory.csproj">
+      <Project>{652a3110-c802-4308-a960-e6292cc54cc9}</Project>
+      <Name>Server.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ViewModel\VM\VM.csproj">
+      <Project>{eb18ed61-ee3c-48f6-9c95-4e08e163a648}</Project>
+      <Name>VM</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>17457</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:6222/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Import Project="$(ProjectDir)AjaxMin\AjaxMin.tasks" />
+  <UsingTask TaskName="AjaxMinManifestTask" AssemblyFile="AjaxMin\AjaxMinTask.dll" />
+  <Target Name="BuildAjaxMinManifests" AfterTargets="Build">
+    <Message Text="Processing AjaxMin Manifests" Importance="high" />
+    <CreateItem Include="@(None)" Condition="'%(Extension)'=='.js'">
+    </CreateItem>
+    <AjaxMinManifestTask ProjectDefaultSwitches="-define:$(DefineConstants))" Configuration="$(Configuration)" TreatWarningsAsErrors="false" InputFolder="$(ProjectDir)Content\" OutputFolder="$(ProjectDir)Content\mini\" Manifests="@(AjaxMinManifests)" />
+    <Message Text="Processing AjaxMin Success" Importance="high" />
+  </Target>
+</Project>

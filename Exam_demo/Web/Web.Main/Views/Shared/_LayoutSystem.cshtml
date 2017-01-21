@@ -1,0 +1,362 @@
+﻿@using System.Text;
+@using VM;
+@{
+    Layout = "";
+    //客户信息
+    string[] customer = { "proposalcustomer" };
+    //风险测评
+    string[] risk = { "riskevaluation" };
+    //财务分析
+    string[] financial = { "liability", "incomeandexpenses", "cashflow", "financialratios" };
+    //现金规划
+    string[] cash = { "cashplan" };
+    //生涯规划
+    string[] life = { "lifeeducationplan", "consumptionplan", "startanundertakingplan", "retirementplan", "insuranceplan" };
+    //投资规划
+    string[] invest = { "investmentplan" };
+    //税收筹划
+    string[] tax = { "taxplan" };
+    //财产分配
+    string[] distribution = { "distributionofproperty" };
+    //财产传承
+    string[] heritage = { "heritage" };
+    var controller = ViewContext.RouteData.Values["controller"].ToString().ToLower();
+    var action = ViewContext.RouteData.Values["action"].ToString().ToLower();
+    //销售机会/实训考核
+    int trainExamId = 0;
+    int.TryParse(Request["TrainExamId"], out trainExamId);
+    TrainExamVM TrainExamCache = null;
+    if (trainExamId != 0)
+    {
+        TrainExamCache = TrainingBLL.GetTrainExam(trainExamId);
+    }
+
+    //计划书
+    int proposalId = 0;
+    int.TryParse(Request["ProposalId"], out proposalId);
+    ProposalVM ProposalCache = new ProposalVM();
+    if (proposalId != 0)
+    {
+        ProposalCache = ProposalBLL.GetProposal(proposalId);
+    }
+
+    StringBuilder urlparms = new StringBuilder();
+    urlparms.Append("?TrainExamId=").Append(trainExamId);
+    if (proposalId != 0)
+    {
+        urlparms.Append("&ProposalId=").Append(proposalId);
+    }
+
+    //潜在/已有客户Id
+    int stuCustomerId = 0;
+    int.TryParse(Request["StuCustomerId"], out stuCustomerId);
+    urlparms.Append("&StuCustomerId=").Append(stuCustomerId);
+}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- 强制转换内核↓ -->
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+    <meta name="keywords" content="">
+    <title>金融理财规划大赛平台</title>
+    <link href="@Url.Content("~/Content/css/popup.css")" rel="stylesheet" type="text/css" media="all" />
+    <link href="@Url.Content("~/Content/css/general.css")" rel="stylesheet" type="text/css" media="all" />
+    <link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet" type="text/css" media="all" />
+    <link href="@Url.Content("~/Content/css/popup.css")" rel="stylesheet" type="text/css" media="all" />
+    <link href="@Url.Content("~/Content/css/custom.css")" rel="stylesheet" type="text/css" media="all" />
+
+    <script src="@Url.Content("~/Content/js/Common/jquery-1.7.2.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/jquery.cookie.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/json2.min.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Content/js/Data/msgList.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Data/EnumList.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Content/js/Common/ajaxHelper.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/dialogHelper.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/pageHelper.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/StringHelper.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/VerificationHelper.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/arrayHelper.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/UserTimeHelper.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Content/js/Common/common.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/main.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Training/Knowledge.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Training/Proposal.js")" type="text/javascript"></script>
+    @*<script src="@Url.Content("~/Content/js/Common/jquery-1.7.2.min.js")" type="text/javascript"></script>*@
+
+    <script src="~/Content/province/city.js"></script>
+    @RenderSection("PageSpecificStyleSheetIncludes", required: false)
+    <script type="text/javascript">
+        //UserTimeHelper.Init();
+    </script>
+</head>
+<body>
+
+    <div class="wrapper">
+        @*导航*@
+        <div class="d_nav">
+            <div class="d_main">
+                <ul id="navSetHover">
+                    <li><a href="/CaseRes/CaseList">案例资源</a></li>
+                    <li><a href="/CaseExam/CaseExamList">案例考试</a></li>
+                    <li><a href="/CaseRes/CaseList">习题资源</a></li>
+                    <li><a href="/CaseRes/CaseList">习题考试</a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <div class="fixbox">
+            <a class="JS-fixCase" href="javascript:void(0);"><b class="spr spr-case"></b><span>案例</span></a>
+
+        </div>
+        <div class="fix-small">
+            <!--案例-->
+            <div class="fix-item-box fix-case" id="case">
+                <span class="close"></span>
+                <ul>
+                    <li><div class="ellipsis" title=""><span id="M_CustomName"></span></div><span id="M_FinancialTypeId"></span></li>
+                    <li id="M_ID"></li>
+                    <li>
+                        客户背景：
+                        <div class="context" id="M_context">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <p id="M_text" style="margin-bottom:15px;word-break:break-all;"></p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="crumbs">
+                <input type="hidden" value="@(TrainExamCache != null ? TrainExamCache.ExamTypeId : 0)" id="ExamTypeId" />
+                @if ((TrainExamCache != null && TrainExamCache.ExamTypeId == (int)ExamineType.SalesOpportunities) || trainExamId == 0)
+                {
+                    <a class="esc" href="javascript:SystemReturn();"><b class="spr"></b>退出</a>
+                }
+                else
+                {
+                    <div class="time font16 fr" id="Timer">剩余考试时间：<span class="c-red"></span>时<span class="c-red"></span>分<span class="c-red"></span>秒</div>
+                }
+                <h2 style="vertical-align: top; text-align: center; color: #3f90f4;">@(TrainExamCache.TrainExamName)</h2>
+            </div>
+            <div class="conter clearfix">
+                <div class="ims-left">
+                    <ul>
+                        <li><a class="@(customer.Contains(controller) ? "active" : "") @(ProposalCache.IsCustomer ? "finish" : "")" href="javascript:SaveJudgeTagTwo('/ProposalCustomer/Index@(urlparms.ToString())')">客户信息<b class="spr"></b></a></li>
+                        <li><a class="@(risk.Contains(controller) ? "active" : "") @(ProposalCache.IsRisk ? "finish" : "")" href="javascript:SaveJudgeTagTwo('/RiskEvaluation/Index@(urlparms.ToString())')">风险测评<b class="spr"></b></a></li>
+                        <li><a class="@(financial.Contains(controller) ? "active" : "") @(ProposalCache.IsFinancial ? "finish" : "")" href="javascript:SaveJudgeTagTwo('/Liability/Index@(urlparms.ToString())')">财务分析<b class="spr"></b></a></li>
+                        <li><a class="@(cash.Contains(controller) ? "active" : "")  @(ProposalCache.IsCashPlan ? "finish" : "")" href="javascript:SaveJudgeTagTwo('/CashPlan/Index@(urlparms.ToString())')">现金规划<b class="spr"></b></a></li>
+                        <li><a class="@(life.Contains(controller) ? "active" : "") @(ProposalCache.IsLife ? "finish" : "")" href="javascript:SaveJudgeTagTwo('/LifeEducationPlan/Index@(urlparms.ToString())')">生涯规划<b class="spr"></b></a></li>
+                        <li><a class="@(invest.Contains(controller) ? "active" : "") @(ProposalCache.IsInvestmentPlan ? "finish" : "")" href="javascript:SaveJudgeTagTwo('/InvestmentPlan/Index@(urlparms.ToString())')">投资规划<b class="spr"></b></a></li>
+                        <li><a class="@(tax.Contains(controller) ? "active" : "") @(ProposalCache.IsTaxPlan ? "finish" : "")" href="javascript:SaveJudgeTagTwo('/TaxPlan/Index@(urlparms.ToString())')">税务筹划<b class="spr"></b></a></li>
+                        <li><a class="@(distribution.Contains(controller) ? "active" : "") @(ProposalCache.IsDistributionOfProperty ? "finish" : "")" href="javascript:SaveJudgeTagTwo('/DistributionOfProperty/Index@(urlparms.ToString())')">财产分配<b class="spr"></b></a></li>
+                        <li><a class="@(heritage.Contains(controller) ? "active" : "") @(ProposalCache.IsHeritage ? "finish" : "")" href="javascript:SaveJudgeTagTwo('/Heritage/Index@(urlparms.ToString())')">财产传承<b class="spr"></b></a></li>
+                    </ul>
+                    @if (trainExamId == 0 || (TrainExamCache != null && TrainExamCache.ExamTypeId == (int)ExamineType.SalesOpportunities))
+                    {
+                        <input style="margin:10px auto 5px auto;" class="btn btn-blue" type="button" value="生成理财建议书" onclick="javasctipt:CreateProposal();" />
+                    }
+                    <p>
+                        @if (trainExamId != 0 && TrainExamCache != null)
+                        {
+                            <a href="javascript:void(0);" id="btnSubmit">提交</a>@Html.Raw("|")
+                        }
+                        <a href="javascript:PreviewProposal();">预览</a>
+                    </p>
+                </div>
+                @RenderBody()
+            </div>
+        </div>
+        <!-- footer-fixer -->
+        <div class="footer-fixer"></div>
+    </div>
+    <div class="footer">
+        <div class="copyright">copyright © 2015 国泰安教育技术股份有限公司 版权所有</div>
+    </div>
+
+
+    @Html.Partial("~/Views/Shared/_PopupPartialPage.cshtml")
+    <script type="text/javascript">
+        var sHour = ""; 	//倒计时的小时
+        var sMin = ""; 	//倒计时的分钟
+        var sSec = ""; 	//倒计时的秒数
+        var iRemain = ""; //开始和结束之间相差的毫秒数
+        var SurplusTime = "";
+
+        $(function () {
+            //获取URL参数
+            //var CaseId = $.getUrlParam("CaseId");
+            var TrainExamId = $.getUrlParam("TrainExamId");
+            if (parseInt(TrainExamId) > 0) {
+                //销售机会/实训考核案例
+                _ajaxhepler({
+                    url: "/TrainExam/GetCase",
+                    type: "POST",
+                    async: false,
+                    dataType: "json",
+                    data: {
+                        TrainExamId: TrainExamId
+                    },
+                    success: function (data) {
+                        Num = data;
+                        if (data != null) {
+                            $("#M_CustomName").text("客户姓名: " + data.CustomerName);
+                            $("#M_FinancialTypeId").text("理财类型: " + data.strFinancialType);
+                            $("#M_ID").text("身份证号: " + data.IDNum);
+                            //背景进行特殊处理
+                            var content = data.CustomerStory;
+                            content = content.replace(/[ ]/g, "&nbsp;");
+                            content = content.replace(/\n/g, "<br/>");
+                            $("#M_context #M_text").html(content);
+                        }
+
+                    }
+                });
+            }
+            //提交
+            $("#btnSubmit").unbind("click").click(function () {
+                dialogHelper.Confirm({
+                    content: "确认是否提交？",
+                    success: function () { 
+                        SubmitExam();
+                    }
+                });
+            });
+
+            var ExamTypeId = $("#ExamTypeId").val() * 1;
+            //考试倒计时
+            if (TrainExamId * 1 > 0) {
+                _ajaxhepler({
+                    url: "/TrainExam/GetRemainingTime",
+                    type: "POST",
+                    async: false,
+                    dataType: "json",
+                    data: {
+                        TrainExamId: TrainExamId
+                    },
+                    success: function (data) {
+                        SurplusTime = data;
+                    }
+                });
+                AutoTime();
+            }
+        });
+        //提交考核
+        function SubmitExam() {
+            //获取URL参数
+            var ProposalId = $.getUrlParam("ProposalId");
+            //获取URL参数
+            var TrainExamId = $.getUrlParam("TrainExamId");
+            if (TrainExamId == null) {
+                //弹出成功提示
+                dialogHelper.Error({
+                    content: "提交异常！TrainExamId参数为空，请联系管理员"
+                });
+                return;
+            }
+            //计算得分
+            _ajaxhepler({
+                url: "/TrainExam/CalculateScore",
+                type: "POST",
+                async: false,
+                dataType: "json",
+                data: {
+                    "TrainExamId": TrainExamId,
+                    "ProposalId": ProposalId
+                },
+                success: function (data) {
+                    if (data != null) {
+                        //弹出成功提示
+                        dialogHelper.Success({
+                            content: "提交成功！",
+                            success: function () {
+                                //location.href = "/CompetitionUser/MatchList/Start";
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        //每一秒执行一次时间更新
+        function AutoTime() {
+            Getdate();
+            //如果小于零，清除调用自己，并且返回
+            if (iRemain < 0) {
+                clearTimeout(setT);
+                //1.清空相应缓存和更新考试状态
+                SubmitExam();
+                return;
+            }
+            UpdateShow();
+            var setT = setTimeout(AutoTime, 1000);
+
+        }
+
+        //更改显示的时间
+        function UpdateShow() {
+            $("#Timer span").each(function (index, element) {
+                if (index == 0) {
+                    $(this).text(sHour);
+                } else if (index == 1) {
+                    $(this).text(sMin);
+                } else if (index == 2) {
+                    $(this).text(sSec);
+                }
+            });
+        }
+
+        //通用工具函数，在个位数上加零，根据传的N的参数，来设前面加几个零
+        function setDig(num, n) {
+            var str = "" + num;
+            while (str.length < n) {
+                str = "0" + str
+            }
+            return str;
+        }
+
+        //获得相差的天，小时，分钟，秒
+        function Getdate() {
+            iRemain = SurplusTime;
+            SurplusTime = SurplusTime - 1;
+            //总的秒数除以一天的秒数，再取出整数部分，就得出有多少天。
+            //sDate = setDig(parseInt(iRemain / (60 * 60 * 24)), 3);
+            var bakiRemain = iRemain;
+            //总的秒数除以一天的秒数，然后取其中的余数，就是把整数天扣除之后，剩下的总秒数。
+            iRemain %= 60 * 60 * 24;
+            
+            //剩下的总秒数除以一个小时的秒数，再取整数部分，就是有多少小时。
+            sHour = setDig(parseInt(bakiRemain / (60 * 60)), 2)
+
+            //剩下的总秒数除以一个小时的秒数，再取其余数，这个余数，就是扣除小时这后，剩下的总秒数。
+            iRemain %= 60 * 60;
+
+            //剩下的总秒数除以一分钟的秒数，再取其整数部分，就是有多少分钟。
+            sMin = setDig(parseInt(iRemain / 60), 2)
+
+            //剩下的总秒数除以一分钟的秒数，再取其余数，这个余数，就是扣除分钟之后，剩下的总秒数。
+            iRemain %= 60;
+            //剩下的秒数
+            sSec = setDig(iRemain, 2);
+        }
+    </script>
+    @RenderSection("LastScript", required: false)
+
+
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,40 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="stealer">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="/Content/css/login.css" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico">
+    <title>抱歉，出现错误了！</title>
+</head>
+<style>
+    body { margin: 0; min-height: 655px; background: #1a1f22; }
+    /*.error { position: absolute; left: 50%; top: 50%; margin: -327px 0 0 -427px; width: 855px; height: 655px; background: url(/Content/images/404.jpg) 0 0 no-repeat; text-align: left; }*/
+    .error { position: absolute; left: 50%; top: 50%; margin: -327px 0 0 -427px; width: 855px; height: 655px; background: 0 0 no-repeat; text-align: left; }
+        .error p { margin: 0; padding: 133px 0 0 342px; font: 16px/22px Microsoft Yahei; color: #444; }
+        .error a { margin: 0 5px; font-weight: bold; text-decoration: none; color: #d34015; }
+            .error a.orange { color: #f8b243; }
+            .error a.blue { color: #6caee0; }
+            .error a:hover { text-decoration: underline; }
+</style>
+<body>
+    <div class="error">
+        <p>
+            <br /><br /><br /><br /><br /><br />
+            系统繁忙，请稍后再访问，
+            您可以<a href="javascript:void(0)" onclick="history.go(-1)">返回</a><!--或<a href="javascript:void(0)" onclick="LinkExit()">退出登录</a>-->。
+        </p>
+    </div>
+    <script type="text/javascript">
+        //function LinkExit() {
+        //    if (window.top == window.self) {
+        //        location.href = "/SignIn/LoginOut";
+        //    } else {
+        //        window.parent.location.href = "/SignIn/LoginOut";
+        //    }
+        //}
+    </script>
+</body>
+</html>

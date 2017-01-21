@@ -1,0 +1,247 @@
+﻿<#@ template language="c#" HostSpecific="True" #>
+<#@ output extension= ".cs" #>
+<#
+	TableHost host = (TableHost)(Host);	
+	string DbParaHead=host.DbParaHead;
+	string DbParaDbType=host.DbParaDbType;
+	string preParameter=host.preParameter;
+	string ModelSpace = host.NameSpace+".Model."+ host.GetModelClass(host.TableName);
+	ColumnInfo identityKey=host.IdentityKey;
+	string returnValue = "void";
+    if (identityKey!=null)
+    {         
+         returnValue = CodeCommon.DbTypeToCS(identityKey.TypeName);              
+    }
+#>
+using System;
+using System.Data;
+using System.Text;
+using System.Linq;
+using System.Collections.Generic;
+using Dapper;
+using Training.API;//自己更换Model引用地址
+
+//自己更改命名空间
+namespace Training.Svr
+{
+	<# if( host.TableDescription.Length > 0) {#>
+	/// <summary>
+ 	///<#= host.TableDescription #>
+	/// </summary>
+	<# } #>
+	public partial class <#= host.GetDALClass(host.TableName) #>DAL
+	{
+        #region  是否存在
+        /// <summary>
+        /// 是否存在该记录
+        /// </summary>
+        public bool Exists(<#= CodeCommon.GetInParameter(host.Keys, false) #>)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select count(1) from <#= host.TableName #> where <#=identityKey.ColumnName#>=@<#=identityKey.ColumnName#> ");
+
+            int result = 0;
+            var param = new DynamicParameters();
+            using (var conn = DBHelper.CreateConnection())
+            {
+                conn.Open();
+                param.Add("@<#=identityKey.ColumnName#>", <#=identityKey.ColumnName#>, dbType: DbType.<#=GetDbType(identityKey.TypeName)#>);
+                result = conn.Query<int>(strSql.ToString(), param).FirstOrDefault();
+            }
+            return result > 0;
+        }
+
+        #endregion
+
+        #region  新增
+
+        /// <summary>
+        /// 增加一条数据
+        /// </summary>
+        public int Add(<#= host.TableName #> model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("insert into <#= host.TableName #>(");
+            strSql.Append("<# for(int i=0;i< host.Fieldlist.Count;i++) {   ColumnInfo c = host.Fieldlist[i]; if (!c.IsIdentity) {#><#= c.ColumnName#><# if (i< host.Fieldlist.Count-1 ) {#>,<#}#><#}}#>");
+            strSql.Append(") values (");
+            strSql.Append("<# for(int i=0;i< host.Fieldlist.Count;i++) {   ColumnInfo c = host.Fieldlist[i]; if (!c.IsIdentity) {#><#=preParameter#><#= c.ColumnName#><# if (i< host.Fieldlist.Count-1 ) {#>,<#}#><#}}#>");
+            strSql.Append(") ");
+            <#if (identityKey!=null) {#>strSql.Append(";SELECT @returnid=SCOPE_IDENTITY()");<#}#>
+
+            int result = 0;
+            var param = new DynamicParameters();
+            using (var conn = DBHelper.CreateConnection())
+            {
+                conn.Open();
+                <# for(int i=0;i< host.Fieldlist.Count;i++) { ColumnInfo c = host.Fieldlist[i]; if(c.IsIdentity) continue; #>
+                param.Add("<#=preParameter#><#=c.ColumnName#>", model.<#=c.ColumnName#>, dbType: DbType.<#=GetDbType(c.TypeName)#>);
+                <# }#>
+                param.Add("@returnid", dbType: DbType.<#=GetDbType(identityKey.TypeName)#>, direction: ParameterDirection.Output);
+                conn.Execute(strSql.ToString(), param);
+                result = param.Get<int>("@returnid");
+            }
+            return result;
+        }
+        #endregion
+
+        #region  更新
+        /// <summary>
+        /// 更新一条数据
+        /// </summary>
+        public bool Update(<#= host.TableName #> model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("update <#= host.TableName #> set ");
+            <# for(int i=0;i< host.Fieldlist.Count;i++) { ColumnInfo c = host.Fieldlist[i];  #>
+            <# if (!c.IsIdentity) {#>
+            strSql.Append(" <#= c.ColumnName #> = <#=preParameter#><#=c.ColumnName#> <# if (i< host.Fieldlist.Count-1 ) {#>,<#}#> ");
+            <# }#>
+            <# }#>	
+            strSql.Append(" where <#= CodeCommon.GetWhereParameterExpression(host.Keys, true ,host.DbType) #> ");
+
+            int result = 0;
+            var param = new DynamicParameters();
+            using (var conn = DBHelper.CreateConnection())
+            {
+                conn.Open();
+                <# for(int i=0;i< host.Fieldlist.Count;i++) { ColumnInfo c = host.Fieldlist[i]; #>
+                param.Add("<#=preParameter#><#=c.ColumnName#>", model.<#=c.ColumnName#>, dbType: DbType.<#=GetDbType(c.TypeName)#>);
+                <# }#>
+                result = conn.Execute(strSql.ToString(), param);
+            }
+            return result > 0;
+        }
+
+        #endregion
+
+        #region  删除
+        /// <summary>
+        /// 删除一条数据
+        /// </summary>
+        public bool Delete(<#=CodeCommon.GetInParameter(host.Keys, true)#>)
+        {
+
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("delete from <#= host.TableName #> ");
+            strSql.Append(" where <#= CodeCommon.GetWhereParameterExpression(host.Keys, true, host.DbType)#>");
+
+            int result = 0;
+            var param = new DynamicParameters();
+            using (var conn = DBHelper.CreateConnection())
+            {
+                conn.Open();
+                param.Add("@<#=identityKey.ColumnName#>", <#=identityKey.ColumnName#>, dbType: DbType.<#=GetDbType(identityKey.TypeName)#>);
+                result = conn.Execute(strSql.ToString(), param);
+            }
+            return result > 0;
+        }
+
+        #endregion
+
+        #region  获取实体
+        /// <summary>
+        /// 得到一个对象实体
+        /// </summary>
+        public <#= host.TableName #> GetModel(<#= CodeCommon.GetInParameter(host.Keys,true) #>)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select <# for(int i=0;i< host.Fieldlist.Count;i++) { #><#= host.Fieldlist[i].ColumnName #><# if(i< host.Fieldlist.Count-1 ) {#>,<# } #> <#}#> ");
+            strSql.Append("  from <#= host.TableName #> ");
+            strSql.Append(" where <#= CodeCommon.GetWhereParameterExpression(host.Keys, true, host.DbType) #>");
+
+            <#= host.TableName #> model = null;
+            var param = new DynamicParameters();
+            using (var conn = DBHelper.CreateConnection())
+            {
+                conn.Open();
+                param.Add("@<#=identityKey.ColumnName#>", <#=identityKey.ColumnName#>, dbType: DbType.<#=GetDbType(identityKey.TypeName)#>);
+                model = conn.Query<<#= host.TableName #>>(strSql.ToString(), param).FirstOrDefault();
+            }
+            return model;
+        }
+
+        #endregion
+
+        #region  根据查询条件获取列表
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public List<<#= host.TableName #>> GetList(CustomFilter filter)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select <# for(int i=0;i< host.Fieldlist.Count;i++) { #><#= host.Fieldlist[i].ColumnName #><# if(i< host.Fieldlist.Count-1 ) {#>,<# } #> <#}#> ");
+            strSql.Append("  from <#= host.TableName #> ");
+            strSql.Append(GetStrWhere(filter));
+
+            List<<#= host.TableName #>> list = new List<<#= host.TableName #>>();
+            using (var conn = DBHelper.CreateConnection())
+            {
+                conn.Open();
+                list = conn.Query<<#= host.TableName #>>(strSql.ToString()).ToList();
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// 根据CustomFilter获取where语句
+        /// </summary>
+        private string GetStrWhere(CustomFilter filter)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append(" where 1=1 ");
+            if (filter.Id.HasValue)
+            {
+                strSql.Append(" and Id=" + filter.Id);
+            }
+            return strSql.ToString();
+        }
+
+        #endregion
+
+        #region  获取分页参数
+        /// <summary>
+        /// 获取分页参数
+        /// </summary>
+        public PageModel Get<#= host.TableName #>PageParams()
+        {
+            PageModel model = new PageModel();
+            model.Tables = "<#= host.TableName #>";
+            model.PKey = "<#=identityKey.ColumnName#>";
+            model.Sort = "<#=identityKey.ColumnName#>";
+            model.Fields = "<# for(int i=0;i< host.Fieldlist.Count;i++) { #><#= host.Fieldlist[i].ColumnName #><# if(i< host.Fieldlist.Count-1 ) {#>,<# } #> <#}#>";
+            model.Filter = "";
+            return model;
+        }
+
+        #endregion
+
+
+
+
+   
+	}
+}
+
+<#+  //自定义方法，获取Dapper的数据库类型
+private string GetDbType(string typename)
+{
+    string name = string.Empty;
+    switch (typename)
+    {
+        case "int":
+            name = "Int32";
+            break;
+        case "nvarchar":
+        case "text":
+            name = "String";
+            break;
+        case "datetime":
+            name = "DateTime";
+            break;
+        default:
+            name = typename;
+            break;
+    }
+    return name;
+}
+#>

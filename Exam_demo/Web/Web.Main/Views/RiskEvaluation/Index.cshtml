@@ -1,0 +1,196 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/CompetitionUser/Views/Shared/_LayoutSystem.cshtml";
+    //销售机会/实训考核
+    int trainExamId = 0;
+    int.TryParse(Request["TrainExamId"], out trainExamId);
+
+    int proposalId = 0;
+    int.TryParse(Request["ProposalId"], out proposalId);
+
+    int stuCustomerId = 0;
+    int.TryParse(Request["StuCustomerId"], out stuCustomerId);
+}
+<div id="RiskEvaluationDiv" class="con-right test-results FinancePlan" >
+    <div class=" tab-title">
+        <ul>
+            <li><a class="active" href="javascript:SaveJudgeTag('RiskEvaluationDiv','RiskEvaluation','Index')">
+    <b class="ico ims-icon1"></b><strong>风险指标</strong>
+</a></li>
+            <li class="tab-arrow"></li>
+            <li><a href="javascript:SaveJudgeTag('RiskEvaluationDiv','RiskEvaluation','EvaluationResult')"><b class="ico ims-icon2"></b><strong>风险测评结果</strong></a></li>
+        </ul>
+    </div>
+
+    <div class="main-hd">
+        <input id="btnNext" class="btn btn-small btn-blue fr ml10" type="button" value="下一步">
+        <input id="btnSave" class="btn btn-small btn-blue fr" type="button" value="保 存">
+    </div>
+
+    <div class="main-bd pad10">
+        <input type="hidden" name="ProposalId" id="ProposalId">
+        <input type="hidden" name="RiskIndexId" id="RiskIndexId">@*RiskIndex表主键*@
+        <div class="item mb10">
+            <div class="explain">
+                <p>风险承受能力指标（RCI）：</p>
+                <p>风险承受能力可依年龄、就业状况、家庭负担、置产状况、投资经验和投资知识估算得出</p>
+            </div>
+            <div class="table textc">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th class="bias-line" width="15%" scope="col"><p class="textr pr20">分 数</p><p class="textl pl20">因 素</p></th>
+                            <th scope="col">10分</th>
+                            <th scope="col">8分</th>
+                            <th scope="col">6分</th>
+                            <th scope="col">4分</th>
+                            <th scope="col">2分</th>
+                            <th width="20%" scope="col">客户得分</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><i class="c-red">*</i>年 龄</td>
+                            <td colspan="5">总分<span class="c-yellow">50</span>分，25岁以下者<span class="c-yellow">50</span>分，每多1岁少<span class="c-yellow">1</span>分，75岁以上者<span class="c-yellow">0</span>分</td>
+                            <td class="b-grayish last"><input name="AgeScore" id="AgeScore" class="ipt-text grid-11 IsRequired IsNumber IsMaxNumber IsMinNumber" msgreg="请输入0到50的数字" msgname="此处得分" maxnumber="50" minnumber="0" reg="\d{0,9}\" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>就业状况</td>
+                            <td>公教人员</td>
+                            <td>上班族</td>
+                            <td>佣金收入者</td>
+                            <td>自营事业者</td>
+                            <td>失 业</td>
+                            <td class="b-grayish last"><input name="JobScore" id="JobScore" class="ipt-text grid-11 IsRequired IsNumber IsMaxNumber IsMinNumber" msgreg="请输入0到10的数字" msgname="此处得分" maxnumber="10" minnumber="0" reg="\d{0,9}\" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>家庭负担</td>
+                            <td>未 婚</td>
+                            <td>双薪无子女</td>
+                            <td>双薪有子女</td>
+                            <td>单薪有子女</td>
+                            <td>单薪养三代</td>
+                            <td class="b-grayish last"><input name="FamilyScore" id="FamilyScore" class="ipt-text grid-11 IsRequired IsNumber IsMaxNumber IsMinNumber" msgreg="请输入0到10的数字" msgname="此处得分" maxnumber="10" minnumber="0" reg="\d{0,9}\" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>置产状况</td>
+                            <td>投资不动产</td>
+                            <td>自宅无房贷</td>
+                            <td>房贷&lt;50%</td>
+                            <td>房贷&gt;50%</td>
+                            <td>无自宅</td>
+                            <td class="b-grayish last"><input name="HouseScore" id="HouseScore" class="ipt-text grid-11 IsRequired IsNumber IsMaxNumber IsMinNumber" msgreg="请输入0到10的数字" msgname="此处得分" maxnumber="10" minnumber="0" reg="\d{0,9}\" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>投资经验</td>
+                            <td>10年以上</td>
+                            <td>6-10年</td>
+                            <td>2-5年</td>
+                            <td>1年以内</td>
+                            <td>无</td>
+                            <td class="b-grayish last"><input name="EXPScore" id="EXPScore" class="ipt-text grid-11 IsRequired IsNumber IsMaxNumber IsMinNumber" msgreg="请输入0到10的数字" msgname="此处得分" maxnumber="10" minnumber="0" reg="\d{0,9}\" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>投资知识</td>
+                            <td>有专业证照</td>
+                            <td>财经科系毕业</td>
+                            <td>自修有心得</td>
+                            <td>懂一些</td>
+                            <td>一片空白</td>
+                            <td class="b-grayish last"><input name="KnowledgeScore" id="KnowledgeScore" class="ipt-text grid-11 IsRequired IsNumber IsMaxNumber IsMinNumber" msgreg="请输入0到10的数字" msgname="此处得分" maxnumber="10" minnumber="0" reg="\d{0,9}\" type="text"></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">总 分</td>
+                            <td class="b-grayish"><input class="ipt-text grid-11 b-gray" name="RCIScore" id="RCIScore" type="text" readonly="readonly"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div class="item">
+            <div class="explain">
+                <p>风险容忍态度指标（RAI）：</p>
+                <p>风险容忍态度可依客户对本金可容忍的损失幅度，及其他心理测验估算出来</p>
+            </div>
+            <div class="table textc">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th class="bias-line" width="15%" scope="col"><p class="textr pr20">分 数</p><p class="textl pl20">因 素</p></th>
+                            <th scope="col">10分</th>
+                            <th scope="col">8分</th>
+                            <th scope="col">6分</th>
+                            <th scope="col">4分</th>
+                            <th scope="col">2分</th>
+                            <th width="20%" scope="col">客户得分</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><i class="c-red">*</i>忍受亏损百分比</td>
+                            <td colspan="5">不能容忍任何损失<span class="c-yellow">0</span>分，每增加1%加<span class="c-yellow">2</span>分，可容忍&gt;25%加<span class="c-yellow">50</span>分</td>
+                            <td class="b-grayish last"><input name="TolerateScore" id="TolerateScore" class="ipt-text grid-11 IsRequired IsNumber IsMaxNumber IsMinNumber" msgreg="请输入0到50的数字" msgname="此处得分" maxnumber="50" minnumber="0" reg="\d{0,9}\" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>首要考虑</td>
+                            <td>赚短线差价</td>
+                            <td>长期得利</td>
+                            <td>年现金收益</td>
+                            <td>抗通胀保值</td>
+                            <td>保本保息</td>
+                            <td class="b-grayish last"><input name="ConsiderationScore" id="ConsiderationScore" class="ipt-text grid-11 IsRequired IsNumber IsMaxNumber IsMinNumber" msgreg="请输入0到10的数字" msgname="此处得分" maxnumber=" 10" minnumber="0" reg="\d{0,9}\" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>认赔动作</td>
+                            <td>默认停损点</td>
+                            <td>事后停损</td>
+                            <td>部分认赔</td>
+                            <td>持有待回升</td>
+                            <td>加码摊平</td>
+                            <td class="b-grayish last"><input name="LossScore" id="LossScore" class="ipt-text grid-11 IsRequired IsNumber IsMaxNumber IsMinNumber" msgreg="请输入0到10的数字" msgname="此处得分" maxnumber="10" minnumber="0" reg="\d{0,9}\" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>赔钱心理</td>
+                            <td>学习经验</td>
+                            <td>照常过日子</td>
+                            <td>影响情绪小</td>
+                            <td>影响情绪大</td>
+                            <td>难以成眠</td>
+                            <td class="b-grayish last"><input name="MentalityScore" id="MentalityScore" class="ipt-text grid-11 IsRequired IsNumber IsMaxNumber IsMinNumber" msgreg="请输入0到10的数字" msgname="此处得分" maxnumber="10" minnumber="0" reg="\d{0,9}\" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>最重要特性</td>
+                            <td>获利性</td>
+                            <td>收益兼成长</td>
+                            <td>收益性</td>
+                            <td>流动性</td>
+                            <td>安全性</td>
+                            <td class="b-grayish last"><input name="CharacterScore" id="CharacterScore" class="ipt-text grid-11 IsRequired IsNumber IsMaxNumber IsMinNumber" msgreg="请输入0到10的数字" msgname="此处得分" maxnumber="10" minnumber="0" reg="\d{0,9}\" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><i class="c-red">*</i>避免工具</td>
+                            <td>无</td>
+                            <td>期 货</td>
+                            <td>股 票</td>
+                            <td>外 汇</td>
+                            <td>不动产</td>
+                            <td class="b-grayish last"><input name="AvoidScore" id="AvoidScore" class="ipt-text grid-11 IsRequired IsNumber IsMaxNumber IsMinNumber" msgreg="请输入0到10的数字" msgname="此处得分" maxnumber="10" minnumber="0" reg="\d{0,9}\" type="text"></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">总 分</td>
+                            <td class="b-grayish"><input class="ipt-text grid-11 b-gray" name="RAIScore" id="RAIScore" type="text" readonly="readonly"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/Content/js/Training/RiskEvaluation.js"></script>
+

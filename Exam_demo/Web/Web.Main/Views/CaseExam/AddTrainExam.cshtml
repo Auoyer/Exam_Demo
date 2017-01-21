@@ -1,0 +1,1042 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section PageSpecificStyleSheetIncludes{
+    <script src="~/Content/DatePicker/WdatePicker.js"></script>
+    <script src="~/Content/js/Common/DateHelper.js" type="text/javascript"></script>
+    <script src="~/Content/js/Data/EnumList.js" type="text/javascript"></script>
+}
+<input type="hidden" value="0" id="Id" />
+<div class="conter clearfix" id="AddTrainExamCase" style="border:1px solid grey;">
+    <div class="main-bd pad20">
+        <div class="flow">
+            <div class="item" id="T_Name" style="padding-bottom: 40px;">
+                <b class="spr" id="tubiao1"></b>
+                <div class="item-con">
+                    <label><i class="c-red">*</i>考核名称</label>
+                    <input class="ipt-text ml10 grid-4 IsRequired IsMaxLength IsMinLength" msgname="考核名称" maxlength="30" minlength="2" id="TrainExamName" type="text">
+                </div>
+            </div>
+            <div class="item" id="Add_Case" style="padding-bottom: 40px;">
+                <b class="spr" id="tubiao2"></b>
+                <div class="item-con">
+                    <i class="c-red">*</i>
+                    <input class="btn btn-pop" type="button" id="ExamCase" value="选择案例" onclick="clickCase()">
+                    <div class="sib-list mt10" id="S_Case"></div>
+                </div>
+            </div>
+            <div class="item" id="tubiao3" style="padding-bottom: 40px;">
+                <b class="spr"></b>
+                <div class="item-con">
+                    <i class="c-red">*</i><input class="btn btn-pop" onclick="ClickTrainExamDetail()" id="Add_ExamPoint" type="button" value="考核点设置">
+                    <div class="sib-list mt10" id="S_ExamPointId"></div>
+                </div>
+            </div>
+            <div class="item" id="tubiao5" style="padding-bottom: 40px;">
+                <b class="spr"></b>
+                <div class="item-con">
+                    <label><i class="c-red">*</i>开始时间</label><input class="ipt-text ml10 grid-4" id="StartDate" type="text" onfocus="WdatePicker({ dateFmt: 'yyyy/MM/dd HH:mm', readOnly: true, onchange: getTime(this) })">
+                </div>
+            </div>
+            <div class="item" id="tubiao6" style="padding-bottom: 40px;">
+                <b class="spr"></b>
+                <div class="item-con">
+                    <label><i class="c-red">*</i>结束时间</label><input class="ipt-text ml10 grid-4" id="EndDate" type="text" onfocus="WdatePicker({ dateFmt: 'yyyy/MM/dd HH:mm', readOnly: true, onchange: getTime2(this) })">
+                </div>
+            </div>
+        </div>
+        <div class="main-button">
+            <input class="btn btn-small btn-blue" id="buttons" type="button" onclick="AddTrainExams()" value="保存">
+            <input class="btn btn-small btn-yellow" id="btnCancle" onclick="cancel()" type="button" value="取消">
+        </div>
+    </div>
+
+</div>
+<input id="txtcaseId" value="0" type="hidden" />
+<!--选择案例-->
+<div class="popup popOperate" id="popSelectCase">
+    <div class="pop-con">
+        <div class="table2 line-hei-tr textc">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th width="40" scope="col"></th>
+                        <th width="40" scope="col">序号</th>
+                        <th width="120" scope="col">客户姓名</th>
+                        <th width="160" scope="col">身份证号</th>
+                        <th scope="col">理财类型</th>
+                        <th width="120" scope="col">创建人</th>
+                        <th width="80" scope="col">创建日期</th>
+                    </tr>
+                </thead>
+                <tbody id="caseList2"></tbody>
+            </table>
+        </div>
+        <div class="page" style="padding-bottom: 0;" id="pages">
+        </div>
+    </div>
+    <div class="pop-button">
+        <input class="btn btn-small btn-blue  btn-close" id="anliButton" type="button" onclick="AddCase()" value="确定">
+        <input class="btn btn-small btn-blue btn-close" id="btnCaseCancle" type="button" value="取消">
+    </div>
+</div>
+<!--考核点设置-->
+<div class="popup popOperate" id="popAssessmentSettings">
+    <div class="pop-con clearfix">
+        <div class="fif-form fl grid-4">
+            <div class="fif-box w100">
+                <label class="fif-text">客户姓名&nbsp;</label>
+                <div class="input">
+                    <input disabled class="ipt-text disabled" type="text" id="CustomerName">
+                </div>
+            </div>
+            <div class="fif-box w100">
+                <label class="fif-text">身份证号&nbsp;</label>
+                <div class="input">
+                    <input disabled class="ipt-text disabled" type="text" id="IDNum">
+                </div>
+            </div>
+            <div class="fif-box w100">
+                <label class="fif-text">理财类型&nbsp;</label>
+                <div class="input">
+                    <input disabled class="ipt-text disabled" type="text" id="FinancialTypeName">
+                </div>
+            </div>
+            <div class="fif-box w100">
+                <label class="fif-text">客户背景&nbsp;</label>
+                <textarea disabled class="disabled" style="height: 100px;" id="CustomerStory"></textarea>
+            </div>
+        </div>
+        <div class="fr grid-7" style="border-left: 1px dashed #d9d3cd; padding-left: 30px;">
+            <div class="fif-form">
+                <div class="fif-box">
+                    <label class="fif-text">设置考核点：</label>
+                    <div class="input">
+                        <select style="width: 190px" id="selectExamContent"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="table line-hei-tr textc" style="overflow: scroll; max-height: 400px; overflow-x: auto;">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" id="playList">
+                    <thead>
+                        <tr>
+                            <th width="40">
+                                <input type="checkbox" name='list' id="selectAll_">
+                            </th>
+                            <th>类型</th>
+                            <th>考核点</th>
+                            <th width="60">分值</th>
+                            <th>正确答案</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ExamContentList"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="pop-button">
+        <input class="btn btn-small btn-blue btn-close" id="detailButton" type="button" onclick="AddTrainExamDetail()" value="保存">
+        <input class="btn btn-small btn-blue btn-close" id="btnDetailCancle" type="button" value="取消">
+    </div>
+</div>
+
+<script>
+    var ExamCase = new arrayHelper("IDNum");                        //案例
+    var answerHelper = new arrayHelper("ExamPointId");              //答案
+    var TrainExamDetailHelper = new arrayHelper("ExamPointId");     //考核点详细信息
+    var tempDetail = new arrayHelper("ExamPointId");                //临时存放考点信息
+
+    $(function () {
+
+        //销售机会时隐藏考核名称
+        var TrainExamId = $.getUrlParam("TrainExamId");
+        if (TrainExamId == null) {
+            TrainExamId = 0;
+        }
+        //加载全部数据
+        SelectTrainExam(TrainExamId);
+
+        var Type = $.getUrlParam("Type");
+
+        //文本框禁用
+        TextDisplay(Type);
+
+        //考核点下拉框加载
+        selectHelper.GetSelect({
+            Id: "#selectExamContent",
+            url: "/CaseRes/GetExamContentList",
+            flag: false,
+            changeFun: function (value) {
+                GetExamPointList(value, TrainExamId, Type);
+            }
+        });
+
+        $("#TrainExamName").unbind("blur").blur(function () {
+            var leng = $("#TrainExamName").val();
+            if ($("#TrainExamName").val() != "" && (leng.length >= 2 && leng.length <= 30)) {
+                $("#T_Name").addClass("finish");
+            } else {
+                $("#T_Name").removeClass("finish");
+            }
+        });
+
+
+
+        //总表的全选按钮
+        $("#selectAll_").click(function () {
+            if ($("#selectAll_").attr("checked") != "checked") {
+                $("#playList :checkbox[disabled!=disabled]").attr("checked", false);//全不选  
+            } else {
+                $("#playList :checkbox[disabled!=disabled]").attr("checked", true);//全选  
+            }
+
+            //选中就是添加
+            var DetailList = $("#ExamContentList tr");
+
+            $.each(DetailList, function (i, n) {
+                if ($(n).find("td").find("input:eq(0)").attr("checked") == "checked") {
+                    if ($(n).find("td").find("input").attr("tag") == "chk_list") {
+                        //循环添加详细信息
+
+                        var scor = $(n).find("td:eq(3)").find("input").val();
+                        var obj2 = new Object();//实训考核/销售机会详细信息
+                        obj2["TrainExamId"] = $(n).find("td").find("span").attr("tag");//实训考核/销售机会Id
+                        obj2["ExamPointId"] = $(n).find("td").find("span").attr("value");//考核点Id
+                        obj2["Score"] = scor;//分数
+                        obj2["ModularId"] = $("#selectExamContent").val();//模块Id
+                        obj2["ExamPointType"] = $(n).find("td").find("span").attr("pointType");//主观题客观题
+
+                        //TrainExamDetailHelper.Add(obj2);
+                        tempDetail.Add(obj2);
+
+                    }
+
+                } else {
+                    if ($(n).find("td").find("input").attr("tag") == "chk_list") {
+                        var pointid = $(n).find("td").find("span").attr("value");
+                        var scor = $(n).find("td:eq(3)").find("input").val();
+
+                        //TrainExamDetailHelper.Remove(pointid);
+                        tempDetail.Remove(pointid);
+                    }
+
+                }
+            });
+
+        });
+
+        //去除前端原有绑定事件
+        $("#detailButton").unbind("click");
+        //案例Id
+        $("#txtcaseId").val($.getUrlParam("CaseId"));
+    })
+
+    //从数据库读取保存的信息
+    function SelectTrainExam(TrainExamId) {
+        $.ajax({
+            url: "/CaseExam/LoadingTrainExam",
+            async: false,
+            type: "POST",
+            data: {
+                Id: TrainExamId,
+            },
+            success: function (data) {
+                if (data.TE != null) {
+
+                        $("#TrainExamName").val(data.TE.TrainExamName);
+                    if ($("#TrainExamName").val() != "") {
+                        $("#T_Name").addClass("finish");
+                    }
+
+                    if (data.TE.strStartDate != "" || data.TE.strStartDate != null) {
+                        //开始时间            
+                        $("#StartDate").val(data.TE.strStartDate);
+                        $("#tubiao5").addClass("finish");
+                    }
+                    if (data.TE.strEndDate != "" || data.TE.strEndDate != null) {
+                        //结束时间
+                        $("#EndDate").val(data.TE.strEndDate);
+                        $("#tubiao6").addClass("finish");
+                    }
+
+                    //案例
+                    var Case = data.TE.ExamCase;
+
+                    $.each(Case, function (a, b) {
+                        b.CreateTime = b.strCreateTime;
+                        b.CaseId = data.TE.CaseId;
+                        ExamCase.Add(b);
+                    });
+                    AddCase();
+                    //考核点
+                    var TrainExamDetail = data.TE.TrainExamDetail;
+                    $.each(TrainExamDetail, function (c, d) {
+                        TrainExamDetailHelper.Add(d);
+                        tempDetail.Add(d);
+                    });
+                    AddTrainExamDetail();
+
+                    //隐藏域
+                    $("#Id").val(data.TE.Id);
+                }
+
+            }
+        });
+    }
+
+
+    //单击案例按钮事件
+    function clickCase() {
+        //加载案例 
+        GetCaseList();
+        dialogHelper.Show('popSelectCase', 850);
+    }
+
+    //获取全部要被选择的案例
+    function GetCaseList() {
+        pageHelper.Init({
+            url: "/CaseRes/GetCaseList",
+            type: "POST",
+            pageDiv: "#pages",
+            async: false,
+            data:
+            {
+                FinancialTypeId: null,
+                KeyWords: "",
+            },
+            bind: function (data) {
+                var html = "";
+                $(data.Data).each(function (index, dom) {
+                    //每行html
+                    var trHtml = "";
+                    trHtml += "<tr>";
+                    trHtml += "<td><input name=\"cz\" type=\"radio\" id='anli_" + dom.Id + "' UserId=\"{11}\" date=\"{5}\" userName=\"{4}\"  title=\"{1}\" names=\"{1}\" values=\"{6}\" tag=\"{2}\" text=\"{8}\" typeId=\"{9}\" types=\"{3}\" idytpe=\"{10}\" onclick='ClickRadio(this)' ></td>";
+                    trHtml += "<td name=\"dataNo\"><spam >{0}</span></td>";
+                    trHtml += "<td><div class=\"ellipsis\"  title=\"{1}\" names=\"{1}\" value=\"{6}\" tag=\"{2}\" text=\"{8}\" typeId=\"{9}\" type=\"{3}\" idytpe=\"{10}\">{1}</div></td>";
+                    trHtml += "<td><div class=\"ellipsis\" title=\"{2}\" names=\"{1}\" value=\"{6}\" tag=\"{2}\" text=\"{8}\" typeId=\"{9}\" type=\"{3}\">{2}</div></td>";
+                    trHtml += "<td><div class=\"ellipsis\" title=\"{3}\" names=\"{1}\" value=\"{6}\" tag=\"{2}\" text=\"{8}\" typeId=\"{9}\" type=\"{3}\">{3}</div></td>";
+                    trHtml += "<td><div class=\"ellipsis\" title=\"{4}\" names=\"{1}\" value=\"{6}\" tag=\"{2}\" text=\"{8}\" typeId=\"{9}\" type=\"{3}\">{4}</div></td>";
+                    trHtml += "<td class=\"time\"><div class=\"ellipsis\" title=\"{5}\" names=\"{1}\" value=\"{6}\" tag=\"{2}\" text=\"{8}\" typeId=\"{9}\" type=\"{3}\">{5}</div></td>";
+                    trHtml += "</tr>";
+                    //拼接tbody
+                    html += StringHelper.FormatStr(trHtml,
+                        ((data.PageIndex - 1) * data.PageSize + index + 1),   //0 序号
+                        dom.CustomerName,                               //1 客户姓名
+                        dom.IDNum,                                      //2 身份证号
+                        dom.strFinancialType,                           //3 理财类型
+                        dom.strUserName,                                   //4 创建人
+                        dom.strCreateDate,                              //5 创建日期
+                        dom.Id,                                        //6 Id
+                        dom.ExamCaseId,                                       //7 ExamCaseId
+                        dom.CustomerStory,                                       //8 CustomerStory背景
+                        dom.FinancialTypeId,                                      //9
+                        dom.IDType,                                       //10
+                        dom.UserId                                         //11
+                        );
+                });
+                $("#caseList2").html(html);
+
+
+                var caseId = $("#txtcaseId").val();
+                $("input[name='cz']").removeAttr("checked")
+                if (caseId != 0) {
+                    $("#anli_" + caseId).attr("checked", true);
+                }
+                //屏蔽控件
+                var Type = $.getUrlParam("Type");
+                ShieldCase(Type);
+            }
+        });
+    }
+
+    //选中案例单击事件
+    function ClickRadio(valu) {
+
+        ExamCase.RemoveAll();
+        if ($(valu).attr("checked") == "checked") {
+            var obj = new Object();//实训考核/销售机会发布班级
+            obj["CustomerName"] = $(valu).attr("title");//姓名
+            obj["IDType"] = $(valu).attr("idytpe");//证件类型
+            obj["IDNum"] = $(valu).attr("tag");//证件号码
+            obj["FinancialTypeId"] = $(valu).attr("typeId");//理财类型
+            obj["CustomerStory"] = $(valu).attr("text");//背景
+            obj["FinancialTypeName"] = $(valu).attr("types");//理财类型
+            obj["strUserName"] = $(valu).attr("userName");//创建人
+            obj["strCreateTime"] = $(valu).attr("date");//创建时间
+            obj["CreateTime"] = $(valu).attr("date");//创建时间
+            obj["CaseId"] = $(valu).attr("values");//案例Id
+            obj["UserId"] = $(valu).attr("UserId");//用户Id
+
+            ExamCase.Add(obj);
+        } else {
+            ExamCase.Remove($(valu).attr("value"));
+        }
+        TrainExamDetailHelper.RemoveAll();
+        $("#S_ExamPointId").find("p").remove();
+        $("#tubiao3").removeClass("finish");
+    }
+
+    //单击案例确定
+    function AddCase() {
+        var html = "";
+        html += "<div class=\"sib-item\" >";
+        html += "<span class=\"close\" id=\"deleteCase\" onclick=\"DelteCase(this)\"></span>";
+        html += "<div class=\"fif-form b-grayish\" id=\"L_Case\" style=\"text-align:center;\" style=\"width:100%\">";
+        html += " <table style=\"width:100%\">";
+        html += "<tr style=\"text-align:center;\">";
+        html += "";
+        var trList = ExamCase.GetList(); //获取被选中的案例
+        var number = 0;
+        $.each(trList, function (i, n) {
+
+            html += "<td><span style=\"font-size:15px;width:100px\" caseId='" + n.CaseId + "' >" + n.CustomerName + "</span></td>";
+            html += "<td><span style=\"font-size:15px;width:100px\" caseId='" + n.CaseId + "'  >" + n.IDNum + "</span></td>";
+            html += "<td><span style=\"font-size:15px;width:100px\" caseId='" + n.CaseId + "'  >" + n.FinancialTypeName + "</span></td>";
+            html += "<td><span style=\"font-size:15px;width:100px\" caseId='" + n.CaseId + "'  >" + n.strUserName + "</span></td>";
+            html += "<td><span style=\"font-size:15px;width:100px\" caseId='" + n.CaseId + "'  >" + n.strCreateTime + "</span></td>";
+            number = number + 1;
+            $("#txtcaseId").val(n.CaseId);
+        });
+
+        html += "</tr></table></div></div>";
+        if (number > 0) {
+            $("#S_Case").html(html);
+            $("#popSelectCase").hide();
+            $("#Add_Case").addClass("finish");
+        } else {
+            $("#Add_Case").removeClass("finish");
+        }
+
+    }
+
+    //删除案例
+    function DelteCase(valu) {
+
+        $(valu).parent().remove();
+
+        //移除集合对应Id的班级
+        ExamCase.RemoveAll();
+        var caseId = $("#txtcaseId").val();
+        $("#anli_" + caseId).removeAttr("checked");
+        $("#txtcaseId").val(0);
+
+
+        var ExamCaseList = ExamCase.GetList();
+        if (ExamCaseList.length == 0) {
+            $("#Add_Case").removeClass("finish");
+
+            TrainExamDetailHelper.RemoveAll();
+            $("#tubiao3").removeClass("finish");
+            $("#S_ExamPointId").find("p").remove();
+            // $("#tubiao3").removeClass("finish");
+        }
+
+    }
+
+    //点击考核点按钮
+    function ClickTrainExamDetail() {
+        var ContentId = 1;
+        var S_CaseHtml = $("#S_Case").html();
+
+        if (S_CaseHtml == "") {
+            dialogHelper.Error({ content: "请先添加案例信息！", success: function () { } });
+            return false;
+        } else {
+            //将TrainExamDetailHelper数据复制到tempDetail
+            tempDetail.RemoveAll();
+            $(TrainExamDetailHelper.GetList()).each(function (index, dom) {
+                tempDetail.Add(dom);
+            });
+
+            //弹出层
+            dialogHelper.Show('popAssessmentSettings', 850);
+
+            //获取被选中的案例    
+            var trList = ExamCase.GetList();
+            $.each(trList, function (i, n) {
+                $("#CustomerName").val(n.CustomerName);
+                $("#IDNum").val(n.IDNum);
+                $("#FinancialTypeName").val(n.FinancialTypeName);
+                $("#CustomerStory").val(n.CustomerStory);
+
+            });
+
+            var Type = $.getUrlParam("Type");
+            //案例id
+            var CaseId = $("#txtcaseId").val();
+            if (Type == 1) {
+                //查看时，从Detail中获取答案数据
+                $(TrainExamDetailHelper.GetList()).each(function (index, dom) {
+                    var obj = new Object();
+                    obj["Id"] = 0;
+                    obj["CaseId"] = 0;
+                    obj["ExamPointId"] = dom.ExamPointId;
+                    obj["Answer"] = dom.Answer;
+                    answerHelper.Add(dom);
+                });
+            } else {
+                //是否考虑要不要把获取答案单独封装
+                //获取考核点答案
+                $.ajax({
+                    url: "/CaseRes/GetCase",
+                    type: "POST",
+                    async: false,
+                    dataType: "json",
+                    data:
+                    {
+                        Id: CaseId,
+                        rId: Math.random()
+                    },
+                    success: function (data) {
+                        //答案
+                        $(data.ExamPointAnswer).each(function (index, dom) {
+                            answerHelper.Add(dom);
+                        });
+                    }
+                });
+            }
+
+            //单击考核点按钮是生成考核点
+            var TrainExamId = $.getUrlParam("TrainExamId");
+            GetExamPointList(1, TrainExamId, Type);
+
+            //选中被保存了的考核点
+            CheckCheckbox();
+
+            //下拉框默认选中第一个
+            $("#selectExamContent").val(1);
+        }
+    }
+
+    // 根据考核内容Id，获取考核点
+    function GetExamPointList(ContentId, TrainExamId, Type) {
+        $("#selectAll_").attr("checked", false);
+        $.ajax({
+            url: "/CaseRes/GetExamPointList",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            data:
+            {
+                ContentId: ContentId,
+                rId: Math.random()
+            },
+            success: function (data) {
+                //生成考核点列表
+                GenerationHtmlList(data, TrainExamId, ContentId);
+                //选中被保存了的考核点
+                CheckCheckbox();
+            }
+
+        });
+        //在发布后查看多有的文本框禁用
+        TextDisplay(Type);
+        //查看时，非勾选考核点不显示
+        if (Type == 1) {
+            $("#ExamContentList input:checkbox").each(function (index, dom) {
+                if (!$(dom).is(":checked")) {
+                    //移除tr
+                    $(dom).parent().parent().remove();
+                }
+            });
+        }
+        //特殊处理，保险规划禁用全选按钮
+        if (ContentId == EnumList.ExamContent.InsurancePlan) {
+            $("#selectAll_").attr("disabled", true);
+        } else {
+            $("#selectAll_").attr("disabled", false);
+        }
+    }
+
+    //生成考核点列表
+    function GenerationHtmlList(data, TrainExamId, ContentId) {
+        var StrHtml = "";
+        //先绑模块及考核点
+        var ModuleLength = data.ExamModuleList.length;
+        var PointLength = data.ExamPointList.length;
+        for (var i = 0; i < ModuleLength; i++) {
+            var ExamModuleName = data.ExamModuleList[i].ExamModuleName;
+            var Id = data.ExamModuleList[i].Id;
+            if (ExamModuleName != "" && ExamModuleName != null) {
+                StrHtml += " <tr><td><input filed=\"AllChecked\" type=\"checkbox\" name=\"selectAll_chiled0" + i + "_\" onclick=\"CheckedCheckBox(this)\" id=\"selectAll_chiled0" + i + "_\" {0} ></td> <td colspan=\"2\" align=\"left\"> " + ExamModuleName + " </td> </tr>";
+            }
+            if (ExamModuleName == "") {
+                StrHtml += " <tr> <td colspan=\"5\" align=\"left\" style='height:20px'> </td> </tr>";
+            }
+
+            var disabled_point_num = 1;
+            var point_num = 1;
+            for (var j = 0; j < PointLength; j++) {
+                var ExamModuleId = data.ExamPointList[j].ExamModuleId;
+                var ExamPointId = data.ExamPointList[j].Id
+                if (ExamModuleId == Id) {
+                    //模块下考点数量计算
+                    point_num++;
+
+                    var ExamPointType = data.ExamPointList[j].ExamPointType;
+                    var TypeName = "客观题";
+                    if (ExamPointType == 2) {
+                        TypeName = "主观题";
+                    }
+                    //查找当前考核点答案
+                    var Record = answerHelper.FindRecord(ExamPointId);
+                    var Answer = "";
+                    if (Record != null && Record.Answer != null) {
+                        Answer = Record.Answer;
+                    }
+                    //是否需要禁用选择框
+                    var disabled_flag = false;
+                    if (ExamPointType == 1 && Answer == "") {
+                        disabled_flag = true;
+                        disabled_point_num++;
+                    }
+
+                    StrHtml += "<tr>";
+                    StrHtml += "<td><input type=\"checkbox\" id='b" + data.ExamPointList[j].Id + "' name='selectAll_chiled0" + i + "_b0' tag='chk_list' onclick=\"notCheck(this)\" " + (disabled_flag ? "disabled=\"disabled\"" : "") + "></td>";//j
+                    StrHtml += "<td><span tag='" + TrainExamId + "' pointType='" + ExamPointType + "' value='" + data.ExamPointList[j].Id + "'>" + TypeName + "</span></td>";
+                    StrHtml += "<td><span tag='" + TrainExamId + "' pointType='" + ExamPointType + "' value='" + data.ExamPointList[j].Id + "'>" + data.ExamPointList[j].ExamPointName + "</span></td>";
+
+
+                    //拼接分数tempDetail
+                    //var detail = TrainExamDetailHelper.FindRecord(ExamPointId);
+                    var detail = tempDetail.FindRecord(ExamPointId);
+                    if (detail == null) {
+                        StrHtml += "<td><input class=\"ipt-text grid-12\" type=\"text\" onblur=\"UpdateScore(this)\" value=\"2\"></td>";
+                    } else {
+                        StrHtml += "<td><input class=\"ipt-text grid-12\" type=\"text\" onblur=\"UpdateScore(this)\" value='" + detail.Score + "'></td>";
+                    }
+
+
+                    StrHtml += "<td title='" + Answer + "'><div class=\"ellipsis\" title='" + Answer + "'>" + Answer + "</div></td>";
+                }
+            }
+            //若禁用数量与考核点数量一致，则禁用对应模块
+            if (disabled_point_num == point_num) {
+                StrHtml = StringHelper.FormatStr(StrHtml, "disabled=disabled");
+            } else {
+                StrHtml = StringHelper.FormatStr(StrHtml, "");
+            }
+
+
+        }
+        $("#ExamContentList").html(StrHtml);
+    }
+
+    //点击考核点确定按钮
+    function AddTrainExamDetail() {
+        //验证考核点
+        var TrainExamDetailList = tempDetail.GetList();
+        var number = 0;          //考核点个数
+        var score = 0;           //分数
+        var flag = false;        //是否有空的分数
+        $.each(TrainExamDetailList, function (i, n) {
+            number = number + 1;
+            score = score + Number(n.Score);
+            if (n.Score == null || n.Score == "" || n.Score == undefined || isNaN(parseInt(n.Score)) || parseInt(n.Score) < 1 || parseInt(n.Score) > 50) {
+                flag = true;
+            }
+        });
+        if (flag) {
+            dialogHelper.Error({ content: "已选择的考核点需设置1-50间的分值！" });
+            return;
+        }
+
+        //将tempDetail数据复制到TrainExamDetailHelper
+        TrainExamDetailHelper.RemoveAll();
+        $(tempDetail.GetList()).each(function (index, dom) {
+            TrainExamDetailHelper.Add(dom);
+        });
+
+
+
+        if (number != 0 && score != 0) {
+            var html = "<p class=\"bor pl10 pr10 mt10\">您共选择了<span class=\"c-red\">" + number + "</span>个考核点，总分<span class=\"c-red\">" + score + "</span>分！</p>";
+            $("#S_ExamPointId").html(html);
+            $("#tubiao3").addClass("finish");
+        } else {
+            $("#S_ExamPointId").find("p").remove();
+            $("#tubiao3").removeClass("finish");
+        }
+
+        dialogHelper.Close('popAssessmentSettings');
+    }
+
+    //选中被保存了的考核点
+    function CheckCheckbox() {
+        var TrainExamDetailList = tempDetail.GetList(); //TrainExamDetailHelper.GetList();
+
+        $.each(TrainExamDetailList, function (i, n) {
+            $("#b" + n.ExamPointId).attr("checked", true);
+        });
+
+        //如果子复选框全选中这选框要选中
+        var totalLength = $("input[tag='chk_list']").length;
+        var checkedLength = $("input:checked[tag='chk_list']").length;
+        if (checkedLength > 0 && totalLength == checkedLength) {
+            $("#selectAll_").attr("checked", true);
+        }
+        else if (checkedLength < totalLength) {
+            $("#selectAll_").attr("checked", false);
+        }
+
+        //三级子复选框全部选中时二级复选框选中
+        var list = $("#ExamContentList tr").find("td").find("[filed='AllChecked']");
+        var two = null;
+        $.each(list, function (i, n) {
+            two = $(n).attr("name");
+
+            var str = two.split('_');
+            var TWO = str[0] + "_" + str[1] + "_b0";
+            var TWO2 = str[0] + "_" + str[1] + "_";
+
+            var length1 = $("input[name='" + TWO + "']").length;
+            var length2 = $("input:checked[name='" + TWO + "']").length;
+
+            if (length2 > 0 && length1 == length2) {
+                $("#" + TWO2).attr("checked", true);
+            }
+            else if (length2 < length1) {
+                $("#" + TWO2).attr("checked", false);
+            }
+        });
+
+    }
+
+    //点击考核点取消按钮
+    function ClickQuXiao() {
+        tempDetail.RemoveAll();
+    }
+
+    //时间控件改变事件
+    function getTime(valu) {
+        var text = $("#StartDate").val();
+        if (text != "") {
+            $("#tubiao5").addClass("finish");
+        } else {
+            $("#tubiao5").removeClass("finish");
+        }
+        $("#StartDate").blur();
+    }
+
+    //时间控件改变事件
+    function getTime2(valu) {
+        var text = $("#EndDate").val();
+        if (text != "") {
+            $("#tubiao6").addClass("finish");
+        } else {
+            $("#tubiao6").removeClass("finish");
+        }
+        $("#EndDate").blur();
+    }
+
+    //在已发布查看时考核点文本框禁用
+    function TextDisplay(Type) {
+        if (Type == 1) {
+            var list = $("#ExamContentList").find("input");
+            $.each(list, function (i, n) {
+                $(n).attr("disabled", "disabled");
+            });
+            var classList2 = $("#S_Class span");
+            $.each(classList2, function (i, nn) {
+                $(nn).find("i").attr("disabled", "disabled");
+            });
+
+            $("#TrainExamName").attr("disabled", "disabled");
+            $("#StartDate").attr("disabled", "disabled");
+            $("#EndDate").attr("disabled", "disabled");
+
+            $("#EndDate").attr("disabled", "disabled");
+
+            //各种确定按钮
+            $("#anliButton").attr("disabled", "disabled");
+            $("#detailButton").attr("disabled", "disabled");
+
+            $("#selectAll_").attr("disabled", "disabled");
+            $("#buttons").hide();
+            $("#deleteCase").hide();
+            $("#anliButton").hide();
+            $("#detailButton").hide();
+            ShieldClass
+            //各种取消按钮变返回按钮
+            $("#btnCancle").val("返回");
+            $("#btnCaseCancle").val("返回");
+            $("#btnDetailCancle").val("返回");
+        }
+    }
+
+    //屏蔽案例单选按钮
+    function ShieldCase(Type) {
+        if (Type == 1) {
+            var classList = $("#caseList2").find("input");
+            $.each(classList, function (i, c) {
+                $(c).attr("disabled", "disabled");
+            });
+        }
+    }
+
+    //反选
+    function notCheck(valu) {
+        var totalLength = $("input[tag='chk_list']").length;
+        var checkedLength = $("input:checked[tag='chk_list']").length;
+        if (checkedLength > 0 && totalLength == checkedLength) {
+            $("#selectAll_").attr("checked", true);
+        }
+        else if (checkedLength < totalLength) {
+            $("#selectAll_").attr("checked", false);
+        }
+
+        var two = $(valu).attr("name");
+        var str = two.split('_');
+        var TWO = str[0] + "_" + str[1] + "_b0";
+        var TWO2 = str[0] + "_" + str[1] + "_";
+
+        var length1 = $("input[name='" + TWO + "']").length;
+        var length2 = $("input:checked[name='" + TWO + "']").length;
+
+        if (length2 > 0 && length1 == length2) {
+            $("#" + TWO2).attr("checked", true);
+        }
+        else if (length2 < length1) {
+            $("#" + TWO2).attr("checked", false);
+        }
+
+        //选中就是添加
+        var DetailList = $(valu).parent().parent();
+        if ($(valu).attr("checked") == "checked") {
+
+            $.each(DetailList, function (i, n) {
+                var a = $(n).find("span").attr("tag");
+                var aq = $(n).find("div").html();
+                //循环添加详细信息
+                var obj = new Object();//实训考核/销售机会详细信息
+                obj["TrainExamId"] = $(n).find("span").attr("tag");//实训考核/销售机会Id
+                obj["ExamPointId"] = $(n).find("span:eq(1)").attr("value");//考核点Id
+                obj["Score"] = $(n).find("input:eq(1)").val();//考核点Id   
+                obj["ModularId"] = $("#selectExamContent").val();//模块Id
+                obj["ExamPointType"] = $(n).find("span:eq(1)").attr("pointType");//主观题客观题
+                //TrainExamDetailHelper.Add(obj);
+                tempDetail.Add(obj);
+
+            });
+
+        } else {
+            //var id = $(valu).parent().parent().find("span").attr("tag");
+            var pointid = $(valu).parent().parent().find("span").attr("value");
+            //TrainExamDetailHelper.Remove(pointid);
+            tempDetail.Remove(pointid);
+        }
+
+    }
+
+    //修改分数
+    function UpdateScore(valu) {
+        //首先移除该条记录
+        var pointId = $(valu).parent().parent().find("span").attr("value");
+        //已勾选考点存在时，才进行更新分数操作
+        var index = tempDetail.Find(pointId);
+        if (index > -1) {
+            //TrainExamDetailHelper.Remove(pointId);
+            tempDetail.Remove(pointId);
+
+            var score = $.trim($(valu).parent().parent().find("input:eq(1)").val());
+            if (isNaN(parseInt(score))) {
+
+            } else {
+                $(valu).val(parseInt(score));
+                score = parseInt(score);
+            }
+            var ExamId = $(valu).parent().parent().find("span").attr("tag");
+            var obj = new Object();
+            obj["TrainExamId"] = ExamId;
+            obj["ExamPointId"] = pointId;//考核名称
+            obj["Score"] = score;//分数   
+            obj["ModularId"] = $("#selectExamContent").val();//模块Id
+            obj["ExamPointType"] = $(valu).parent().parent().find("span").attr("pointType");//主观题客观题
+            //TrainExamDetailHelper.Add(obj);
+            tempDetail.Add(obj);
+        }
+    }
+
+    //取消
+    function cancel() {
+        window.history.back(-1);
+    }
+
+    //保存
+    function AddTrainExams() {
+
+        if (!VerificationHelper.checkFrom("AddTrainExamCase")) {
+            return false;
+        }
+
+        var name = $.trim($("#TrainExamName").val());
+            if (name == "") {
+                dialogHelper.Error({ content: "您还有设置未完成！", success: function () { } });
+                return false;
+            }
+        //判断是否添加案例
+        if ($("#AddTrainExamCase #S_Case").html() == "" || $("#AddTrainExamCase #S_Case").html() == null) {
+            dialogHelper.Error({ content: "您还有设置未完成！", success: function () { } });
+            return false;
+        }
+        //判断是否添加考核点
+        if ($("#AddTrainExamCase #S_ExamPointId").html() == "" || $("#AddTrainExamCase #S_ExamPointId").html() == null) {
+            dialogHelper.Error({ content: "您还有设置未完成！", success: function () { } });
+            return false;
+        }
+        //判断时间
+        var starttime = $("#StartDate").val();
+        var endtime = $("#EndDate").val();
+        if (starttime == "") {
+            dialogHelper.Error({ content: "您还有设置未完成！", success: function () { } });
+            return false;
+        }
+        if (endtime == "") {
+            dialogHelper.Error({ content: "您还有设置未完成！", success: function () { } });
+            return false;
+        }
+
+
+        var a = $("#txtcaseId").val();
+
+
+        var obj = new Object();                                 //实训考核/销售机会
+        obj["Id"] = $("#Id").val();
+        obj["TrainExamName"] = $("#TrainExamName").val();       //考核名称
+        obj["ExamCaseId"] = a;                                  //案例Id
+        obj["CaseId"] = a;                                      //案例Id
+        obj["UserId"] = $("#hdUserId").val();                   //发布用户Id
+        var Type = $.getUrlParam("Type");
+        if (Type == 1) {
+            obj["Status"] = 1;                                  //状态
+        } else {
+            obj["Status"] = 0;                                  //状态
+        }
+        obj["StartDate"] = $("#StartDate").val();               //开始时间
+        obj["EndDate"] = $("#EndDate").val();                   //结束时间   
+        obj["TrainExamStatus"] = 1;                             //评分状态   
+        obj["TrainExamDetail"] = null;                          //详细信息
+        var startime = $("#StartDate").val()
+        //添加案例
+        obj["ExamCase"] = ExamCase.GetList();
+        var ab = ExamCase.GetList();
+        var IDNum = "";
+        $.each(ab, function (i, n) {
+            IDNum = n.IDNum;
+        });
+
+        //添加详细信息
+        obj["TrainExamDetail"] = TrainExamDetailHelper.GetList();//新增（添加时）   
+
+        $.ajax({
+            url: "/CaseExam/AddTrainExam2",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            data: JSON.stringify(obj),
+            contentType: "application/json",
+            success: function (data) {
+                $("#Id").val(data);
+
+                num = 0;
+                Score = 0;
+                dialogHelper.Success({
+                    content: "保存成功！", success: function () {
+                        var TrainExamId = $.getUrlParam("TrainExamId");
+                        if (TrainExamId == null) {
+                            TrainExamId = data;
+                        } else {
+                            SelectTrainExam(TrainExamId);
+                        }
+
+                        dialogHelper.Confirm({
+                            content: "是否要发布该实训?", success: function () {
+                                var TrainExamId = $.getUrlParam("TrainExamId");
+                                if (TrainExamId == null) {
+                                    TrainExamId = data;
+                                }
+                                    PublishPractise(TrainExamId, 0, IDNum, startime, name);
+                            },
+                            cancle: function () {
+                            }
+                        });
+                    }
+                });
+            }, error: function (msg) {
+                $(".background,.progressBar").hide();
+            }
+        });
+    }
+
+    //发布销售机会或实训考核
+    function PublishPractise(Id, Status, INNum, strStartDate, TrainExamName) {
+        $.ajax({
+            url: "/CaseExam/publishTrainExam",
+            data: { Id: Id, Status: Status, IDNum: INNum, strStartDate: strStartDate, TrainExamName: TrainExamName },
+            async: false,
+            type: "POST",
+            success: function (data) {
+                dialogHelper.Success({
+                    content: "发布成功！", success: function () {
+                            window.location.href = "/CaseExam/CheckPublished";
+                    }
+                });
+            },
+            error: function (msg) {
+                $(".background,.progressBar").hide();
+            }
+        });
+    }
+
+    //考核点二级全选事件
+    function CheckedCheckBox(valu) {
+        var name = $(valu).attr("name");
+        var Id = name + "b0";
+        var list = $(valu).parent().parent().parent().find("tr");
+
+        if ($(valu).attr("checked") == "checked") {
+            $.each(list, function (i, n) {
+                if ($(n).find("td:eq(0)").find("input").attr("name") == Id) {
+                    //并且选中框不能disabled
+                    if ($(n).find("td:eq(0)").find("input").attr("disabled") != undefined) {
+                        return;
+                    }
+
+                    $(n).find("td:eq(0)").find("input").attr("checked", true);
+
+                    //循环添加详细信息
+                    var obj = new Object();//实训考核/销售机会详细信息
+                    obj["TrainExamId"] = $(n).find("td").find("span").attr("tag");//实训考核/销售机会Id
+                    obj["ExamPointId"] = $(n).find("td").find("span").attr("value");//考核点Id
+                    obj["Score"] = $(n).find("td:eq(3)").find("input").val();//考核点Id
+                    obj["ModularId"] = $("#selectExamContent").val();//模块Id
+                    obj["ExamPointType"] = $(n).find("td").find("span").attr("pointType");//主观题客观题
+                    //TrainExamDetailHelper.Add(obj);
+                    tempDetail.Add(obj);
+                }
+
+            });
+        } else {
+            $.each(list, function (i, n) {
+                if ($(n).find("td:eq(0)").find("input").attr("name") == Id) {
+                    $(n).find("td:eq(0)").find("input").attr("checked", false);
+
+                    var pointid = $(n).find("td").find("span").attr("value");
+                    //TrainExamDetailHelper.Remove(pointid);
+                    tempDetail.Remove(pointid);
+                }
+            });
+        }
+
+        var totalLength = $("input[tag='chk_list']").length;
+        var checkedLength = $("input:checked[tag='chk_list']").length;
+        if (checkedLength > 0 && totalLength == checkedLength) {
+            $("#selectAll_").attr("checked", true);
+        }
+        else if (checkedLength < totalLength) {
+            $("#selectAll_").attr("checked", false);
+        }
+    }
+
+</script>

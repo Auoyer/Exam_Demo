@@ -1,0 +1,430 @@
+﻿@{
+    Layout = "~/Areas/CompetitionUser/Views/Shared/_LayoutSystem.cshtml";
+}
+@section PageSpecificStyleSheetIncludes {
+    <script src="~/Content/js/Training/InsurancePlan.js"></script>
+}
+<!--保险规划-->
+<div class="con-right subsystem FinancePlan" id="FinanceInsurancePlanDiv">
+    <div class="tab-title">
+        <ul>
+            <li><a href="javascript:SaveJudgeTag('FinanceInsurancePlanDiv','LifeEducationPlan')"><b class="ico ims-icon7"></b><strong>教育规划</strong></a></li>
+            <li><a href="javascript:SaveJudgeTag('FinanceInsurancePlanDiv','ConsumptionPlan')"><b class="ico ims-icon8"></b><strong>消费规划</strong></a></li>
+            <li><a href="javascript:SaveJudgeTag('FinanceInsurancePlanDiv','StartAnUndertakingPlan')"><b class="ico ims-icon9"></b><strong>创业规划</strong></a></li>
+            <li><a href="javascript:SaveJudgeTag('FinanceInsurancePlanDiv','RetirementPlan')"><b class="ico ims-icon10"></b><strong>退休规划</strong></a></li>
+            <li><a class="active" href="javascript:SaveJudgeTag('FinanceInsurancePlanDiv','InsurancePlan')"><b class="ico ims-icon11"></b><strong>保险规划</strong></a></li>
+        </ul>
+    </div>
+    <div class="main-hd">
+        <input class="btn btn-small btn-blue fr ml10" type="button" id="btnNext" value="下一步">
+        <input class="btn btn-small btn-blue fr ml10" type="button" id="btnSave" value="保 存">
+        <input class="btn btn-small btn-blue fr" type="button" id="btnPrev" value="上一步">
+    </div>
+
+    <div class="main-bd">
+        <h2>寿险需求测算</h2>
+        <input type="hidden" name="InsurancePlanId" id="InsurancePlanId" value=" " />
+        <input type="hidden" name="ProposalId" id="ProposalId" value=" " />
+        <input type="hidden" name="TabZH" id="TabZH" value=" " />
+        @*险规划的每月可用资金区域样式和生涯规划页签头部样式不一致*@
+        <div class="item">
+            @*//<div class="item b-aqua">*@
+                <div class="fif-con">
+                    <div class="fif-box grid-5">
+                        <label class="fif-text" style="width:170px;"><i class="c-red">*</i>寿险需求测算方法选择：</label>
+                        <div class="input grid-4">
+                            <select id="MethodTypeId" class="ipt-text IsRequired" name="MethodTypeId" selecttag="" defaultval="1" msgname="寿险需求测算方法选择" style="height:33px;">
+                                <option value="1">遗属需求法</option>
+                                <option value="2">生命价值法</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fif-box grid-4">
+                        <label class="fif-text">每月可支配资金：</label>
+                        <div class="input grid-7"><input class="ipt-text b-gray" id="monthMoney" name="monthMoney" readonly="readonly" type="text"><span>元</span></div>
+                    </div>
+                    <div class="fif-box grid-3">
+                        <label class="fif-text">可用资产：</label>
+                        <div class="input grid-7"><input style="width:80%;" id="UserableAsset" name="UserableAsset" readonly="readonly" class="ipt-text b-gray" type="text"><span>元</span></div>
+                    </div>
+                </div>
+            </div>
+            <!--遗属需求法-->
+            <div id="InsuranceOne">
+                <div class="clearfix">
+                    <div class="table tableline">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <thead>
+                                <tr>
+                                    <th colspan="4" style="border-left-width: 0px; border-right-width: 0px;">遗属需求法</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td width="40" style="border-left-width: 0px;">序号</td>
+                                    <td>项目</td>
+                                    <td width="26%">客户</td>
+                                    <td width="26%" style="border-right-width: 0px;">配偶</td>
+                                </tr>
+                                <tr class="b-grayish">
+                                    <td style="border-left-width: 0px;">1</td>
+                                    <td><i class="c-red">*</i>弥补遗属需求的寿险需求</td>
+                                    <td><input class="ipt-text b-grayish b-gray" type="text" id="InsureName" name="InsureName" readonly="readonly"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text IsRequired IsMaxLength IsMinLength" msgname="配偶姓名" minlength="2" maxlength="20" type="text" id="SpouseName" name="SpouseName"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">2</td>
+                                    <td><i class="c-red">*</i>被保险人年龄/岁</td>
+                                    <td><input type="text" name="Age1" id="Age1" readonly="readonly" class="ipt-text b-grayish b-gray" value="" field="Age1" /></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text IsRequired IsNumber IsMaxNumber IsMinNumber" msgname="被保险人年龄" maxnumber="150" minnumber="1" id="Age2" name="Age2" type="text"></td>
+                                </tr>
+                                <tr class="b-grayish">
+                                    <td style="border-left-width: 0px;">3</td>
+                                    <td><i class="c-red">*</i>预计退休年龄/岁</td>
+                                    <td><input class="ipt-text IsRequired IsMaxNumber IsMinNumber IsNumber" msgname="预计退休年龄" maxnumber="150" minnumber="1" type="text" id="RetirementAge1" name="RetirementAge1"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text IsRequired IsMaxNumber IsMinNumber IsNumber" msgname="预计退休年龄" maxnumber="150" minnumber="1" id="RetirementAge2" name="RetirementAge2" type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">4</td>
+                                    <td><i class="c-red">*</i>投资报酬率（%）</td>
+                                    <td><input class="ipt-text  IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="ReturnOnInvestment1" name="ReturnOnInvestment1" msgname="投资报酬率" minfloat="0" msgreg="请输入0.00到99.99的数字" reg="\d{0,2}\.*\d{0,2}" maxfloat="99.99" field="ReturnOnInvestment1"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" id="ReturnOnInvestment2" name="ReturnOnInvestment2" type="text" msgname="投资报酬率" minfloat="0" msgreg="请输入0.00到99.99的数字" reg="\d{0,2}\.*\d{0,2}" maxfloat="99.99"></td>
+                                </tr>
+                                <tr class="b-grayish">
+                                    <td style="border-left-width: 0px;">5</td>
+                                    <td><i class="c-red">*</i>通货膨胀率（%）</td>
+                                    <td><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="InflationRate1" name="InflationRate1" msgname="通货膨胀率" minfloat="0" msgreg="请输入0.00到99.99的数字" reg="\d{0,2}\.*\d{0,2}" maxfloat="99.99"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" id="InflationRate2" name="InflationRate2" type="text" msgname="通货膨胀率" minfloat="0" msgreg="请输入0.00到99.99的数字" reg="\d{0,2}\.*\d{0,2}" maxfloat="99.99"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">6</td>
+                                    <td><i class="c-red">*</i>收入增长率（%）</td>
+                                    <td><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="RevenueGrowth1" name="RevenueGrowth1" field="RevenueGrowth1" msgname="收入增长率" minfloat="0" msgreg="请输入0.00到99.99的数字" reg="\d{0,2}\.*\d{0,2}" maxfloat="99.99"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="RevenueGrowth2" name="RevenueGrowth2" msgname="收入增长率" minfloat="0" msgreg="请输入0.00到99.99的数字" reg="\d{0,2}\.*\d{0,2}" maxfloat="99.99"></td>
+                                </tr>
+                                <tr class="b-grayish">
+                                    <td style="border-left-width: 0px;">7</td>
+                                    <td>家庭生活费用实质报酬率（%）</td>
+                                    <td><input class="ipt-text b-grayish b-gray" type="text" id="FamilyExpensesPay1" name="FamilyExpensesPay1" readonly="readonly"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text b-grayish b-gray" type="text" id="FamilyExpensesPay2" name="FamilyExpensesPay2" readonly="readonly"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">8</td>
+                                    <td>家庭收入实质报酬率（%）</td>
+                                    <td><input class="ipt-text  b-grayish b-gray" type="text" id="FamilyIncomePay1" name="FamilyIncomePay1" readonly="readonly"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text  b-grayish b-gray" type="text" id="FamilyIncomePay2" name="FamilyIncomePay2" readonly="readonly"></td>
+                                </tr>
+                                <tr class="b-grayish">
+                                    <td style="border-left-width: 0px;">9</td>
+                                    <td>配偶当前年龄/岁</td>
+                                    <td><input class="ipt-text  b-grayish b-gray" type="text" id="SpouseAge1" name="SpouseAge1" readonly="readonly"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text  b-grayish b-gray" type="text" id="SpouseAge2" name="SpouseAge2" readonly="readonly"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">10</td>
+                                    <td>家庭未来生活费准备年数/年</td>
+                                    <td><input class="ipt-text  b-grayish b-gray b-gray" type="text" id="FamilyFutureSaving1" name="FamilyFutureSaving1" readonly="readonly"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text  b-grayish b-gray" type="text" id="FamilyFutureSaving2" name="FamilyFutureSaving2" readonly="readonly"></td>
+                                </tr>
+                                <tr class="b-grayish">
+                                    <td style="border-left-width: 0px;">11</td>
+                                    <td><i class="c-red">*</i>当前的家庭生活费用/元</td>
+                                    <td><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" msgname="当前的家庭生活费用" minfloat="00.1" msgreg="请输入0.01到999999999.99的数字" reg="\d{0,9}\.?\d{0,2}" maxfloat="999999999.99" type="text" id="MatrimonialFee1" name="MatrimonialFee1"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" msgname="当前的家庭生活费用" minfloat="0.01" msgreg="请输入0.01到99999999999.99的数字" reg="\d{0,9}\.?\d{0,2}" maxfloat="99999999999.99" type="text" id="MatrimonialFee2" name="MatrimonialFee2"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">12</td>
+                                    <td><i class="c-red">*</i>保险事故发生后支出调整率（%）</td>
+                                    <td><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" msgname="保险事故发生后支出调整率" maxfloat="100" minfloat="10" type="text" id="AfterAccidentRate1" name="AfterAccidentRate1" reg="\d{0,3}\.?\d{0,2}" msgreg="请输入10.00到100.00的数字"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" msgname="保险事故发生后支出调整率" maxfloat="100" minfloat="10" reg="\d{0,3}\.?\d{0,2}" msgreg="请输入10.00到100.00的数字" type="text" id="AfterAccidentRate2" name="AfterAccidentRate2"></td>
+                                </tr>
+                                <tr class="b-grayish">
+                                    <td style="border-left-width: 0px;">13</td>
+                                    <td>调整后家庭年生活费用/元</td>
+                                    <td><input class="ipt-text  b-grayish b-gray" type="text" id="AdjustMatrimonialFee1" name="AdjustMatrimonialFee1" readonly="readonly"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text  b-grayish b-gray" type="text" id="AdjustMatrimonialFee2" name="AdjustMatrimonialFee2" readonly="readonly"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">14</td>
+                                    <td>家庭生活费用现值/元</td>
+                                    <td><input class="ipt-text  b-grayish b-gray" type="text" id="MatrimonialFeeNow1" name="MatrimonialFeeNow1" readonly="readonly"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text  b-grayish b-gray" type="text" id="MatrimonialFeeNow2" name="MatrimonialFeeNow2" readonly="readonly"></td>
+                                </tr>
+                                <tr class="b-grayish">
+                                    <td style="border-left-width: 0px;">15</td>
+                                    <td><i class="c-red">*</i>配偶的个人年收入/元</td>
+                                    <td><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" msgname="配偶的个人年收入" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99" type="text" id="Income1" name="Income1"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="Income2" name="Income2" msgname="配偶的个人年收入" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">16</td>
+                                    <td>配偶的个人收入现值/元</td>
+                                    <td><input class="ipt-text  b-grayish b-gray" type="text" id="SpouseMonthIncome1" name="SpouseMonthIncome1" readonly="readonly"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text  b-grayish b-gray" type="text" id="SpouseMonthIncome2" name="SpouseMonthIncome2" readonly="readonly"></td>
+                                </tr>
+                                <tr class="b-grayish">
+                                    <td style="border-left-width: 0px;">17</td>
+                                    <td>家庭未来生活费用缺口现值/元</td>
+                                    <td><input class="ipt-text  b-grayish b-gray" type="text" id="FamilyLiveOverdraft1" name="FamilyLiveOverdraft1" readonly="readonly"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text  b-grayish b-gray" type="text" id="FamilyLiveOverdraft2" name="FamilyLiveOverdraft2" readonly="readonly"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">18</td>
+                                    <td><i class="c-red">*</i>紧急备用金现值/元</td>
+                                    <td><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="ReserveFund1" name="ReserveFund1" msgname="紧急备用金现值" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99" value=""></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="ReserveFund2" name="ReserveFund2" msgname="紧急备用金现值" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99" value=""></td>
+                                </tr>
+                                <tr class="b-grayish">
+                                    <td style="border-left-width: 0px;">19</td>
+                                    <td><i class="c-red">*</i>教育金现值/元</td>
+                                    <td><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="EduAmount1" name="EduAmount1" msgname="教育金现值" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="EduAmount2" name="EduAmount2" msgname="教育金现值" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">20</td>
+                                    <td><i class="c-red">*</i>养老基金现值/元</td>
+                                    <td><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="PensionFunds1" name="PensionFunds1" msgname="养老基金现值" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="PensionFunds2" name="PensionFunds2" msgname="养老基金现值" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99"></td>
+                                </tr>
+                                <tr class="b-grayish">
+                                    <td style="border-left-width: 0px;">21</td>
+                                    <td><i class="c-red">*</i>临终及丧葬支出现值/元</td>
+                                    <td><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="DeathExpense1" name="DeathExpense1" msgname="临终及丧葬支出现值" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="DeathExpense2" name="DeathExpense2" msgname="临终及丧葬支出现值" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">22</td>
+                                    <td><i class="c-red">*</i>目前贷款余额/元</td>
+                                    <td><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="LoanBalance1" name="LoanBalance1" msgname="目前贷款余额" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="LoanBalance2" name="LoanBalance2" msgname="目前贷款余额" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99"></td>
+                                </tr>
+                                <tr class="b-grayish">
+                                    <td style="border-left-width: 0px;">23</td>
+                                    <td><i class="c-red">*</i>家庭生息资产/元</td>
+                                    <td><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="EarningAssets1" name="EarningAssets1" msgname="家庭生息资产" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="EarningAssets2" name="EarningAssets2" msgname="家庭生息资产" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">24</td>
+                                    <td><i class="c-red">*</i>遗属需求法应有的寿险保额/元</td>
+                                    <td><input class="ipt-text  b-grayish b-gray" type="text" id="RelativeFinancial1" name="RelativeFinancial1" readonly="readonly"></td>
+                                    <td style="border-right-width: 0px;" class="last"><input class="ipt-text  b-grayish b-gray" type="text" id="RelativeFinancial2" name="RelativeFinancial2" readonly="readonly"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <p class="item grid-3"></p>
+                <div class="clearfix">
+                    <div class="table tableline">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <td style="border-left-width: 0px;">被保险人</td>
+                                    <td class="b-grayish"><input class="ipt-text  b-grayish b-gray" type="text" id="InsureName1" name="InsureName1" readonly="readonly"></td>
+                                    <td class="b-grayish last" style="border-right-width: 0px;"><input class="ipt-text  b-grayish b-gray" type="text" id="InsureName2" name="InsureName2" readonly="readonly"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">险种</td>
+                                    <td class="b-grayish">寿险</td>
+                                    <td class="b-grayish" style="border-right-width: 0px;">寿险</td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">保险需求额度/元</td>
+                                    <td class="b-grayish"><input class="ipt-text  b-grayish b-gray" type="text" id="InsureNeedCash1" name="InsureNeedCash1" readonly="readonly"></td>
+                                    <td class="b-grayish last" style="border-right-width: 0px;"><input class="ipt-text  b-grayish b-gray" type="text" id="InsureNeedCash2" name="InsureNeedCash2" readonly="readonly"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;"><i class="c-red">*</i>已有额度/元</td>
+                                    <td class="b-grayish"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="InsuranceAmount1" name="InsuranceAmount1" msgname="已有额度" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99"></td>
+                                    <td class="b-grayish last" style="border-right-width: 0px;"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="InsuranceAmount2" name="InsuranceAmount2" msgname="已有额度" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">缺口额度/元</td>
+                                    <td class="b-grayish"><input class="ipt-text b-grayish b-gray" type="text" id="GapCash1" name="GapCash1" readonly="readonly"></td>
+                                    <td class="b-grayish last" style="border-right-width: 0px;"><input class="ipt-text b-grayish b-gray" type="text" id="GapCash2" name="GapCash2" readonly="readonly"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;"><i class="c-red">*</i>预算金额/元</td>
+                                    <td class="b-grayish"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="BudgetAmount1" name="BudgetAmount1" msgname="预算金额" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99"></td>
+                                    <td class="b-grayish last" style="border-right-width: 0px;"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="BudgetAmount2" name="BudgetAmount2" msgname="预算金额" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;"><i class="c-red">*</i>补充额度/元</td>
+                                    <td class="b-grayish"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="SupplementaryQuota1" name="SupplementaryQuota1" msgname="补充额度" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99"></td>
+                                    <td class="b-grayish last" style="border-right-width: 0px;"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="SupplementaryQuota2" msgname="补充额度" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">欠缺额度/元</td>
+                                    <td class="b-grayish"><input class="ipt-text b-grayish b-gray" type="text" id="BalanceCash1" name="BalanceCash1" readonly="readonly"></td>
+                                    <td class="b-grayish last" style="border-right-width: 0px;"><input class="ipt-text b-grayish b-gray" type="text" id="BalanceCash2" name="BalanceCash2" readonly="readonly"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--生命价值法-->
+            <div id="InsuranceTwo" style="display:none">
+                <div class="clearfix">
+                    <div class="table tableline">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <thead>
+                                <tr>
+                                    <th colspan="3" style="border-left-width: 0px; border-right-width: 0px;">生命价值法</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td width="40" style="border-left-width: 0px;">序号</td>
+                                    <td>项目</td>
+                                    <td width="26%">客户</td>
+
+                                </tr>
+                                <tr class="b-grayish">
+                                    <td style="border-left-width: 0px;">1</td>
+                                    <td>被保险人年龄/岁</td>
+                                    <td>
+                                        <input class="ipt-text b-grayish" type="text" id="Age1Life" name="Age1Life" field="Age1" readonly="readonly">
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">2</td>
+                                    <td><i class="c-red">*</i>预计退休年龄/岁</td>
+                                    <td><input type="text" name="RetirementAge1Life" id="RetirementAge1Life" field="RetirementAge1" class="ipt-text IsRequired IsNumber IsMaxFloat IsMinFloat" msgname="预计退休年龄" maxfloat="150" minfloat="1" value="" /></td>
+
+                                </tr>
+                                <tr class="b-grayish">
+                                    <td style="border-left-width: 0px;">3</td>
+                                    <td>距离退休年限/年</td>
+                                    <td><input class="ipt-text b-grayish" type="text" id="PredictRetirementAgeLIfe" name="PredictRetirementAgeLIfe" readonly="readonly"></td>
+
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">4</td>
+                                    <td><i class="c-red">*</i>投资报酬率（%）</td>
+                                    <td><input class="ipt-text  IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="ReturnOnInvestment1Life" name="ReturnOnInvestment1Life" msgname="投资报酬率" minfloat="0" msgreg="请输入0.00到99.99的数字" reg="\d{0,2}\.?\d{0,2}" maxfloat="99.99" field="ReturnOnInvestment1"></td>
+
+                                </tr>
+                                <tr class="b-grayish">
+                                    <td style="border-left-width: 0px;">5</td>
+                                    <td><i class="c-red">*</i>当前个人年收入/元</td>
+                                    <td><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="Income1Life" name="Income1Life" msgname="当前个人年收入" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.?\d{0,2}" maxfloat="999999999.99" field="Income1"></td>
+
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">6</td>
+                                    <td><i class="c-red">*</i>收入增长率（%）</td>
+                                    <td><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="RevenueGrowth1Life" name="RevenueGrowth1Life" msgname="收入增长率" minfloat="0" msgreg="请输入0.00到99.99的数字" reg="\d{0,2}\.?\d{0,2}" maxfloat="99.99" field="RevenueGrowth1"></td>
+
+                                </tr>
+                                <tr class="b-grayish">
+                                    <td style="border-left-width: 0px;">7</td>
+                                    <td>未来工作期间收入现值/元</td>
+                                    <td><input class="ipt-text b-grayish" type="text" id="FutureIncomeLife" name="FutureIncomeLife" readonly="readonly"></td>
+
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">8</td>
+                                    <td><i class="c-red">*</i>当前个人年支出/元</td>
+                                    <td><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="Expenditure" name="Expenditure" msgname="当前个人年支出" minfloat="0" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.?\d{0,2}" maxfloat="999999999.99"></td>
+
+                                </tr>
+                                <tr class="b-grayish">
+                                    <td style="border-left-width: 0px;">9</td>
+                                    <td><i class="c-red">*</i>年通货膨胀率（%）</td>
+                                    <td><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="InflationRate1Life" name="InflationRate1Life" field="InflationRate1" msgname="年通货膨胀率" minfloat="0" msgreg="请输入0.00到99.99的数字" reg="\d{0,2}\.?\d{0,2}" maxfloat="99.99"></td>
+
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">10</td>
+                                    <td>未来工作期间支出现值/元</td>
+                                    <td><input class="ipt-text  b-grayish" type="text" id="FutureExpend" name="FutureExpend" readonly="readonly"></td>
+
+                                </tr>
+                                <tr class="b-grayish">
+                                    <td style="border-left-width: 0px;">11</td>
+                                    <td>个人未来净收入的年金现值/元</td>
+                                    <td><input class="ipt-text b-grayish" type="text" id="FutureAnnuityIncome" name="FutureAnnuityIncome" readonly="readonly"></td>
+
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">12</td>
+                                    <td>弥补收入应有的寿险保额/元</td>
+                                    <td><input class="ipt-text b-grayish" type="text" id="FutureAnnuityIncomeSub" name="FutureAnnuityIncomeSub" readonly="readonly"></td>
+
+                                </tr>
+
+                                <!--生命算法end-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <p class="item grid-3"></p>
+                <div class="clearfix">
+                    <div class="table tableline">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <td style="border-left-width: 0px;">被保险人</td>
+                                    <td class="b-grayish"><input class="ipt-text  b-grayish" type="text" id="InsureName1Life" name="InsureName1Life" readonly="readonly" field="InsureName1"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">险种</td>
+                                    <td class="b-grayish">寿险</td>
+
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">保险需求额度/元</td>
+                                    <td class="b-grayish"><input class="ipt-text  b-grayish" type="text" id="InsureNeedCash1Life" name="InsureNeedCash1Life" readonly="readonly" field="InsureNeedCash1"></td>
+
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;"><i class="c-red">*</i>已有额度/元</td>
+                                    <td class="b-grayish"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="InsuranceAmount1Life" name="InsuranceAmount1Life" msgname="已有额度" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.?\d{0,2}" maxfloat="999999999.99" field="InsuranceAmount1"></td>
+
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">缺口额度/元</td>
+                                    <td class="b-grayish"><input class="ipt-text b-grayish" type="text" id="GapCash1Life" name="GapCash1Life" readonly="readonly" field="GapCash1"></td>
+
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;"><i class="c-red">*</i>预算金额/元</td>
+                                    <td class="b-grayish"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="BudgetAmount1Life" name="BudgetAmount1Life" msgname="预算金额" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99" field="BudgetAmount1"></td>
+
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;"><i class="c-red">*</i>补充额度/元</td>
+                                    <td class="b-grayish"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" id="SupplementaryQuota1Life" name="SupplementaryQuota1Life" msgname="补充额度" minfloat="0.00" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99" field="SupplementaryQuota1"></td>
+
+                                </tr>
+                                <tr>
+                                    <td style="border-left-width: 0px;">欠缺额度/元</td>
+                                    <td class="b-grayish"><input class="ipt-text b-grayish" type="text" id="BalanceCash1Life" name="BalanceCash1Life" readonly="readonly" field="BalanceCash1"></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <p><i class="c-red">*</i>对于以自我为中心的客户而言，更适合用生命价值法计算应有保额；</p>
+                <p><i class="c-red">*</i>对于以家庭为中心的客户而言，更适合用遗属需求法计算应有保额。</p>
+            </div>
+            <div class="itemBox" id="AreRquest">
+                <div class="item-title b-gray"><i class="c-red">*</i>保险规划分析</div>
+                @*<p class="mb10"><strong><i class="c-red">*</i>保险规划分析</strong></p>*@
+                <div class="input last">
+                    <textarea style="width:98%" id="Analysis" name="Analysis" class="IsRequired IsMaxLength IsMinLength" msgname="保险规划分析" minlength="1" maxlength="500"></textarea>
+                </div>
+            </div>
+        </div>
+
+
+
+</div>
+

@@ -1,0 +1,169 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/CompetitionUser/Views/Shared/_LayoutSystem.cshtml";
+}
+
+<script src="~/Content/js/Training/LifeEducationPlan.js"></script>
+
+<input type="hidden" value="0" id="ID2" />
+<input type="hidden" value="0" id="Id" />
+
+   <div class="con-right subsystem FinancePlan" id="LifeEducationPlan">
+    <div class="tab-title">
+        <ul>
+            <li><a class="active" href="javascript:SaveJudgeTag('LifeEducationPlan','LifeEducationPlan')"><b class="ico ims-icon7"></b><strong>教育规划</strong></a></li>
+            <li><a href="javascript:SaveJudgeTag('LifeEducationPlan','ConsumptionPlan')"><b class="ico ims-icon8"></b><strong>消费规划</strong></a></li>
+            <li><a href="javascript:SaveJudgeTag('LifeEducationPlan','StartAnUndertakingPlan')"><b class="ico ims-icon9"></b><strong>创业规划</strong></a></li>
+            <li><a href="javascript:SaveJudgeTag('LifeEducationPlan','RetirementPlan')"><b class="ico ims-icon10"></b><strong>退休规划</strong></a></li>
+            <li><a href="javascript:SaveJudgeTag('LifeEducationPlan','InsurancePlan')"><b class="ico ims-icon11"></b><strong>保险规划</strong></a></li>
+        </ul>
+    </div>
+    <div class="main-hd"><input class="btn btn-small btn-blue fr ml10" type="button" value="下一步" id="btnNext"><input class="btn btn-small btn-blue fr ml10" type="button" value="保 存" id="btnSave"></div>
+    <div class="main-bd" id="div2">
+        <h2>子女教育金需求测算</h2>
+        <div class="fif-con pad10">
+            <div class="fif-box grid-4">
+                <label class="fif-text"><i class="c-red">*</i>子女年龄：</label>
+                <div class="input">
+                    <input class="ipt-text  IsRequired IsMaxNumber IsMinNumber IsNumber" type="text" msgname="子女年龄" maxnumber="50" minnumber="1" id="ChildAge"><span>岁</span>
+                </div>
+            </div>
+            <div class="fif-box grid-4">
+                <label class="fif-text">每月可支配资金：</label>
+                <div class="input"><input class="ipt-text b-gray" type="text" id="monthMoney" readonly="readonly"><span>元</span></div>
+            </div>
+            <div class="fif-box grid-4">
+                <label class="fif-text">可用资产：</label>
+                <div class="input"><input class="ipt-text b-gray" type="text" id="UserableAsset" readonly="readonly"><span>元</span></div>
+            </div>
+        </div>
+
+        <div class="itemBox">
+            <div class="item-title b-gray">条件假设</div>
+            <div class="item">
+                <div class="fif-form fif-form3  grid-7 fr">
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>国内学费增长率：</label>
+                        <div class="input"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" msgname="国内学费增长率" minfloat="0" msgreg="请输入0.00到99.99的数字" reg="\d{0,2}\.*\d{0,2}" maxfloat="99.99" id="InlandEduFee"><span class="ml10">%</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>国外学费增长率：</label>
+                        <div class="input"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" type="text" msgname="国外学费增长率" minfloat="0" msgreg="请输入0.00到99.99的数字" reg="\d{0,2}\.*\d{0,2}" maxfloat="99.99" id="ForeignEduFee"><span class="ml10">%</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="itemBox js_itemboxs" id="EducationList0" field="EducationList">
+            <div class="item-title b-gray">
+                <a class="spr spr-del js_remove fr" href="#" onclick="DeleteLifeEducationPlanDetail('0')"></a>
+
+                <i class="c-red">*</i>教育阶段选择
+                <select id="EduStage0" class="IsRequired" selecttag="" msgname="教育阶段">
+                    <option value="0">请选择</option>
+                    <option value="1">幼儿园教育</option>
+                    <option value="2">小学教育</option>
+                    <option value="3">初中教育</option>
+                    <option value="4">高中教育</option>
+                    <option value="5">大学教育</option>
+                    <option value="6">留学教育</option>
+                </select>
+            </div>
+            <div class="item">
+                <div class="fif-form fif-form3  grid-7 fr">
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>求学年龄：</label>
+                        <div class="input"><input class="ipt-text IsRequired IsMaxNumber IsMinNumber IsNumber" onblur="Onblu1(this)" type="text" field="EduAge" msgname="求学年龄" maxnumber="50" minnumber="1" id="EduAge0"><span class="ml10">岁</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>求学时间：</label>
+                        <div class="input"><input class="ipt-text IsRequired IsMaxNumber IsMinNumber IsNumber" onblur="Onblu1(this)" type="text" field="EduTime" msgname="求学时间" maxnumber="10" minnumber="1" id="EduTime0"><span class="ml10">年</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>目前学费：</label>
+                        <div class="input"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" onblur="Onblu1(this)" type="text" field="Tuition" msgname="目前学费" minfloat="0.01" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99" id="Tuition0"><span class="ml10">元/年</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">上学时学费：</label>
+                        <div class="input"><input type="text" disabled class="ipt-text b-gray" msgname="上学时学费" field="EduTuition" id="EduTuition0"><span class="ml10">元/年</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <div class="amount" style="font-size:16px;font-weight:600;height:50px;padding-top:20px;">
+                            上学前需准备的总学费&nbsp;&nbsp;
+                            <strong style="font-size:20px;font-weight:600;height:50px;padding-top:20px;color:#f87608;" field="TotalTuition" id="TotalTuition0"></strong>元
+                        </div>
+                    </div>
+                    <input type="hidden" value="0" id="NUM" class="NUM" />
+                    <input type="hidden" value="0" id="ID0" />
+                </div>
+
+            </div>
+        </div>
+        <input class="btn btn-blue btn-add2 ml20 mb20" type="button" id="span" onclick="AddHTML('-1')" value="+  添加教育阶段">
+
+        <div class="itemBox">
+            <div class="item-title b-gray">已经准备的教育费用</div>
+            <div class="item">
+                <div class="fif-form fif-form3  grid-7 fr">
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>商业保险：</label>
+                        <div class="input"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" msgname="商业保险" type="text" minfloat="0" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99" id="Insurance"><span class="ml10 ">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>储蓄计划：</label>
+                        <div class="input"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" msgname="储蓄计划" type="text" minfloat="0" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99" id="Deposit"><span class="ml10 ">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>其他安排：</label>
+                        <div class="input"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" msgname="其他安排" type="text" minfloat="0" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99" id="Other"><span class="ml10 ">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">小计：</label>
+                        <div class="input"><input disabled class="ipt-text b-gray" type="text" id="xiaoji"><span class="ml10">元</span></div>
+                    </div>
+
+                    <div class="amount" style="font-size:16px;font-weight:600;height:50px;padding-top:20px;">
+                        上学前需准备的现金总金额&nbsp;&nbsp;
+                        <strong style="font-size:20px;font-weight:600;height:50px;padding-top:20px;color:#f87608;" id="EduTotalAmount"></strong>元
+                    </div>
+                </div>
+            </div>
+
+            <div class="itemBox" id="licai">
+                <div class="item-title b-gray">理财方案</div>
+                <div class="item">
+                    <div class="fif-form fif-form3  grid-7 fr">
+                        <div class="fif-box w100">
+                            <label class="fif-text"><i class="c-red">*</i>预计投资收益率：</label>
+                            <div class="input"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" minfloat="0" msgname="预计投资收益率" msgreg="请输入0.00到99.99的数字" reg="\d{0,2}\.*\d{0,2}" maxfloat="99.99" type="text" id="ReturnOnInvestment">
+                            <span class="ml10">%</span></div>
+                        </div>
+                        <div class="fif-box w100">
+                            <label class="fif-text"><i class="c-red">*</i>一次性投入金额：</label>
+                            <div class="input"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" minfloat="0" msgname="一次性投入金额" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99" type="text" id="DisposableInput"><span class="ml10">元</span></div>
+                        </div>
+                        <div class="fif-box w100">
+                            <label class="fif-text"><i class="c-red">*</i>每月定期投资金额：</label>
+                            <div class="input"><input class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" minfloat="0" msgname="每月定期投资金额" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" maxfloat="999999999.99" type="text" id="MonthlyInvestment"><span class="ml10">元</span></div>
+                        </div>
+                        <div class="fif-box w100">
+                            <label class="fif-text"><i class="c-red">*</i>定期定额投资年限：</label>
+                            <div class="input"><input class="ipt-text IsNumber IsRequired IsMaxNumber IsMinNumber" msgname="定期定额投资年限" type="text" id="RegularYear" maxnumber="50" minnumber="0"><span class="ml10">年</span></div>
+                        </div>
+                    </div>
+                    <div class="amount" style="font-size:16px;font-weight:600;height:50px;padding-top:20px;margin-left:30px;">
+                        此方案能实现的目标金额&nbsp;&nbsp;
+                        <strong style="font-size:20px;font-weight:600;height:50px;padding-top:20px;color:#f87608;" id="TargetAmount"></strong>&nbsp;&nbsp;元
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="itemBox">
+            <div class="item-title b-gray"><i class="c-red">*</i>教育规划分析</div>
+            <div class="item last">
+                <textarea style="width:98%" class="IsRequired IsMaxLength IsMinLength" msgname="教育规划分析" maxlength="500" minlength="1" id="Analysis"></textarea>
+            </div>
+        </div>
+    </div>
+</div>

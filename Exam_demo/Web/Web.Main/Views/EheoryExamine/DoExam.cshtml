@@ -1,0 +1,238 @@
+﻿@{
+    Layout = "";
+    var loginuser = MvcHelper.User;
+}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- 强制转换内核↓ -->
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+    <meta name="keywords" content="">
+    <title>金融理财规划大赛平台</title>
+
+    <link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet" type="text/css" media="all" />
+    <link href="@Url.Content("~/Content/css/general.css")" rel="stylesheet" type="text/css" media="all" />
+    <link href="@Url.Content("~/Content/css/popup.css")" rel="stylesheet" type="text/css" media="all" />
+    <link href="@Url.Content("~/Content/css/custom.css")" rel="stylesheet" type="text/css" media="all" />
+
+
+    <script src="~/Content/js/Common/jquery-1.7.2.min.js" type="text/javascript"></script>
+    @*<script src="~/Content/js/Common/jquery.cookie.js" type="text/javascript"></script>*@
+    <script src="~/Content/js/Common/json2.min.js" type="text/javascript"></script>
+
+    @*<script src="~/Content/js/Data/msgList.js" type="text/javascript"></script>*@
+
+    @*<script src="~/Content/js/Common/ajaxHelper.js" type="text/javascript"></script>
+    <script src="~/Content/js/Common/pageHelper.js" type="text/javascript"></script>
+    <script src="~/Content/js/Common/StringHelper.js" type="text/javascript"></script>
+    <script src="~/Content/js/Common/VerificationHelper.js" type="text/javascript"></script>
+    <script src="~/Content/js/Common/selectHelper.js" type="text/javascript"></script>
+    <script src="~/Content/js/Common/DateHelper.js" type="text/javascript"></script>
+    <script src="~/Content/js/Common/arrayHelper.js" type="text/javascript"></script>
+    <script src="~/Content/js/Common/UserTimeHelper.js" type="text/javascript"></script>
+    <script src="~/Content/js/Common/common.js" type="text/javascript"></script>
+    <script src="~/Content/js/Common/main.js" type="text/javascript"></script>
+    <script src="~/Content/js/Common/dialogHelper.js" type="text/javascript"></script>*@
+    <script src="/Content/mini/Layout.js"></script>
+    <script src="~/Content/js/Training/DoExam.js"></script>
+
+    <script type="text/javascript">
+        //失去焦点后调用的函数
+        function c() {
+            dialogHelper.Error({
+                content: "您正在比赛中，请勿退出！",
+            });
+        }
+
+    </script>
+
+
+</head>
+<body>
+    <input id="hdController" type="hidden" value="eheoryexamine" />
+    <input type="hidden" id="hdQuestionId" value="0" />
+    <input type="hidden" id="hdQuestionType" value="0" />
+    <input type="hidden" id="hdQuestionCount" value="0" />
+    <input type="hidden" id="hdQuestionPageIndex" value="0" />
+    <input type="hidden" id="hdQuestionPageCount" value="0" />
+    <input type="hidden" id="hdPrevType" value="0" />
+    <input type="hidden" id="hdPrevId" value="0" />
+    <input type="hidden" id="hdNextType" value="0" />
+    <input type="hidden" id="hdNextId" value="0" />
+    <input type="hidden" id="FirstQuestionId" value="0" />
+    <input type="hidden" id="Sexs" value="0" />
+    <input type="hidden" id="StudentNo" value="0" />
+    <input id="hdUserId" type="hidden" value="@(loginuser.Id)" />
+    <input id="hdRoleId" type="hidden" value="@(loginuser.RoleId)" />
+    <input id="hdUserName" type="hidden" value="@(loginuser.UserName)" />
+    <input id="hdSchoolNumber" type="hidden" value="@(loginuser.CollegeId)" />
+    <input id="hdSexName" type="hidden" value="@(loginuser.Sex)" />
+    <div class="d_shijuan">
+        @*<div class="header">
+                <div class="top">
+                    <div class="logo"><h1><img src="/Content/images/logo.png"></h1><span class="lesson"> [学生端]</span></div>
+                    <div class="top-rig">
+                        <div class="top-user" style="background: url(../../Content/images/student-icon.png) no-repeat left top ">
+                            <div class="user-name"></div>
+                            <input id="hdUserId" type="hidden" value="@(loginuser.Id)" />
+                            <input id="hdRoleId" type="hidden" value="@(loginuser.RoleId)" />
+                            <input id="hdUserName" type="hidden" value="@(loginuser.UserName)" />
+                            <input id="hdSchoolNumber" type="hidden" value="@(loginuser.CollegeId)" />
+                            <input id="hdSexName" type="hidden" value="@(loginuser.Sex)" />
+                            <ul class="personal" style="display:none;">
+                                <li style="border-bottom: solid 1px #23312d;"><a onclick="PersonCenter()"><i>个人资料</i></a></li>
+                                <li style="border-bottom: solid 1px #23312d;"><a onclick="ChangePwd()"><i>修改密码</i></a></li>
+                            </ul>
+                        </div>
+                        <a class="link" href="javascript:void(0);">退出</a>
+                    </div>
+                </div>
+            </div>*@
+        <div class="d_shi_main" style="min-height: 700px;">
+            @*<h1 class="pracTitle"><a class="btn btn-yellow btn-small fr ml20" id="tijiao">提交考卷</a><span id="time">考试剩余时间：<strong id="strTimes"></strong></span></h1>*@
+            <div class="d_shi_left">
+
+                <div class="d_tou"><img src="/Content/images/effigy.jpg" width="106" height="106"></div>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="d_left_tab" style="table-layout: fixed;">
+                    <tr>
+                        <th width="55%">姓 名:</th>
+                        <td id="li_name" class="ellipsis">张小盼</td>
+                    </tr>
+                    <tr>
+                        <th>考试名称:</th>
+                        <td id="li_subject" class="ellipsis">理财期末考试</td>
+                    </tr>
+                    <tr>
+                        <th>考试时间:</th>
+                        <td id="li_examtime">13：00-15：00</td>
+                    </tr>
+                </table>
+                @*<ul>
+                        <li id="li_name" class="ellipsis" style="max-width:200px;">姓 名：丁小</li>
+                        <li id="li_subject" class="ellipsis" style="max-width:200px;">考试名称：证券市场基础知识</li>
+                        <li id="li_examtime">考试时间：10:29:10--12:39:00</li>
+                    </ul>*@
+                <div id="strTimes" class="d_shi_1">
+                    00:00:00
+                </div>
+
+                @*<div class="caption-list">
+                        <div class="caption-list-title">
+                            <span class="next" onclick="adactive()">&gt;</span><span class="prev" onclick="adactive()">&lt;</span>
+                            <div class="caption-switch">
+                                <div class="caption-switch-con">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="caption-list-content">
+                            <ul id="question_list_content" class="clearfix"></ul>
+                            <ul class="clearfix explain">
+                                <li class="mistake"><i></i><strong>已答</strong></li>
+                                <li class="mistake mistake2"><i></i><strong id="zaida">在答</strong></li>
+                                <li><i></i><strong>未答</strong></li>
+                            </ul>
+                        </div>
+                    </div>*@
+                @*<div class="caption-list" id="tab_1" style="margin-top:20px;">
+                        <table style="width:90%;margin-left:10px;font-size:14px;text-align:center;border:1px solid gray;">
+                            <thead style="background-color:#ddd4d4;height:40px;">
+                            <th>题型</th>
+                            <th>正确率</th>
+                            <th>得分</th>
+                            <th>总分</th>
+                            </thead>
+                            <tbody id="tab"></tbody>
+                        </table>
+                    </div>*@
+            </div>
+
+            <div class="d_shi_right">
+                <div class="d_shi_right_1">
+                    <span class="exam-name">理财规划期末考试</span>
+                    <a href="#" id="tijiao" class="btn-blue d_lanbaia">交卷</a>
+                    <div class="clear"></div>
+                </div>
+                @*<p class="crumb b-aqua"> </p>*@
+                <div class="d_shi_right_2">
+                    单选题（共20题，每题2分，共40分。）
+                </div>
+
+                <div class="caption-info">
+                    <div style="overflow-y: auto; height: 300px;">
+                        <div class="d_fei3">
+                            <div id="itm"></div>
+                            @*<a href='javascript:void(0)' class='d_lanbaia' style="color:white;" id='btnNext'>下一题</a>
+                                <a href='javascript:void(0)' class='d_lanbaia' style="color:white;" id='btnPrev'>上一题</a>*@
+                            <div class='clear'></div>
+                        </div>
+                        <div class="d_fei4" id="fujian2">
+                            <span style="font-size: 15px;">附件:</span>
+                            <div class="item-info">
+                                <div class="accessory" id="fujian">
+                                </div>
+                            </div>
+                            <div class='clear'></div>
+                        </div>
+                        <div class="d_timu" id="selectAnswer">
+                            <strong>选项区域:</strong>
+                            <br />
+                            <div class="item-info">
+                                <ul></ul>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+
+                    <div class="d_fei7s" style="padding-top:0px;">
+                        <div class="caption-switch-con">
+                        </div>
+                        @*<a href="javascrict:;">单选题</a><a href="javascrict:;">多选题</a><a href="javascrict:;">简答题</a>*@
+                        <div class="clear"></div>
+                    </div>
+                    <div class="d_fei8s" style="max-height:140px;overflow-y:auto;">
+                        <div id="question_list_content" class="d_fei8_1s"></div>
+                        @*<ul id="question_list_content" class="clearfix"></ul>*@
+                        @*<ul class="clearfix explain d_h30">
+                                <li class="mistake"><i></i><strong>已答</strong></li>
+                                <li class="mistake mistake2"><i></i><strong id="zaida">在答</strong></li>
+                                <li><i></i><strong>未答</strong></li>
+                            </ul>*@
+
+                        <div class="clear"></div>
+                        <a href="javascript:void(0)" id="wrong-answer" class="has-answer">已答</a>
+                        <a href="javascript:void(0)" id="right-answer" class="cur-answer">在答</a>
+                        <a href="javascript:void(0)" class="not-answer">未答</a>
+                        <div class="clear"></div>
+
+                    </div>
+                    <input id="span_3" type="hidden" value="" />
+                    <input id="span_4" type="hidden" value="" />
+                </div>
+            </div>
+
+            <div class="clear"></div>
+
+            <div class="d_tiaoye">
+                <ul>
+                    <li><a href="javascript:void(0)" class="as1">首题</a></li>
+                    <li><a href="javascript:void(0)" class="as2">上一题</a></li>
+                    <li><a href="javascript:void(0)" class="as3">下一题</a></li>
+                    <li><a href="javascript:void(0)" class="as4">尾题</a></li>
+                    @*<li><a href="javascript:ChkResult()" class="as5">检测答案</a></li>*@
+                </ul>
+
+            </div>
+        </div>
+        <!-- footer-fixer -->
+        @*<div class="footer-fixer"></div>*@
+    </div>
+    @*<div class="footer">
+            <div class="copyright">copyright © 2015 国泰安信息技术有限公司 版权所有</div>
+        </div>*@
+</body>
+</html>
+
+@Html.Partial("~/Views/Shared/_PopupPartialPage.cshtml")

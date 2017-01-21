@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5A60ED7F-6EB5-481F-874C-C6927E1BDCF6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Match.Svr</RootNamespace>
+    <AssemblyName>Match.Svr</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper">
+      <HintPath>..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Lib\Shared\DBHelper.cs">
+      <Link>DAL\DBHelper.cs</Link>
+    </Compile>
+    <Compile Include="Contract\MatchManage.Activity.cs" />
+    <Compile Include="Contract\MatchManage.ActivityImage.cs" />
+    <Compile Include="Contract\MatchManage.Award.cs" />
+    <Compile Include="Contract\MatchManage.Experts.cs" />
+    <Compile Include="Contract\MatchManage.FriendLink.cs" />
+    <Compile Include="Contract\MatchManage.HomePage.cs" />
+    <Compile Include="Contract\MatchManage.HonorRoll.cs" />
+    <Compile Include="Contract\MatchManage.Match.cs" />
+    <Compile Include="Contract\MatchManage.News.cs" />
+    <Compile Include="DAL\ActivityDal.cs" />
+    <Compile Include="DAL\ActivityImageDal.cs" />
+    <Compile Include="DAL\AwardDal.cs" />
+    <Compile Include="DAL\CompetitionDAL.cs" />
+    <Compile Include="DAL\CompetitionDAL.Ext.cs" />
+    <Compile Include="DAL\CompetitionDescDal.cs" />
+    <Compile Include="DAL\ExpertsDAL.cs" />
+    <Compile Include="DAL\FriendlyLinkDAL.cs" />
+    <Compile Include="DAL\HomePageDal.cs" />
+    <Compile Include="DAL\HonorRollDAL.cs" />
+    <Compile Include="DAL\NewsDal.cs" />
+    <Compile Include="DAL\NoticeDal.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Contract\MatchManage.Common.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lib\Utils\Utils.csproj">
+      <Project>{c5b3481f-4b5c-4b99-9796-8a172f5c2c46}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Match.API\Match.API.csproj">
+      <Project>{269922c8-b88f-4eb0-953a-5cc06fc1691f}</Project>
+      <Name>Match.API</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Contract\MatchManage.Match.Ext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Contract\MatchManage.Notice.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Contract\MatchManage.CompetitionDescription.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EB18ED61-EE3C-48F6-9C95-4E08E163A648}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VM</RootNamespace>
+    <AssemblyName>VM</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\JsonModel.cs" />
+    <Compile Include="Common\KeyValue.cs" />
+    <Compile Include="Common\PagedList.cs" />
+    <Compile Include="Custom\AssessmentExamPointVM.cs" />
+    <Compile Include="Custom\BasicStudentInfoVM.cs" />
+    <Compile Include="Custom\CalendarSearch.cs" />
+    <Compile Include="Custom\ErrorRateVM.cs" />
+    <Compile Include="Custom\ExamCaseTrainExam.cs" />
+    <Compile Include="Custom\ExamShowVM.cs" />
+    <Compile Include="Custom\FinancialPlanningVM.cs" />
+    <Compile Include="Custom\QuesterListVM.cs" />
+    <Compile Include="Custom\QuestionSearch.cs" />
+    <Compile Include="Custom\ResourceSearch.cs" />
+    <Compile Include="Custom\SelNumVM.cs" />
+    <Compile Include="Custom\TheoryErrorRate.cs" />
+    <Compile Include="Custom\TrainExamAssessmentVM.cs" />
+    <Compile Include="Custom\MatchSearch.cs" />
+    <Compile Include="Custom\TrainSearch.cs" />
+    <Compile Include="Custom\UnitePaperVM.cs" />
+    <Compile Include="Custom\UnitTrainExamVM.cs" />
+    <Compile Include="Enum\Enums.cs" />
+    <Compile Include="Exam\PaperCharpterVM.cs" />
+    <Compile Include="Exam\PaperCompetitionVM.cs" />
+    <Compile Include="Exam\PaperClassVM.cs" />
+    <Compile Include="Exam\PaperDetailVM.cs" />
+    <Compile Include="Exam\PaperLeftVM.cs" />
+    <Compile Include="Exam\PaperScoreVM.cs" />
+    <Compile Include="Exam\PaperUserAnswerResultVM.cs" />
+    <Compile Include="Exam\PaperUserAnswerVM.cs" />
+    <Compile Include="Exam\PaperUserSummaryVM.cs" />
+    <Compile Include="Exam\PaperVM.cs" />
+    <Compile Include="Exam\QuestionAnswerVM.cs" />
+    <Compile Include="Exam\QuestionAttachmentsVM.cs" />
+    <Compile Include="Exam\QuestionHiddenVM.cs" />
+    <Compile Include="Exam\QuestionLib2VM.cs" />
+    <Compile Include="Exam\QuestionOptionVM.cs" />
+    <Compile Include="Exam\QuestionLibVM.cs" />
+    <Compile Include="Exam\QuestionVM.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource\ResourceVM.cs" />
+    <Compile Include="Training\AssessmentResultsDetailVM.cs" />
+    <Compile Include="Training\AssessmentResultsVM.cs" />
+    <Compile Include="Training\BankDepositsVM.cs" />
+    <Compile Include="Training\CalendarVM.cs" />
+    <Compile Include="Training\CaseVM.cs" />
+    <Compile Include="Training\CashFlowVM.cs" />
+    <Compile Include="Training\CashPlanVM.cs" />
+    <Compile Include="Training\ConsumptionPlanVM.cs" />
+    <Compile Include="Training\CustomerCountVM.cs" />
+    <Compile Include="Training\DistributionOfPropertyVM.cs" />
+    <Compile Include="Training\EntryAssessmentVM.cs" />
+    <Compile Include="Training\ExamCaseVM.cs" />
+    <Compile Include="Training\ExamModuleVM.cs" />
+    <Compile Include="Training\ExamPointAnswerVM.cs" />
+    <Compile Include="Training\ExamPointVM.cs" />
+    <Compile Include="Training\FinancialRatiosVM.cs" />
+    <Compile Include="Training\FundProductDetailVM.cs" />
+    <Compile Include="Training\FundProductVM.cs" />
+    <Compile Include="Training\HeritageVM.cs" />
+    <Compile Include="Training\IncomeAndExpensesVM.cs" />
+    <Compile Include="Training\InsurancePlanVM.cs" />
+    <Compile Include="Training\InvestmentPlanProductVM.cs" />
+    <Compile Include="Training\InvestmentPlanVM.cs" />
+    <Compile Include="Training\LiabilityVM.cs" />
+    <Compile Include="Training\LifeEducationPlanDetailVM.cs" />
+    <Compile Include="Training\LifeEducationPlanVM.cs" />
+    <Compile Include="Training\MessageVM.cs" />
+    <Compile Include="Training\NumberVM.cs" />
+    <Compile Include="Training\P2PProductVM.cs" />
+    <Compile Include="Training\ProposalCustomerDetailVM.cs" />
+    <Compile Include="Training\ProposalCustomerVM.cs" />
+    <Compile Include="Training\ProposalVM.cs" />
+    <Compile Include="Training\ResourceChapterHiddenVM.cs" />
+    <Compile Include="Training\ResourceChapterVM.cs" />
+    <Compile Include="Training\RetirementPlanVM.cs" />
+    <Compile Include="Training\RiskIndexVM.cs" />
+    <Compile Include="Training\StartAnUndertakingPlanVM.cs" />
+    <Compile Include="Training\StuCustomerDetailVM.cs" />
+    <Compile Include="Training\StuCustomerVM.cs" />
+    <Compile Include="Training\TaxPlanVM.cs" />
+    <Compile Include="Training\TheoryChapterHiddenVM.cs" />
+    <Compile Include="Training\TheoryChapterVM.cs" />
+    <Compile Include="Training\TheoryQuestionTypeVM.cs" />
+    <Compile Include="Training\TrainClassScoreVM.cs" />
+    <Compile Include="Training\TrainExamUserVM.cs" />
+    <Compile Include="Training\TrainExamCompetitionVM.cs" />
+    <Compile Include="Training\TrainExamClassVM.cs" />
+    <Compile Include="Training\TrainExamDetailVM.cs" />
+    <Compile Include="Training\TrainExamVM.cs" />
+    <Compile Include="Training\UserTimeSummaryVM.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Modules\Exam\Exam.API\Exam.API.csproj">
+      <Project>{9157fcd7-7536-424a-b3c8-ed663fbfa5b0}</Project>
+      <Name>Exam.API</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Competition\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

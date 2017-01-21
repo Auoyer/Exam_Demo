@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "EvaluationResult";
+    Layout = "~/Areas/CompetitionUser/Views/Shared/_LayoutSystem.cshtml";
+    //销售机会/实训考核
+    int trainExamId = 0;
+    int.TryParse(Request["TrainExamId"], out trainExamId);
+
+    //计划书
+    int proposalId = 0;
+    int.TryParse(Request["ProposalId"], out proposalId);
+
+    int stuCustomerId = 0;
+    int.TryParse(Request["StuCustomerId"], out stuCustomerId);
+}
+
+<div class="con-right test-results" id="EvaluationResultDev">
+    <div class="tab-title">
+        <ul>
+            <li><a href="@Url.Content("/CompetitionUser/RiskEvaluation/Index?TrainExamId=" + trainExamId + "&ProposalId=" + proposalId + "&StuCustomerId=" + stuCustomerId)"><b class="ico ims-icon1"></b><strong>风险指标</strong></a></li>
+            <li class="tab-arrow"></li>
+            <li><a class="active" href="@Url.Content("/CompetitionUser/RiskEvaluation/EvaluationResult?TrainExamId=" + trainExamId + "&ProposalId=" + proposalId + "&StuCustomerId=" + stuCustomerId)"><b class="ico ims-icon2"></b><strong>风险测评结果</strong></a></li>
+        </ul>
+    </div>
+    <div class="main-hd"><input id="btnNextStep" class="btn btn-small btn-blue fr ml10" type="button" value="下一步"><input id="btnLastStep" class="btn btn-small btn-blue fr" type="button" value="上一步"></div>
+    <div class="main-bd pad10">
+        <div class="fif-form">
+            <div class="fif-box w100">
+                <label class="fif-text">测评日期：</label>
+                <div class="input" id="EvaluationDate"></div>
+            </div>
+            <div class="fif-box w100">
+                <label class="fif-text">风险承受能力：</label>
+                <div class="input" id="RiskBearingCapacity"></div>
+            </div>
+            <div class="fif-box w100">
+                <label class="fif-text">风险容忍态度：</label>
+                <div class="input" id="RiskToleranceAttitude"></div>
+            </div>
+            <div class="fif-box w100">
+                <label class="fif-text">建议投资产品分配：</label>
+                <div class="input">
+                    <div class="table2 mb20">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" id="DistributionRatio">
+                            <tr>
+                                <th scope="col">货 币</th>
+                                <th scope="col">债 券</th>
+                                <th scope="col">股 票</th>
+                            </tr>
+                            <tr style="text-align:center">
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="distribute"> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/Content/js/Common/highcharts.js"></script>
+<script type="text/javascript" src="~/Content/js/Training/EvaluationResult.js"></script>
+<script type="text/javascript" src="~/Content/js/Data/ControlTable.js"></script>
+

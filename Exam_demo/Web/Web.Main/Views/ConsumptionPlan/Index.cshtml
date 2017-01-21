@@ -1,0 +1,240 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/CompetitionUser/Views/Shared/_LayoutSystem.cshtml";
+}
+
+<script src="~/Content/js/Training/ConsumptionPlan.js"></script>
+
+<input type="hidden" value="0" id="ProposalId" />
+<input type="hidden" value="0" id="Id" />
+
+<div class="con-right subsystem FinancePlan" id="ConsumptionPlan">
+    <div class="tab-title">
+        <ul>
+            <li><a href="javascript:SaveJudgeTag('ConsumptionPlan','LifeEducationPlan')"><b class="ico ims-icon7"></b><strong>教育规划</strong></a></li>
+            <li><a class="active" href="javascript:SaveJudgeTag('ConsumptionPlan','ConsumptionPlan')"><b class="ico ims-icon8"></b><strong>消费规划</strong></a></li>
+            <li><a href="javascript:SaveJudgeTag('ConsumptionPlan','StartAnUndertakingPlan')"><b class="ico ims-icon9"></b><strong>创业规划</strong></a></li>
+            <li><a href="javascript:SaveJudgeTag('ConsumptionPlan','RetirementPlan')"><b class="ico ims-icon10"></b><strong>退休规划</strong></a></li>
+            <li><a href="javascript:SaveJudgeTag('ConsumptionPlan','InsurancePlan')"><b class="ico ims-icon11"></b><strong>保险规划</strong></a></li>
+        </ul>
+    </div>
+    <div class="main-hd">
+        <input class="btn btn-small btn-blue fr ml10" type="button" value="下一步" id="btnNext">
+        <input class="btn btn-small btn-blue fr ml10" type="button" id="btnSave" value="保 存">
+        <input class="btn btn-small btn-blue fr ml10" type="button" value="上一步" id="btnPrev">
+    </div>
+    <div class="main-bd">
+        <h2>消费需求测算</h2>
+        <div class="fif-con pad20">
+            <div class="fif-con">
+                <div class="fif-box grid-4" style="width:35%;">
+                    <label class="fif-text">每月可支配资金：</label>
+                    <div class="input"><input class="ipt-text b-gray" type="text" id="monthMoney" readonly="readonly"><span>元</span></div>
+                </div>
+                <div class="fif-box grid-4">
+                    <label class="fif-text">可用资产：</label>
+                    <div class="input"><input class="ipt-text b-gray" type="text" id="UserableAsset" readonly="readonly"><span>元</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="itemBox" id="ShopHouseDiv">
+            <div class="item-title b-gray"><a class="spr spr-del js_remove fr" href="#" id="ShopHouse"></a><i class="c-red">*</i>消费目标选择 ： 购房</div>
+            <div class="item">
+                <div class="fif-form fif-form3 fif-for3">
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>距离购房年限：</label>
+                        <div class="input"><input class="ipt-text w40 IsRequired IsNumber IsMaxNumber IsMinNumber" id="ShopHouseYear" msgname="距离购房年限" maxnumber="20" minnumber="0" type="text"><span class="ml10">年</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">面积：</label>
+                        <div class="input"><input class="ipt-text w40 IsReg  IsMaxFloat IsMinFloat" msgreg="请输入0.00到9999.99的数字" reg="\d{0,4}\.*\d{0,2}" id="HouseArea" msgname="面积" maxfloat="9999.99" minfloat="0.01" type="text"><span class="ml10">平方米</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">预计单价：</label>
+                        <div class="input"><input class="ipt-text w40 IsReg IsMaxFloat  IsMinFloat" msgreg="请输入0.00到9999999.99的数字" reg="\d{0,7}\.*\d{0,2}" id="HousePrice" msgname="预计单价" maxfloat="9999999.99" minfloat="0.01" type="text"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>总金额：</label>
+                        <div class="input"><input class="ipt-text w40 IsReg IsRequired  IsMaxFloat IsMinFloat" msgreg="请输入0.00到99999999999.99的数字" reg="\d{0,11}\.*\d{0,2}" id="HouseAllMoney" msgname="总金额" maxfloat="99999999999.99" minfloat="0.01" type="text"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>首付比例：</label>
+                        <div class="input">
+                            <input class="ipt-text w40 IsRequired IsReg IsMinFloat IsMaxFloat  b-gray" msgreg="请输入0.00到99.99的数字" reg="\d{0,2}\.*\d{0,2}" minfloat="10" maxfloat="100" id="HouseDownPaymentPercent" disabled msgname="首付比例" type="text">
+                            <span class="ml10 icheckbox"><input class="icheck" name="bl" type="radio" id="checked1" onclick="radioClick(this)" value="30">30%</span>
+                            <span class="ml10 icheckbox"><input class="icheck" name="bl" type="radio" id="checked2" onclick="radioClick(this)" value="40">40%</span>
+                            <span class="ml10 icheckbox"><input class="icheck" name="bl" type="radio" id="checked3" onclick="radioClick(this)" value="50">50%</span>
+                            <span class="ml10 icheckbox"><input class="icheck" name="bl" type="radio" id="checked4" onclick="radioClick(this)" value="0">自定义</span>
+                        </div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>贷款年限：</label>
+                        <div class="input"><input class="ipt-text w40 IsRequired IsNumber IsMaxNumber IsMinNumber" id="HouseLoanYear" msgname="贷款年限" maxnumber="50" minnumber="10" type="text"><span class="ml10">年</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>贷款利率：</label>
+                        <div class="input"><input class="ipt-text w40 IsReg IsRequired IsMaxFloat  IsMinFloat" msgreg="请输入0.00到99.99的数字" reg="\d{0,2}\.*\d{0,2}" id="HouseLoanRate" msgname="贷款利率" maxfloat="99.99" minfloat="0.01" type="text"><span class="ml10">%</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">首付款：</label>
+                        <div class="input"><input disabled class="ipt-text w40 b-gray" id="HouseDownPayment" type="text"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">购房总花费：</label>
+                        <div class="input"><input disabled class="ipt-text w40 b-gray" id="HouseTotalAmount" type="text"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">月供：</label>
+                        <div class="input"><input disabled class="ipt-text w40 b-gray" id="HouseMonthlyAmount" type="text"><span class="ml10">元</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="itemBox" id="ShopCarDiv">
+            <div class="item-title b-gray"><a class="spr spr-del js_remove fr" href="#" id="ShopCar"></a><i class="c-red">*</i>消费目标选择： 购车</div>
+            <div class="item">
+                <div class="fif-form fif-form3 fif-for3">
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>距离购车年限：</label>
+                        <div class="input"><input class="ipt-text w40 IsRequired IsNumber IsMaxNumber IsMinNumber" id="ShopCarYear" msgname="距离购车年限" maxnumber="20" minnumber="0" type="text"><span class="ml10">年</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">车款型号：</label>
+                        <div class="input"><input class="ipt-text w40 IsMaxLength" maxlength="50" id="CarType" type="text"></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>预计裸车价格：</label>
+                        <div class="input"><input class="ipt-text w40 IsReg IsRequired IsMaxFloat IsMinFloat" id="CarPrice" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" msgname="预计裸车价格" maxfloat="999999999.99" minfloat="0.01" type="text"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><strong>贷款明细</strong></label>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>首付比例：</label>
+                        <div class="input">
+                            <input class="ipt-text w40 IsRequired b-gray IsReg IsMinFloat IsMaxFloat " msgreg="请输入0.00到99.99的数字" reg="\d{0,2}\.*\d{0,2}" minfloat="10" maxfloat="100" id="CarDownPaymentPercent" msgname="首付比例" type="text" disabled>
+                            <span class="ml10 icheckbox"><input class="icheck" name="bl2" type="radio" id="checked5" onclick="ShopCarRadioClick(this)" value="30">30%</span>
+                            <span class="ml10 icheckbox"><input class="icheck" name="bl2" type="radio" id="checked6" onclick="ShopCarRadioClick(this)" value="40">40%</span>
+                            <span class="ml10 icheckbox"><input class="icheck" name="bl2" type="radio" id="checked7" onclick="ShopCarRadioClick(this)" value="50">50%</span>
+                            <span class="ml10 icheckbox"><input class="icheck" name="bl2" type="radio" id="checked8" onclick="ShopCarRadioClick(this)" value="0">自定义</span>
+                        </div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>贷款年限：</label>
+                        <div class="input">
+                            <input class="ipt-text w40 IsRequired b-gray" id="CarLoanYear" msgname="贷款期限" type="text" disabled>
+                            <span class="ml10 icheckbox"><input class="icheck" name="jx" type="radio" id="checked9" onclick="CarLoanYearRadioClick(this)" value="1">1年</span>
+                            <span class="ml10 icheckbox"><input class="icheck" name="jx" type="radio" id="checked10" onclick="CarLoanYearRadioClick(this)" value="2">2年</span>
+                            <span class="ml10 icheckbox"><input class="icheck" name="jx" type="radio" id="checked11" onclick="CarLoanYearRadioClick(this)" value="3">3年</span>
+                            <span class="ml10 icheckbox"><input class="icheck" name="jx" type="radio" id="checked12" onclick="CarLoanYearRadioClick(this)" value="4">4年</span>
+                            <span class="ml10 icheckbox"><input class="icheck" name="jx" type="radio" id="checked13" onclick="CarLoanYearRadioClick(this)" value="5">5年</span>
+                        </div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>贷款利率：</label>
+                        <div class="input"><input class="ipt-text w40 IsReg IsRequired IsMaxFloat  IsMinFloat" msgreg="请输入0.00到99.99的数字" reg="\d{0,2}\.*\d{0,2}" id="CarLoanRate" msgname="贷款利率" maxfloat="99.99" minfloat="0.01" type="text"><span class="ml10">%</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><strong>必要花费</strong></label>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">购置税：</label>
+                        <div class="input"><input disabled class="ipt-text w40 b-gray IsReg IsMaxFloat IsMinFloat" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" id="PurchaseTax" msgname="购置税" maxfloat="999999999.99" minfloat="0" type="text"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>上牌费用：</label>
+                        <div class="input"><input class="ipt-text w40 IsRequired IsReg IsMaxFloat IsMinFloat" id="CarRegFee" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" msgname="上牌费用" maxfloat="999999999.99" minfloat="0" type="text"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>车船使用税：</label>
+                        <div class="input">
+                            <input class="ipt-text w40 IsRequired IsReg IsMaxFloat IsMinFloat" id="VehicleAndVesselTax" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" msgname="车船使用税" maxfloat="999999999.99" minfloat="0" type="text"><span class="ml10 mr10">元</span>
+                            <select class="w40" id="Selcts">
+                                <option value="180">1.0L（含）以下</option>
+                                <option value="360">1.0L-1.6L（含）</option>
+                                <option value="420">1.6L-2.0L（含）</option>
+                                <option value="720">2.0L-2.5L（含）</option>
+                                <option value="1800">2.5L-3.0L（含）</option>
+                                <option value="3000">3.0L-4.0L（含）</option>
+                                <option value="4500">4.0L（含）以上</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">交强险：</label>
+                        <div class="input">
+                            <input disabled class="ipt-text w40 b-gray" id="MotorVehicleCompulsory" type="text" value="950"><span class="ml10 mr10">元</span>
+                            <select class="w40" id="Selects2">
+                                <option value="950">家用6座以下</option>
+                                <option value="1100">家用6座及以上</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>商业保险：</label>
+                        <div class="input"><input class="ipt-text w40 IsReg IsRequired  IsMaxFloat IsMinFloat" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" id="MotorVehicleCommercial" msgname="商业保险" maxfloat="999999999.99" minfloat="0" type="text"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">首付款：</label>
+                        <div class="input"><input disabled class="ipt-text w40 b-gray" id="CarDownPayment" type="text"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">购车总花费：</label>
+                        <div class="input"><input disabled class="ipt-text w40 b-gray" id="CarTotalAmount" type="text"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text">月供：</label>
+                        <div class="input"><input disabled class="ipt-text w40 b-gray" id="CarMonthlyAmount" type="text"><span class="ml10">元</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <p style="padding-top: 10px; margin-left: 30px; font-size: 15px;color:black">当前为购房和购车消费目标总额</p>
+            <p style="font-size: 16px; font-weight: 600; height: 70px; padding-top: 20px; margin-left: 30px; color: black">
+                需准备首付款总金额
+                &nbsp;&nbsp;<strong style="font-size:20px;font-weight:600;height:50px;padding-top:20px;color:#f87608;" id="FirstAmount"></strong>&nbsp;&nbsp;元
+            </p>
+        </div>
+        <input class="btn btn-blue btn-add2 ml20" type="button" id="Add" value="+  添加消费目标">
+        <div class="itemBox" id="licai">
+            <div class="item-title b-gray">理财方案</div>
+            <div class="item">
+                <div class="fif-form fif-form3 grid-7 fr">
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>预计投资收益率：</label>
+
+                        <div class="input"><input class="ipt-text IsRequired IsReg IsMaxFloat IsMinFloat" msgreg="请输入0.00到99.99的数字" reg="\d{0,2}\.*\d{0,2}" minfloat="0" msgname="预计投资收益率" maxfloat="99.99" type="text" id="ReturnOnInvestment"><span class="ml10">%</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>一次性投入金额：</label>
+                        <div class="input"><input class="ipt-text IsReg IsRequired IsMaxFloat  IsMinFloat" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" minfloat="0" msgname="一次性投入金额" maxfloat="999999999.99" type="text" id="DisposableInput"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>每月定期投资金额：</label>
+                        <div class="input"><input class="ipt-text IsReg IsRequired  IsMaxFloat IsMinFloat" msgreg="请输入0.00到999999999.99的数字" reg="\d{0,9}\.*\d{0,2}" minfloat="0" msgname="每月定期投资金额" maxfloat="999999999.99" type="text" id="MonthlyInvestment"><span class="ml10">元</span></div>
+                    </div>
+                    <div class="fif-box w100">
+                        <label class="fif-text"><i class="c-red">*</i>定期定额投资年限：</label>
+                        <div class="input"><input class="ipt-text IsNumber IsRequired IsMaxNumber IsMinNumber" msgname="定期定额投资年限" type="text" id="RegularYear" maxnumber="50" minnumber="0"><span class="ml10">年</span></div>
+                    </div>
+                </div>
+                <div class="amount" style="font-size:16px;font-weight:600;height:50px;padding-top:20px;margin-left:30px;">
+                    此方案能实现的目标金额&nbsp;&nbsp;
+                    <strong style="font-size:20px;font-weight:600;height:50px;padding-top:20px;color:#f87608;" id="TargetAmount"></strong>&nbsp;&nbsp;元
+                </div>
+            </div>
+        </div>
+
+        <div class="itemBox">
+            <div class="item-title b-gray"><i class="c-red">*</i>消费规划分析</div>
+            <div class="item last" id="xiaofei">
+                <textarea style="width:98%" class="IsRequired IsMaxLength IsMinLength" field='textarea' msgname="消费规划分析" maxlength="500" minlength="1" id="Analysis"></textarea>
+            </div>
+        </div>
+    </div>
+</div>

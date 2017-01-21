@@ -1,0 +1,62 @@
+﻿@{
+    Layout = "";
+}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- 强制转换内核↓ -->
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>@MvcHelper.SiteName</title>
+    <link href="@Url.Content("~/Content/css/general.css")" rel="stylesheet" type="text/css" media="all" />
+    <link href="@Url.Content("~/Content/css/popup.css")" rel="stylesheet" type="text/css" media="all" />
+    <link href="@Url.Content("~/Content/css/custom.css")" rel="stylesheet" type="text/css" media="all" />
+    <link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet" type="text/css" media="all" />
+
+    <script src="@Url.Content("~/Content/js/Data/msgList.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/jquery-1.7.2.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/jquery.cookie.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/json2.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Data/msgList.js")"></script>
+
+    @*=========此js文件在布局页中需注释，在页面单独引用=========*@
+    <script src="@Url.Content("~/Content/js/Common/ajaxHelper.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/dialogHelper.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/pageHelper.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/StringHelper.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/VerificationHelper.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/selectHelper.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/common.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/main.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Common/arrayHelper.js")" type="text/javascript"></script>
+    <script src="~/Content/js/CompetitionAdmin/Index.js"></script>
+    <script src="~/Content/province/city.js"></script>
+
+    @RenderSection("PageSpecificStyleSheetIncludes", required: false)
+</head>
+<body>
+    <div class="wrapper home d_wap">
+        @*导航*@
+        <div class="d_nav">
+            <div class="d_main">
+                <ul id="navSetHover">
+                    <li><a href="/CaseRes/CaseList">案例资源</a></li>
+                    <li><a href="/CaseExam/CaseExamList">案例考试</a></li>
+                    <li><a href="/QuestionRes/QuestionList">习题资源</a></li>
+                    <li><a href="/CaseRes/CaseList">习题考试</a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div style="width: 1100px; margin: 0 auto; background-color:white;">
+            <div class="d_h10"></div>
+            @RenderBody()
+        </div>
+        <div class="footer-fixer"></div>
+    </div>
+    @RenderSection("LastScript", required: false)
+    @Html.Partial("~/Views/Shared/_PopupPartialPage.cshtml")
+</body>
+</html>

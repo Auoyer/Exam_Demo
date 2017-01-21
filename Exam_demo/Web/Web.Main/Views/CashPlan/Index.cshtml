@@ -1,0 +1,64 @@
+﻿@{
+    Layout = "~/Areas/CompetitionUser/Views/Shared/_LayoutSystem.cshtml";
+}
+@section PageSpecificStyleSheetIncludes {
+    <script src="~/Content/js/Common/decimal.js"></script>
+    <script src="~/Content/js/Training/CashPlan.js"></script>
+}
+
+<!---现金规划-->
+<div class="con-right test-results FinancePlan" id="FinanceCashPlanDiv">
+    <div class="main-hd">
+        <input class="btn btn-small btn-blue fr ml10" type="button" id="btnNext" value="下一步">
+        <input class="btn btn-small btn-blue fr" type="button" value="保 存" id="btnSave">
+        <input type="hidden" name="CashPlanId" id="CashPlanId" value="0" />
+        <input type="hidden" name="ProposalId" id="ProposalId" value="1" />
+    </div>
+    <div class="main-bd pad10">
+        <div class="fif-form">
+            <div class="fif-box w100">
+                <label class="fif-text" style="width:150px"><i class="c-red">*</i>家庭月支出：</label>
+                <div class="input"><input type="text" class="ipt-text IsRequired IsMaxFloat IsMinFloat IsReg" msgreg="请输入0.00到999999999.99的数字" msgname="家庭月支出" maxfloat="999999999.99" minfloat="0.00" reg="\d{0,9}\.?\d{0,2}" id="FamilyMonthExpense" name="FamilyMonthExpense" value=" " /><span class="ml10">元</span></div>
+            </div>
+            <div class="fif-box w100">
+                <label class="fif-text" style="width:150px"><i class="c-red">*</i>现金保留规模：</label>
+                <div class="input">
+                    <select id="RetainCashType" class="mr10 IsRequired" selecttag="" msgname="现金保留规模" defaultval="0">
+                        <option value="0">请选择</option>
+                        <option value="3">3倍</option>
+                        <option value="4">4倍</option>
+                        <option value="5">5倍</option>
+                        <option value="6">6倍</option>
+                    </select>
+                    <input type="text" style="width:45%" class="ipt-text b-grayish" name="RetainCashMultiple" id="RetainCashMultiple" value=" " readonly="readonly" /><span>元</span>
+                </div>
+            </div>
+            <div class="fif-box w100">
+                <label class="fif-text" style="width:150px"><i class="c-red">*</i>建议方案：</label>
+                <div class="input">
+                    <div class="table2">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <th scope="col">活期存款：元</th>
+                                    <th scope="col">货币市场基金：元</th>
+                                    <th scope="col">信用卡：元</th>
+                                </tr>
+                                <tr>
+                                    <td align="center"><input type="text" class="ipt-text grid-11  IsRequired IsMaxFloat IsMinFloat IsReg" msgreg="请输入0.00到9999999999.99的数字" msgname="活期存款" maxfloat="5999999999.94" minfloat="0" reg="\d{0,10}\.?\d{0,2}" name="Deposit" id="Deposit" value=" " /></td>
+                                    <td align="center"><input type="text" class="ipt-text grid-11  IsRequired IsMaxFloat IsMinFloat IsReg" msgreg="请输入0.00到9999999999.99的数字" msgname="货币市场基金" maxfloat="5999999999.94" minfloat="0" reg="\d{0,10}\.?\d{0,2}" name="Fund" id="Fund" value=" " /></td>
+                                    <td align="center"><input type="text" class="ipt-text grid-11  IsRequired IsMaxFloat IsMinFloat IsReg" msgreg="请输入0.00到9999999999.99的数字" msgname="信用卡" maxfloat="5999999999.94" minfloat="0" reg="\d{0,10}\.?\d{0,2}" name="CreditCard" id="CreditCard" value=" " /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="fif-box w100" style="margin-bottom: 0px;">
+                <label class="fif-text" style="width:150px"><i class="c-red">*</i>现金规划分析：</label>
+                <div class="input last"><textarea id="Analysis" class="IsRequired IsMaxLength IsMinLength" maxlength="500" minlength="1" msgname="现金规划分析" name="Analysis"></textarea></div>
+            </div>
+        </div>
+    </div>
+</div>
+

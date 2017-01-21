@@ -1,0 +1,239 @@
+﻿/*自定义样式*/
+/*******  改写原有样式 **********/
+.fif-form .ipt-text {
+    width: 99%;
+}
+
+.fif-form3 select, .fif-form3 .ipt-text {
+    width: 80%;
+}
+
+.fif-form3 .div-select55 {
+    width: 55%;
+}
+
+.fif-for3 .ipt-text {
+    width: 40%;
+}
+
+.fif-box grid-55{
+    width: 50%;
+}
+
+#teacher .score-area dd span {
+	display: inline-block;
+	width: 320px;
+}
+
+.tableKnowledge td {
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    border-color: #23312d;
+    text-align: center;
+}
+
+.tableClasss {
+    position: absolute;
+    left: 465px;
+    top: 435px;
+    background-color: #ffffff;
+}
+
+.grid-2span {
+    width: 40%;
+}
+
+.fix-small {
+    z-index: 99;
+}
+
+.popup .pop-con {
+    overflow-y: visible;
+    max-height: 600px;
+}
+
+.sib-list .sib-item .fif-form .input {
+    overflow: visible;
+}
+.myDisplay1 {
+	display: inline-block;
+}
+.fif-form  .myDisplay1 {
+    margin-left: 0px;
+}
+/*******  按钮 **********/
+.btn-gray:hover {background:#eaeaea;}
+.btn-disabled:hover {background:#d2d2d2;}
+/*******  错误提示 **********/
+.warn-box, .warn-box b {
+    background: url(../images/icon09.png) no-repeat;
+}
+
+.warn-box {
+    position: relative;
+    z-index: 9;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    margin-left: -38px;
+    width: 36px;
+    height: 36px;
+    background-position: -120px -320px;
+    vertical-align: middle;
+}
+
+.warn-box:hover {
+    z-index: 10;
+}
+
+.warn-box b,#teacher .flow .item .warn-box b {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    left: 39px;
+    top: 14px;
+    width: 7px;
+    height: 10px;
+    background-position: -40px -600px;
+    font: 0/0 Arial,sans-serif;
+}
+
+.warn-box p,#teacher .flow .item .warn-box p {
+    display: none;
+    position: absolute;
+    left: 45px;
+    top: 0;
+    padding: 7px 8px;
+    min-width: 100px;
+    border: 1px solid #ffc58d;
+    background: #fff6e9;
+    color: #ef4a1c;
+}
+
+.last .warn-box b {
+    left: 12px;
+    top: 36px;
+    width: 11px;
+    height: 8px;
+    background-position: -60px -600px;
+}
+
+.last .warn-box p {
+    left: auto;
+    right: 0;
+    top: 43px;
+}
+
+th .warn-box {
+    margin-top: -30px;
+    line-height: 20px;
+    text-align: left;
+}
+/*******  加载等待 **********/
+.background {
+    display: none;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+    background: #000;
+    opacity: 0.2;
+    filter: alpha(opacity=20);
+    background: Black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    _position: absolute;
+    z-index: 2000;
+}
+
+.progressBar {
+    border: solid 2px #86A5AD;
+    background: white url(../images/loading.gif) no-repeat 10px 10px;
+}
+
+.progressBar {
+    display: none;
+    width: 148px;
+    height: 28px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -74px;
+    margin-top: -14px;
+    padding: 10px 10px 10px 50px;
+    text-align: left;
+    line-height: 27px;
+    font-weight: bold;
+    position: absolute;
+    z-index: 2001;
+}
+
+
+/*遮罩层*/
+.window-mask1, .window-mask2, .window-mask3 {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    overflow: hidden;
+    z-index: 111;
+    background: rgb(0, 0, 0);
+    filter: alpha(opacity=60);
+    opacity: 0.60;
+    font-size: 1px;
+    display:none;
+}
+
+.windowBg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    overflow: hidden;
+    z-index: 111;
+    background: rgb(0, 0, 0);
+    filter: alpha(opacity=60);
+    opacity: 0.60;
+    font-size: 1px;
+}
+/*案例样式*/
+.fix-item-box {
+    width:600px;
+    margin-left:-170px;
+}
+
+
+#lstSubTypes .clearfix li a {
+	text-align: left;
+	line-height:20px;
+	padding: 20px 5px;
+	white-space: nowrap;
+	overflow:hidden;
+	text-overflow: ellipsis;
+    /*width:95px;*/
+}
+
+
+
+.labellipsis {
+    max-width: 60%;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.labellipsis1 {
+    max-width: 90%;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#A_ul li {
+    text-align:left
+}
+
